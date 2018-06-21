@@ -6,7 +6,7 @@ target/
 logs/
 
 # springboot config
-application.yml
+*.yml
 
 # Log file
 *.log
