@@ -6,7 +6,7 @@ target/
 logs/
 
 #spring
-.yml
+*.yml
 
 # Log file
 *.log
