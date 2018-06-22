@@ -36,10 +36,10 @@ public class SwaggerConfig{
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Guns Doc")
-                .description("Guns Api文档")
+                .title("HongYan 智+ Doc")
+                .description("HongYan 智+ Api文档")
                 .termsOfServiceUrl("http://git.oschina.net/naan1993/guns")
-                .contact("stylefeng")
+                .contact("guanqing")
                 .version("2.0")
                 .build();
     }
