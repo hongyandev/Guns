@@ -113,7 +113,7 @@ public class ShiroConfig {
     @Bean
     public SimpleCookie rememberMeCookie() {
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        simpleCookie.setHttpOnly(true);
+        simpleCookie.setHttpOnly(true);//防止xss攻击
         simpleCookie.setMaxAge(7 * 24 * 60 * 60);//7天
         return simpleCookie;
     }
