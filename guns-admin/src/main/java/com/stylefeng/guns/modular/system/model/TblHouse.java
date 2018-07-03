@@ -21,7 +21,7 @@ public class TblHouse extends Model<TblHouse> {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private Integer id;
     @TableField("house_user")
     private String houseUser;
     @TableField("house_address")
@@ -32,11 +32,11 @@ public class TblHouse extends Model<TblHouse> {
     private String houseDesc;
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
