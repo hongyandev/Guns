@@ -1,5 +1,7 @@
 package com.stylefeng.guns.rest.common;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * 测试用的
  *
@@ -15,8 +17,18 @@ public class SimpleObject {
     private String tips;
 
     private Integer age;
+    
+    private MultipartFile[] files;
 
-    public String getName() {
+    public MultipartFile[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(MultipartFile[] files) {
+		this.files = files;
+	}
+
+	public String getName() {
         return name;
     }
 

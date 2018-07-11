@@ -1,10 +1,11 @@
 package com.stylefeng.guns.rest.modular.auth.validator.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.stylefeng.guns.rest.common.persistence.dao.UserMapper;
-import com.stylefeng.guns.rest.common.persistence.model.User;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
+import com.stylefeng.guns.rest.persistence.dao.AppUserMapper;
+import com.stylefeng.guns.rest.persistence.model.AppUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,11 @@ import java.util.List;
 public class DbValidator implements IReqValidator {
 
     @Autowired
-    UserMapper userMapper;
+    AppUserMapper appUserMapper;
 
     @Override
     public boolean validate(Credence credence) {
-        List<User> users = userMapper.selectList(new EntityWrapper<User>().eq("userName", credence.getCredenceName()));
+        List<AppUser> users = appUserMapper.selectList(new EntityWrapper<AppUser>().eq("userName", credence.getCredenceName()));
         if (users != null && users.size() > 0) {
             return true;
         } else {
