@@ -36,6 +36,12 @@
 			<groupId>com.stylefeng</groupId>
 			<artifactId>guns-core</artifactId>
 		</dependency>
+		
+		<!-- redis -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -45,7 +51,43 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		
+		<filters>
+			<filter>src/main/resources/filters/filter-${env}.properties</filter>
+		</filters>
+		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.yml</include>
+					<include>*.properties</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
 	</build>
 
-
+	<!-- 不同环境,读取不同的配置文件 -->
+	<profiles>
+		<!-- 开发环境,默认激活 -->
+		<profile>
+	      <id>dev</id>
+	      <properties>
+	      	<env>dev</env>
+	      </properties>
+	      <activation>
+	      	<activeByDefault>true</activeByDefault> <!-- 默认启用的是dev环境配置 -->
+	      </activation>
+    	</profile>
+    	<!-- 生产环境 -->
+    	<profile>
+    		<id>pro</id>
+    		<properties>
+    		  <env>pro</env>	
+    		</properties>
+    	</profile>
+	</profiles>
+	
 </project>

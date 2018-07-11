@@ -44,11 +44,10 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
         BaseTransferEntity baseTransferEntity = (BaseTransferEntity) o;
 
         //校验签名
-        String token = HttpKit.getRequest().getHeader(jwtProperties.getHeader()).substring(7);
+        String token = HttpKit.getRequest().getHeader(jwtProperties.getHeader());
         String md5KeyFromToken = jwtTokenUtil.getMd5KeyFromToken(token);
 
         String object = baseTransferEntity.getObject();
-        String json = dataSecurityAction.unlock(object);
         String encrypt = MD5Util.encrypt(object + md5KeyFromToken);
 
         if (encrypt.equals(baseTransferEntity.getSign())) {
@@ -57,7 +56,8 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
             System.out.println("签名校验失败,数据被改动过!");
             throw new GunsException(BizExceptionEnum.SIGN_ERROR);
         }
-
+        
+        String json = dataSecurityAction.unlock(object);
         //校验签名后再转化成应该的对象
         return JSON.parseObject(json, type);
     }
