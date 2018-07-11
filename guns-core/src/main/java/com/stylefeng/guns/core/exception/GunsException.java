@@ -8,7 +8,9 @@ package com.stylefeng.guns.core.exception;
  */
 public class GunsException extends RuntimeException {
 
-    private Integer code;
+	private static final long serialVersionUID = 3569127086593812453L;
+
+	private Integer code;
 
     private String message;
 
