@@ -1,5 +1,5 @@
 /**
- * 初始化产品详情对话框
+ * 初始化product详情对话框
  */
 var ProductInfoDlg = {
     productInfoData : {}

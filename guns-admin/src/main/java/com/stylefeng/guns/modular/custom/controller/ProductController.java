@@ -1,4 +1,4 @@
-package com.stylefeng.guns.modular.product.controller;
+package com.stylefeng.guns.modular.custom.controller;
 
 import com.stylefeng.guns.core.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
@@ -9,26 +9,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.stylefeng.guns.modular.system.model.Product;
-import com.stylefeng.guns.modular.product.service.IProductService;
+
+import com.stylefeng.guns.modular.custom.model.Product;
+import com.stylefeng.guns.modular.custom.service.IProductService;
 
 /**
- * 产品控制器
+ * product控制器
  *
  * @author fengshuonan
- * @Date 2018-07-12 14:19:07
+ * @Date 2018-07-12 21:47:39
  */
 @Controller
 @RequestMapping("/product")
 public class ProductController extends BaseController {
 
-    private String PREFIX = "/product/product/";
+    private String PREFIX = "/custom/product/";
 
     @Autowired
     private IProductService productService;
 
     /**
-     * 跳转到产品首页
+     * 跳转到product首页
      */
     @RequestMapping("")
     public String index() {
@@ -36,7 +37,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 跳转到添加产品
+     * 跳转到添加product
      */
     @RequestMapping("/product_add")
     public String productAdd() {
@@ -44,7 +45,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 跳转到修改产品
+     * 跳转到修改product
      */
     @RequestMapping("/product_update/{productId}")
     public String productUpdate(@PathVariable Integer productId, Model model) {
@@ -55,7 +56,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 获取产品列表
+     * 获取product列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
@@ -64,7 +65,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 新增产品
+     * 新增product
      */
     @RequestMapping(value = "/add")
     @ResponseBody
@@ -74,7 +75,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 删除产品
+     * 删除product
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
@@ -84,7 +85,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 修改产品
+     * 修改product
      */
     @RequestMapping(value = "/update")
     @ResponseBody
@@ -94,7 +95,7 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 产品详情
+     * product详情
      */
     @RequestMapping(value = "/detail/{productId}")
     @ResponseBody

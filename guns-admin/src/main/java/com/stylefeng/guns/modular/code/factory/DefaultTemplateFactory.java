@@ -43,11 +43,11 @@ public class DefaultTemplateFactory {
     public static GenQo getDefaultParams(){
         GenQo genQo = new GenQo();
         genQo.setProjectPath(ToolUtil.getWebRootPath(null));
-        genQo.setAuthor("stylefeng");
+        genQo.setAuthor("guanqing");
         genQo.setProjectPackage(GunsApplication.class.getPackage().getName());
         genQo.setCorePackage(CoreFlag.class.getPackage().getName());
-        genQo.setIgnoreTabelPrefix("sys_");
-        genQo.setModuleName("system");
+        genQo.setIgnoreTabelPrefix("app_");
+        genQo.setModuleName("custom");
         genQo.setParentMenuName("系统管理");
         return genQo;
     }

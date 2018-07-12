@@ -4,7 +4,7 @@ import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.util.RenderUtil;
 import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.rest.core.config.properties.JwtProperties;
-import com.stylefeng.guns.rest.core.enums.BizExceptionEnum;
+import com.stylefeng.guns.rest.core.enums.ResultEnum;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 import io.jsonwebtoken.JwtException;
 
@@ -51,17 +51,17 @@ public class AuthFilter extends OncePerRequestFilter {
             try {
                 boolean flag = jwtTokenUtil.isTokenExpired(authToken);
                 if (flag) {
-                    RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
+                    RenderUtil.renderJson(response, new ErrorTip(ResultEnum.TOKEN_EXPIRED.getCode(), ResultEnum.TOKEN_EXPIRED.getMessage()));
                     return;
                 }
             } catch (JwtException e) {
                 //有异常就是token解析失败
-                RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
+                RenderUtil.renderJson(response, new ErrorTip(ResultEnum.TOKEN_ERROR.getCode(), ResultEnum.TOKEN_ERROR.getMessage()));
                 return;
             }
         } else {
             //header没有带Bearer字段
-            RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
+            RenderUtil.renderJson(response, new ErrorTip(ResultEnum.TOKEN_ERROR.getCode(), ResultEnum.TOKEN_ERROR.getMessage()));
             return;
         }
         chain.doFilter(request, response);
