@@ -35,7 +35,7 @@ public class EntityGenerator {
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(false);// XML columList
-        gc.setAuthor("stylefeng");
+        gc.setAuthor("guanqing");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -64,12 +64,12 @@ public class EntityGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-        pc.setEntity("com.stylefeng.guns.rest.persistence.model");
-        pc.setMapper("com.stylefeng.guns.rest.persistence.dao");
-        pc.setXml("com.stylefeng.guns.rest.persistence.dao.mapping");
-        pc.setService("com.stylefeng.guns.rest.persistence.service");       //本项目没用，生成之后删掉
-        pc.setServiceImpl("com.stylefeng.guns.rest.persistence.service.impl");   //本项目没用，生成之后删掉
-        pc.setController("com.stylefeng.guns.rest.modular.controller");    //本项目没用，生成之后删掉
+        pc.setEntity("com.stylefeng.guns.rest.model");
+        pc.setMapper("com.stylefeng.guns.rest.persistence");
+        pc.setXml("com.stylefeng.guns.rest.persistence.mapping");
+        pc.setService("com.stylefeng.guns.rest.service");       //本项目没用，生成之后删掉
+        pc.setServiceImpl("com.stylefeng.guns.rest.service.impl");   //本项目没用，生成之后删掉
+        pc.setController("com.stylefeng.guns.rest.web");    //本项目没用，生成之后删掉
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值

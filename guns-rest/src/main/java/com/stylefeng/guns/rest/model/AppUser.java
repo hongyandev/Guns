@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.persistence.model;
+package com.stylefeng.guns.rest.model;
 
 import java.io.Serializable;
 
@@ -12,8 +12,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author stylefeng123
- * @since 2018-07-11
+ * @author guanqing123
+ * @since 2018-07-12
  */
 @TableName("app_user")
 public class AppUser extends Model<AppUser> {

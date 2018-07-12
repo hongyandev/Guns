@@ -1,6 +1,6 @@
-package com.stylefeng.guns.rest.persistence.service;
+package com.stylefeng.guns.rest.service;
 
-import com.stylefeng.guns.rest.persistence.model.AppUser;
+import com.stylefeng.guns.rest.model.AppUser;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.service.IService;
  *  服务类
  * </p>
  *
- * @author stylefeng123
- * @since 2018-07-11
+ * @author guanqing123
+ * @since 2018-07-12
  */
 public interface IAppUserService extends IService<AppUser> {
 
