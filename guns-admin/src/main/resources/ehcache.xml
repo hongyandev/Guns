@@ -29,13 +29,6 @@
            memoryStoreEvictionPolicy="LFU"
            transactionalMode="off">
     </cache>
-    <!-- Token缓存 -->
-    <cache name="TOKEN"
-    	   maxElementsInMemory="100"
-    	   external="false"
-    	   timeToLiveSeconds="7200"
-    	   timeToIdleSeconds="7200">
-    </cache>
 </ehcache>
 
     <!--
