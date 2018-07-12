@@ -44,6 +44,7 @@
         <jwt.version>0.7.0</jwt.version>
         <flowable.version>6.2.0</flowable.version>
         <hutool.version>4.0.0</hutool.version>
+        <lombok.version>1.16.18</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -177,7 +178,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-http</artifactId>
                 <version>${hutool.version}</version>
-            </dependency>
+            </dependency> 
+			<dependency>
+			    <groupId>org.projectlombok</groupId>
+			    <artifactId>lombok</artifactId>
+			    <version>${lombok.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.common;
+package com.stylefeng.guns.rest.core;
 
 import org.springframework.web.multipart.MultipartFile;
 
