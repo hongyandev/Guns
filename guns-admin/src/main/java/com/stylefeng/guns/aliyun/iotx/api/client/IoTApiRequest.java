@@ -1,4 +1,4 @@
-package com.aliyun.iotx.api.client;
+package com.stylefeng.guns.aliyun.iotx.api.client;
 
 import java.util.HashMap;
 import java.util.Map;

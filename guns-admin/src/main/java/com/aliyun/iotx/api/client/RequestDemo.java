@@ -17,6 +17,8 @@ package com.aliyun.iotx.api.client;
 
 import java.io.UnsupportedEncodingException;
 import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
+import com.stylefeng.guns.aliyun.iotx.api.client.SyncApiClient;
 
 /**
  * @author zhongfu.xiezf
@@ -46,7 +48,8 @@ public class RequestDemo {
         //请求参数域名、path、request
         String host = "api.link.aliyun.com";
         String path = "/cloud/token";
-        ApiResponse response = syncClient.postBody(host, path, request);
+        ApiResponse response = syncClient.postBody(host, path, request, true);
+        
 
         System.out.println(
             "response code = " + response.getStatusCode() + " response content = " + new String(response.getBody(),

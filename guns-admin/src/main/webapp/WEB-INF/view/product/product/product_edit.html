@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="tenantId" name="租户id" value="${item.tenantId}" underline="true"/>
+                            <#input id="productKey" name="产品PK" value="${item.productKey}" underline="true"/>
+                            <#input id="dataFormat" name="数据格式" value="${item.dataFormat}" underline="true"/>
+                            <#input id="netType" name="入网类型" value="${item.netType}" underline="true"/>
+                            <#input id="productSecret" name="产品密钥" value="${item.productSecret}" underline="true"/>
+                            <#input id="nodeType" name="节点类型" value="${item.nodeType}" underline="true"/>
+                            <#input id="domain" name="领域" value="${item.domain}" underline="true"/>
+                            <#input id="name" name="产品名称" value="${item.name}" underline="true"/>
+                            <#input id="region" name="地域" value="${item.region}" underline="true"/>
+                            <#input id="ownerDomain" name="所有者领域" value="${item.ownerDomain}" underline="true"/>
+                            <#input id="categoryld" name="归属品类id" value="${item.categoryld}" underline="true"/>
+                            <#input id="categoryKey" name="categoryKey" value="${item.categoryKey}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="categoryName" name="categoryName" value="${item.categoryName}" underline="true"/>
+                            <#input id="accessMethod" name="访问方式" value="${item.accessMethod}" underline="true"/>
+                            <#input id="status" name="产品状态" value="${item.status}" underline="true"/>
+                            <#input id="gmtCreate" name="创建时间" value="${item.gmtCreate}" underline="true"/>
+                            <#input id="gmtModified" name="修改时间" value="${item.gmtModified}" underline="true"/>
+                            <#input id="creator" name="创建者" value="${item.creator}" underline="true"/>
+                            <#input id="modifier" name="修改者" value="${item.modifier}" underline="true"/>
+                            <#input id="productId" name="产品ID" value="${item.productId}" underline="true"/>
+                            <#input id="aliyunCommodityCode" name="商品码" value="${item.aliyunCommodityCode}" underline="true"/>
+                            <#input id="connectMode" name="connectMode" value="${item.connectMode}" underline="true"/>
+                            <#input id="rbacTenantId" name="rbac租户Id" value="${item.rbacTenantId}" underline="true"/>
+                            <#input id="iotPackage" name="IoT平台" value="${item.iotPackage}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ProductInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ProductInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/product/product/product_info.js"></script>
+@}

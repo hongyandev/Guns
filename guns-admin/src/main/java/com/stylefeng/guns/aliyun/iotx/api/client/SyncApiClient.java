@@ -1,4 +1,4 @@
-package com.aliyun.iotx.api.client;
+package com.stylefeng.guns.aliyun.iotx.api.client;
 /*
  * Copyright 2017 Alibaba Group
  *

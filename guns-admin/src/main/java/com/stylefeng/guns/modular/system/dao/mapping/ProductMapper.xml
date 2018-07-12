@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.ProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Product">
+        <id column="productKey" property="productKey" />
+        <result column="tenantId" property="tenantId" />
+        <result column="dataFormat" property="dataFormat" />
+        <result column="netType" property="netType" />
+        <result column="productSecret" property="productSecret" />
+        <result column="nodeType" property="nodeType" />
+        <result column="domain" property="domain" />
+        <result column="name" property="name" />
+        <result column="region" property="region" />
+        <result column="ownerDomain" property="ownerDomain" />
+        <result column="categoryld" property="categoryld" />
+        <result column="categoryKey" property="categoryKey" />
+        <result column="categoryName" property="categoryName" />
+        <result column="accessMethod" property="accessMethod" />
+        <result column="status" property="status" />
+        <result column="gmtCreate" property="gmtCreate" />
+        <result column="gmtModified" property="gmtModified" />
+        <result column="creator" property="creator" />
+        <result column="modifier" property="modifier" />
+        <result column="productId" property="productId" />
+        <result column="aliyunCommodityCode" property="aliyunCommodityCode" />
+        <result column="connectMode" property="connectMode" />
+        <result column="rbacTenantId" property="rbacTenantId" />
+        <result column="iotPackage" property="iotPackage" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tenantId, productKey, dataFormat, netType, productSecret, nodeType, domain, name, region, ownerDomain, categoryld, categoryKey, categoryName, accessMethod, status, gmtCreate, gmtModified, creator, modifier, productId, aliyunCommodityCode, connectMode, rbacTenantId, iotPackage
+    </sql>
+
+</mapper>
