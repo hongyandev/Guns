@@ -1,14 +1,14 @@
-package com.stylefeng.guns.modular.system.dao;
+package com.stylefeng.guns.modular.custom.dao;
 
-import com.stylefeng.guns.modular.system.model.Product;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.stylefeng.guns.modular.custom.model.Product;
 
 /**
  * <p>
- *  Mapper 接口
+ * 产品表 Mapper 接口
  * </p>
  *
- * @author stylefeng123
+ * @author guanqing123
  * @since 2018-07-12
  */
 public interface ProductMapper extends BaseMapper<Product> {

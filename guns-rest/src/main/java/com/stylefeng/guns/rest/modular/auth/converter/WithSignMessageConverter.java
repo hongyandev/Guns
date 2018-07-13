@@ -6,7 +6,7 @@ import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.MD5Util;
 import com.stylefeng.guns.rest.core.config.properties.JwtProperties;
-import com.stylefeng.guns.rest.core.enums.BizExceptionEnum;
+import com.stylefeng.guns.rest.core.enums.ResultEnum;
 import com.stylefeng.guns.rest.modular.auth.security.DataSecurityAction;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
             System.out.println("签名校验成功!");
         } else {
             System.out.println("签名校验失败,数据被改动过!");
-            throw new GunsException(BizExceptionEnum.SIGN_ERROR);
+            throw new GunsException(ResultEnum.SIGN_ERROR);
         }
         
         String json = dataSecurityAction.unlock(object);

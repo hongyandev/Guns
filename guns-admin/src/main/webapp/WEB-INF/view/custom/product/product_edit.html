@@ -24,7 +24,7 @@
                 <div class="col-sm-6">
                             <#input id="categoryName" name="categoryName" value="${item.categoryName}" underline="true"/>
                             <#input id="accessMethod" name="访问方式" value="${item.accessMethod}" underline="true"/>
-                            <#input id="status" name="产品状态" value="${item.status}" underline="true"/>
+                            <#input id="status" name="产品状态(0:开发中,1:已发布)" value="${item.status}" underline="true"/>
                             <#input id="gmtCreate" name="创建时间" value="${item.gmtCreate}" underline="true"/>
                             <#input id="gmtModified" name="修改时间" value="${item.gmtModified}" underline="true"/>
                             <#input id="creator" name="创建者" value="${item.creator}" underline="true"/>
@@ -47,5 +47,5 @@
 
     </div>
 </div>
-<script src="${ctxPath}/static/modular/product/product/product_info.js"></script>
+<script src="${ctxPath}/static/modular/custom/product/product_info.js"></script>
 @}

@@ -1,4 +1,4 @@
-package com.stylefeng.guns.modular.system.model;
+package com.stylefeng.guns.modular.custom.model;
 
 import java.io.Serializable;
 
@@ -9,10 +9,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 产品表
  * </p>
  *
- * @author stylefeng123
+ * @author guanqing123
  * @since 2018-07-12
  */
 @TableName("app_product")

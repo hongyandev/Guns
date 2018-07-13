@@ -1,7 +1,8 @@
 package com.stylefeng.guns.rest.modular.auth.controller;
 
 import com.stylefeng.guns.core.exception.GunsException;
-import com.stylefeng.guns.rest.core.enums.BizExceptionEnum;
+import com.stylefeng.guns.rest.core.domain.Result;
+import com.stylefeng.guns.rest.core.enums.ResultEnum;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthRequest;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthResponse;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
@@ -30,16 +31,17 @@ public class AuthController {
     private IReqValidator reqValidator;
 
     @RequestMapping(value = "${jwt.auth-path}")
-    public ResponseEntity<?> createAuthenticationToken(AuthRequest authRequest) {
+    public Result<Object> authentication(AuthRequest authRequest) {
 
         boolean validate = reqValidator.validate(authRequest);
 
         if (validate) {
             final String randomKey = jwtTokenUtil.getRandomKey();
             final String token = jwtTokenUtil.generateToken(authRequest.getUserName(), randomKey);
-            return ResponseEntity.ok(new AuthResponse(token, randomKey));
+            //return ResponseEntity.ok(new AuthResponse(token, randomKey));
+            return null;
         } else {
-            throw new GunsException(BizExceptionEnum.AUTH_REQUEST_ERROR);
+            throw new GunsException(ResultEnum.AUTH_REQUEST_ERROR);
         }
     }
 }
