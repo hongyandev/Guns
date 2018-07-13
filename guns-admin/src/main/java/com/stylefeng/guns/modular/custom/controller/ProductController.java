@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.text.SimpleDateFormat;
@@ -80,17 +78,6 @@ public class ProductController extends BaseController {
     public Object add(Product product) {
         productService.insert(product);
         return SUCCESS_TIP;
-    }
-    
-    /**
-     * 表单提交日期绑定
-     * @param binder
-     */
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-    	SimpleDateFormat  sdf = new SimpleDateFormat("yyyy-MM-dd");
-    	sdf.setLenient(false);
-    	binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
     /**
