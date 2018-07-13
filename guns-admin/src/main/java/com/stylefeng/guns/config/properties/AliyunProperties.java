@@ -15,19 +15,9 @@ import com.google.common.collect.Maps;
 @ConfigurationProperties(prefix = AliyunProperties.ALIYUNCONF_PREFIX)
 public class AliyunProperties {
 	public static final String ALIYUNCONF_PREFIX = "aliyun";
-	
-	String isDev;
-	
+		
 	Map<String, Object> livingConf = Maps.newHashMap();
 	
-	public String getIsDev() {
-		return isDev;
-	}
-
-	public void setIsDev(String isDev) {
-		this.isDev = isDev;
-	}
-
 	public Map<String, Object> getLivingConf() {
 		return livingConf;
 	}
@@ -45,13 +35,11 @@ public class AliyunProperties {
 		return String.valueOf(((Map<String,Object>) livingConf.get("apiVer")).get(key));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public String getLivingAppKey() {
-		return String.valueOf(((Map<String,Object>) livingConf.get("appKey")).get(isDev));
+		return String.valueOf(livingConf.get("appKey"));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public String getLivingAppSecret() {
-		return String.valueOf(((Map<String,Object>) livingConf.get("appSecret")).get(isDev));
+		return String.valueOf(livingConf.get("appSecret"));
 	}
 }
