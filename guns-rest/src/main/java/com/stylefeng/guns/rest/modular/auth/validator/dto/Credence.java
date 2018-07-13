@@ -17,4 +17,6 @@ public interface Credence {
      * 密码或者是其他的验证码之类的
      */
     String getCredenceCode();
+    
+    
 }
