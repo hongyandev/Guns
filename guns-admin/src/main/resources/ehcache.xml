@@ -14,7 +14,7 @@
             overflowToDisk="true"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
-    />
+            />
 
     <!-- 全局变量：永不过期-->
     <cache name="CONSTANT"
@@ -36,7 +36,6 @@
     	   timeToLiveSeconds="7200"
     	   timeToIdleSeconds="7200"
     	   />
-
 </ehcache>
 
     <!--
