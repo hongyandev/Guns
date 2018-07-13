@@ -27,20 +27,22 @@
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LFU"
-           transactionalMode="off">
-    </cache>
+           transactionalMode="off"
+           />
+
     <!-- Token缓存 -->
     <cache name="TOKEN"
     	   maxElementsInMemory="100"
-    	   external="false"
+    	   eternal="false"
     	   timeToLiveSeconds="7200"
-    	   timeToIdleSeconds="7200">
-    </cache>
+    	   timeToIdleSeconds="7200"
+    	   />
+    
 </ehcache>
 
     <!--
 	    maxElementsInMemory="10000" 	//Cache中最多允许保存的数据对象的数量
-		external="false" 				//缓存中对象是否为永久的，如果是，超时设置将被忽略，对象从不过期 	
+		eternal="false" 				//缓存中对象是否为永久的，如果是，超时设置将被忽略，对象从不过期 	
 		timeToLiveSeconds="3600"  		//缓存的存活时间，从开始创建的时间算起
 		timeToIdleSeconds="3600"  		//多长时间不访问该缓存，那么ehcache 就会清除该缓存  
 		
