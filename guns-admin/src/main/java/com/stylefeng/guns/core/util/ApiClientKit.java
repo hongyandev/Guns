@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
 import com.alibaba.fastjson.JSONObject;
@@ -20,6 +21,7 @@ import com.stylefeng.guns.core.cache.ILoader;
  * @author myc
  *
  */
+@Service
 public class ApiClientKit {
 	/**
 	 * 阿里云智能生活
@@ -31,16 +33,16 @@ public class ApiClientKit {
 	public final static int IOT_ALIYUN_HOMELINK = 2;
 	
 	@Autowired
-	static AliyunProperties aliyunProperties;
+	AliyunProperties aliyunProperties;
 	
-	static SyncApiClient livingSyncClient;
+	SyncApiClient livingSyncClient;
 	
 	/**
 	 * 获取Living客户端
 	 * @author myc
 	 * @return
 	 */
-	private static SyncApiClient getLivingSyncClient() {
+	private SyncApiClient getLivingSyncClient() {
 		return livingSyncClient != null ? livingSyncClient : SyncApiClient.newBuilder()
 	            .appKey(aliyunProperties.getLivingAppKey())
 	            .appSecret(aliyunProperties.getLivingAppSecret())
@@ -58,7 +60,7 @@ public class ApiClientKit {
 	 * @throws UnsupportedEncodingException
 	 */
 	
-	public static String doIoTApiRequest(String host, String path, boolean isHttps, IoTApiRequest request) throws UnsupportedEncodingException {
+	public String doIoTApiRequest(String host, String path, boolean isHttps, IoTApiRequest request) throws Exception {
 		ApiResponse response = getLivingSyncClient().postBody(host, path, request, true);
 		if (response.getStatusCode() == 200) {
 			return new String(response.getBody(), "utf-8");
@@ -68,7 +70,7 @@ public class ApiClientKit {
 		}
 	}
 
-	static String getCloudToken(Integer iot) {
+	public String getCloudToken(Integer iot) {
 		String token = null;
 		switch (iot) {
 		case IOT_ALIYUN_LIVING:
@@ -76,6 +78,8 @@ public class ApiClientKit {
 				public Object load() {
 					try {
 						Map<String, Object> params = Maps.newHashMap();
+						params.put("grantType", "project");
+						params.put("res", "a124YO0oU3Qm4SGF");
 						IoTApiRequest request = initAliyunIoTApiRequest(iot, params, aliyunProperties.getLivingApiVer("project"), false);
 						String content = doIoTApiRequest(aliyunProperties.getLivingApiHost(), "/cloud/token", true, request);
 						AliyunResponse obj = JSONObject.parseObject(content, AliyunResponse.class);
@@ -85,7 +89,7 @@ public class ApiClientKit {
 							System.out.println(content);
 							return "";
 						}
-					} catch (UnsupportedEncodingException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 						return "";
 					}
@@ -115,7 +119,7 @@ public class ApiClientKit {
 	 * @param hasToken 是否鉴权
 	 * @return
 	 */
-	public static IoTApiRequest initAliyunIoTApiRequest(Integer iot, Map<String, Object> params, String apiVer, Boolean hasToken) {
+	public IoTApiRequest initAliyunIoTApiRequest(Integer iot, Map<String, Object> params, String apiVer, Boolean hasToken) {
 		IoTApiRequest request = new IoTApiRequest();
 		request.setApiVer(apiVer);
 		if (hasToken) {
