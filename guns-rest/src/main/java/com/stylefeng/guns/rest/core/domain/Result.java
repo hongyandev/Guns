@@ -10,7 +10,7 @@ import lombok.Data;
 public class Result<T> {
 	
 	/** 错误码. */
-	private String code;
+	private Integer code;
 	
 	/** 提示信息. */
 	private String msg;
