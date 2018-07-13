@@ -34,7 +34,6 @@ public class RequestDemo {
         IoTApiRequest request = new IoTApiRequest();
         //设置api的版本
         request.setApiVer("1.0.0");
-        request.setId(String.valueOf(System.currentTimeMillis()));
 
         //如果需要登陆，设置当前的会话的token
 //        request.setIoTToken("xxxxxxxxxxxxxxx");
