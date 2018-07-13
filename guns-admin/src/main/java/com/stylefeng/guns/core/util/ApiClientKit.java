@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.iotx.api.client.AliyunResponse;
 import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
 import com.stylefeng.guns.aliyun.iotx.api.client.SyncApiClient;
+import com.stylefeng.guns.aliyun.iotx.api.client.ApiBaseResponse;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.cache.CacheKit;
 import com.stylefeng.guns.core.cache.ILoader;
@@ -36,7 +36,11 @@ public class ApiClientKit {
 	AliyunProperties aliyunProperties;
 	
 	SyncApiClient livingSyncClient;
-	
+		
+	public AliyunProperties getAliyunProperties() {
+		return aliyunProperties;
+	}
+
 	/**
 	 * 获取Living客户端
 	 * @author myc
@@ -44,8 +48,8 @@ public class ApiClientKit {
 	 */
 	private SyncApiClient getLivingSyncClient() {
 		return livingSyncClient != null ? livingSyncClient : SyncApiClient.newBuilder()
-	            .appKey(aliyunProperties.getLivingAppKey())
-	            .appSecret(aliyunProperties.getLivingAppSecret())
+	            .appKey(aliyunProperties.getAppKey(ApiClientKit.IOT_ALIYUN_LIVING))
+	            .appSecret(aliyunProperties.getAppSecret(ApiClientKit.IOT_ALIYUN_LIVING))
 	            .build();
 	}
 	
@@ -65,8 +69,7 @@ public class ApiClientKit {
 		if (response.getStatusCode() == 200) {
 			return new String(response.getBody(), "utf-8");
 		} else {
-			System.out.println("response code = " + response.getStatusCode());
-			return "";
+			throw new Exception("response code = " + response.getStatusCode());
 		}
 	}
 
@@ -80,14 +83,14 @@ public class ApiClientKit {
 						Map<String, Object> params = Maps.newHashMap();
 						params.put("grantType", "project");
 						params.put("res", "a124YO0oU3Qm4SGF");
-						IoTApiRequest request = initAliyunIoTApiRequest(iot, params, aliyunProperties.getLivingApiVer("project"), false);
-						String content = doIoTApiRequest(aliyunProperties.getLivingApiHost(), "/cloud/token", true, request);
-						AliyunResponse obj = JSONObject.parseObject(content, AliyunResponse.class);
-						if (obj.getCode() == 200) {
-							return obj.getData().get("cloudToken");
+						IoTApiRequest request = initAliyunIoTApiRequest(iot, params, aliyunProperties.getApiVer(ApiClientKit.IOT_ALIYUN_LIVING, "project"), false);
+						String content = doIoTApiRequest(aliyunProperties.getApiHost(ApiClientKit.IOT_ALIYUN_LIVING), "/cloud/token", true, request);
+						ApiBaseResponse response = JSONObject.parseObject(content, ApiBaseResponse.class);
+						if (response.getCode() == 200) {
+							return response.getData().get("cloudToken");
 						} else {
 							System.out.println(content);
-							return "";
+							throw new Exception(content);
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

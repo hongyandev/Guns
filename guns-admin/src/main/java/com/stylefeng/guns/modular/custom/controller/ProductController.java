@@ -1,6 +1,8 @@
 package com.stylefeng.guns.modular.custom.controller;
 
 import com.stylefeng.guns.core.base.controller.BaseController;
+import com.stylefeng.guns.core.base.tips.ErrorTip;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -89,8 +91,13 @@ public class ProductController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(Product product) {
-        productService.insert(product);
-        return SUCCESS_TIP;
+        try {
+			productService.pullProductInfoFromIot(product);
+			return SUCCESS_TIP;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ErrorTip(500, e.getMessage());
+		}
     }
 
     /**

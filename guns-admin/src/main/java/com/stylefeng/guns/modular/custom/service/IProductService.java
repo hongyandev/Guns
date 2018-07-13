@@ -12,5 +12,5 @@ import com.stylefeng.guns.modular.custom.model.Product;
  * @since 2018-07-12
  */
 public interface IProductService extends IService<Product> {
-
+	public Product pullProductInfoFromIot(Product product) throws Exception;
 }

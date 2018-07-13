@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Maps;
+import com.stylefeng.guns.core.util.ApiClientKit;
 /**
  * 阿里云配置
  * @author myc
@@ -16,30 +17,46 @@ import com.google.common.collect.Maps;
 public class AliyunProperties {
 	public static final String ALIYUNCONF_PREFIX = "aliyun";
 		
-	Map<String, Object> livingConf = Maps.newHashMap();
+	Map<String, Object> iotConf = Maps.newHashMap();
 	
-	public Map<String, Object> getLivingConf() {
-		return livingConf;
+	public Map<String, Object> getIotConf() {
+		return iotConf;
 	}
 
-	public void setLivingConf(Map<String, Object> livingConf) {
-		this.livingConf = livingConf;
+	public void setIotConf(Map<String, Object> iotConf) {
+		this.iotConf = iotConf;
 	}
 
-	public String getLivingApiHost() {
-		return String.valueOf(livingConf.get("apiHost"));
+	@SuppressWarnings("unchecked")
+	public String getApiHost(Integer iot) {
+		return String.valueOf(((Map<String,Object>) iotConf.get(getIotName(iot))).get("apiHost"));
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String getLivingApiVer(String key) {
-		return String.valueOf(((Map<String,Object>) livingConf.get("apiVer")).get(key));
+	public String getApiVer(Integer iot, String resKey) {
+		return String.valueOf(((Map<String,Object>) ((Map<String,Object>) iotConf.get(getIotName(iot))).get("apiVer")).get(resKey));
 	}
 	
-	public String getLivingAppKey() {
-		return String.valueOf(livingConf.get("appKey"));
+	private String getIotName(Integer iot) {
+		String iotName = null;
+		switch (iot) {
+		case ApiClientKit.IOT_ALIYUN_LIVING:
+			iotName = "living";
+			break;
+		default:
+			iotName = "";
+			break;
+		}
+		return iotName;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String getAppKey(Integer iot) {
+		return String.valueOf(((Map<String,Object>) iotConf.get(getIotName(iot))).get("appKey"));
 	}
 	
-	public String getLivingAppSecret() {
-		return String.valueOf(livingConf.get("appSecret"));
+	@SuppressWarnings("unchecked")
+	public String getAppSecret(Integer iot) {
+		return String.valueOf(((Map<String, Object>) iotConf.get(getIotName(iot))).get("appSecret"));
 	}
 }
