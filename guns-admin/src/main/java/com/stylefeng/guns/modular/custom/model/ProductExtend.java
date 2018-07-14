@@ -13,8 +13,8 @@ import com.baomidou.mybatisplus.enums.IdType;
  * 
  * </p>
  *
- * @author maoyuanchen123
- * @since 2018-07-13
+ * @author guanqing123
+ * @since 2018-07-14
  */
 @TableName("app_product_extend")
 public class ProductExtend extends Model<ProductExtend> {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -21,6 +22,7 @@ import com.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stylefeng.guns.modular.custom.model.Product;
+import com.stylefeng.guns.modular.custom.model.ProductExtend;
 import com.stylefeng.guns.modular.custom.service.IProductService;
 
 /**
@@ -58,7 +60,7 @@ public class ProductController extends BaseController {
      * 跳转到修改product
      */
     @RequestMapping("/product_update/{productId}")
-    public String productUpdate(@PathVariable Integer productId, Model model) {
+    public String productUpdate(@PathVariable String productId, Model model) {
         Product product = productService.selectById(productId);
         model.addAttribute("item",product);
         LogObjectHolder.me().set(product);
@@ -87,17 +89,13 @@ public class ProductController extends BaseController {
 
     /**
      * 新增product
+     * @throws Exception 
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(Product product) {
-        try {
-			productService.pullProductInfoFromIot(product);
-			return SUCCESS_TIP;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ErrorTip(500, e.getMessage());
-		}
+    public Object add(Product product) throws Exception {
+		productService.pullProductInfoFromIot(product);
+		return SUCCESS_TIP;
     }
 
     /**
@@ -124,8 +122,19 @@ public class ProductController extends BaseController {
      * product详情
      */
     @RequestMapping(value = "/detail/{productId}")
-    @ResponseBody
-    public Object detail(@PathVariable("productId") Integer productId) {
-        return productService.selectById(productId);
+    public String detail(@PathVariable("productId") String productId,Model model) {
+    	Product product = productService.selectById(productId);
+        model.addAttribute("item",product);
+        return PREFIX + "product_edit.html";
+    }
+    
+    /**
+     * product拓展属性
+     */
+    @RequestMapping(value = "/detailExtend/{productId}")
+    public String detailExtend(@PathVariable("productId") String productId,Model model) {
+    	List<ProductExtend> list = productService.selectByProductKey(productId);
+    	model.addAttribute("item", list);
+    	return PREFIX + "product_detailExtend.html";
     }
 }

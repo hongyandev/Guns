@@ -1,5 +1,7 @@
 package com.stylefeng.guns.rest.modular.auth.validator.dto;
 
+import com.stylefeng.guns.rest.modular.auth.enums.AuthType;
+
 /**
  * 验证的凭据
  *
@@ -18,5 +20,8 @@ public interface Credence {
      */
     String getCredenceCode();
     
-    
+    /**
+     * 请求类型
+     */
+    AuthType getAuthType();
 }

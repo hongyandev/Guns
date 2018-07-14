@@ -81,11 +81,46 @@ Product.openProductDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/product/product_update/' + Product.seItem.id
+            content: Feng.ctxPath + '/product/product_update/' + Product.seItem.productKey
         });
         this.layerIndex = index;
     }
 };
+
+/**
+ * 产品属性详情
+ */
+Product.detail = function() {
+	if (this.check()){
+		var index = layer.open({
+            type: 2,
+            title: '产品属性',
+            area: ['800px', '420px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/product/detail/' + Product.seItem.productKey
+		});
+		this.layerIndex = index;
+	}
+}
+
+/**
+ * 产品拓展属性详情
+ */
+Product.detailExtend = function() {
+	if (this.check()){
+		var index = layer.open({
+            type: 2,
+            title: '产品拓展属性',
+            area: ['800px', '420px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/product/detailExtend/' + Product.seItem.productKey
+		});
+		this.layerIndex = index;
+	}
+}
+
 
 /**
  * 删除product
@@ -98,7 +133,7 @@ Product.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("productId",this.seItem.id);
+        ajax.set("productId",this.seItem.productKey);
         ajax.start();
     }
 };
