@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import com.google.common.collect.Lists;
 import com.stylefeng.guns.config.properties.AliyunProperties;
+import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.core.common.file.FilePath;
-import com.stylefeng.guns.core.common.enums.ResultEnum;
 import com.stylefeng.guns.core.common.exception.FileUploadException;
 import jodd.datetime.JDateTime;
 import org.apache.commons.io.FilenameUtils;
@@ -57,7 +57,7 @@ public class OssUtil {
         // 把file存入OSS,Object的名称为firstKey.
         try {
             ossClient.putObject(bucketName, key.toString(), file.getInputStream());
-            StringBuffer filePath = new StringBuffer(MessageFormat.format(aliyunProp.getOssDomain(), bucketName)).append(key);
+            StringBuffer filePath = new StringBuffer(getOssDomain()).append(key);
             path.setFileName(file.getOriginalFilename());
             path.setContentType(file.getContentType());
             path.setFileKey(key.toString());
@@ -65,11 +65,19 @@ public class OssUtil {
             path.setFileSize(file.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FileUploadException(ResultEnum.ERROR_CUSTOME.getCode(), e.getMessage(), path);
+            throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, path);
         } finally {
             ossClient.shutdown();
         }
         return path;
+    }
+
+    private String getOssDomain() {
+        if (ToolUtil.isEmpty(aliyunProp.getOssDomain())) {
+            return MessageFormat.format("https://{0}.oss-cn-hangzhou.aliyuncs.com/", aliyunProp.getOssBucket());
+        } else {
+            return aliyunProp.getOssDomain();
+        }
     }
 
     /**
@@ -104,14 +112,14 @@ public class OssUtil {
                     path.setFileName(file.getOriginalFilename());
                     path.setContentType(file.getContentType());
                     path.setFileKey(key.toString());
-                    path.setFileRealPath(key.insert(0, MessageFormat.format(aliyunProp.getOssDomain(), bucketName)).toString());
+                    path.setFileRealPath(key.insert(0, getOssDomain()).toString());
                     path.setFileSize(file.getSize());
                     paths.add(path);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FileUploadException(ResultEnum.ERROR_CUSTOME.getCode(), e.getMessage(), paths);
+            throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, paths);
         } finally {
             ossClient.shutdown();
         }
