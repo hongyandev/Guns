@@ -155,11 +155,9 @@
 			<version>2.8.3</version>
 		</dependency>
 		<!-- @Data的支持,默认生成getter,setter方法 -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.18</version>
-			<scope>provided</scope>
+       	<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
 		</dependency>
 		<!-- jodd.datetime.JDateTime -->
 		<dependency>
