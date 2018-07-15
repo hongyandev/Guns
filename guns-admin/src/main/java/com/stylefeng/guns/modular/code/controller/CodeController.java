@@ -46,8 +46,6 @@ public class CodeController extends BaseController {
     /**
      * 生成代码
      */
-    @ApiOperation(value = "生成代码", notes = "123456")
-    @RequestMapping(value = "/generate", method = RequestMethod.POST)
     @ResponseBody
     public Object generate(GenQo genQo) {
         genQo.setUrl(druidProperties.getUrl());
