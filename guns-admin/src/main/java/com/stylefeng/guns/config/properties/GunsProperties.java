@@ -20,6 +20,8 @@ public class GunsProperties {
 
     public static final String PREFIX = "guns";
 
+    private String fileUploadDomain;
+
     private Boolean kaptchaOpen = false;
 
     private Boolean swaggerOpen = false;
@@ -102,4 +104,13 @@ public class GunsProperties {
     public void setSessionValidationInterval(Integer sessionValidationInterval) {
         this.sessionValidationInterval = sessionValidationInterval;
     }
+
+    public String getFileUploadDomain() {
+        return fileUploadDomain;
+    }
+
+    public void setFileUploadDomain(String fileUploadDomain) {
+        this.fileUploadDomain = fileUploadDomain;
+    }
+
 }
