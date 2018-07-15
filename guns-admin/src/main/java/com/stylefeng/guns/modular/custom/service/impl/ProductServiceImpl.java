@@ -1,8 +1,9 @@
 package com.stylefeng.guns.modular.custom.service.impl;
 
-import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
 import com.stylefeng.guns.aliyun.iotx.api.client.ProductResponse;
 import com.stylefeng.guns.config.properties.AliyunProperties;
+import com.stylefeng.guns.core.common.enums.IotEnum;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductMapper;
@@ -34,36 +35,37 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements IProductService {
 
-	@Autowired
-	ApiClientKit apiKit;
-	@Autowired
-	ProductExtendMapper productExtendMapper;
-	
-	@Override
-	@Transactional
-	public void pullProductInfoFromIot(Product product) throws Exception{
-		Map<String, Object> params = Maps.newHashMap();
-		params.put("productKey", product.getProductKey());
-		AliyunProperties prop = apiKit.getAliyunProperties();
-		IoTApiRequest request = apiKit.initAliyunIoTApiRequest(product.getIotPackage(), params, prop.getApiVer(product.getIotPackage(), "product"), true);
-		String content = apiKit.doIoTApiRequest(prop.getApiHost(product.getIotPackage()), "/cloud/thing/product/get", true, request);
-		ProductResponse response =  JSONObject.parseObject(content, ProductResponse.class);
-		Product _product = response.getData();
-		_product.setIotPackage(product.getIotPackage());
-		_product.insertOrUpdate();
-		List<ProductExtend> exts = _product.getExtendProperties();
-		exts.forEach(ext->{
-			ext.insertOrUpdate();
-		});
-	}
+    @Autowired
+    ApiClientKit apiKit;
+    @Autowired
+    ProductExtendMapper productExtendMapper;
+    @Autowired
+    AliyunProperties aliyunProperties;
 
-	@Override
-	public List<ProductExtend> selectByProductKey(String productKey) {
-		// TODO Auto-generated method stub
-		EntityWrapper<ProductExtend> entityWrapper = new EntityWrapper<>();
-		Wrapper<ProductExtend> wrapper = entityWrapper.eq("productKey", productKey);
-		List<ProductExtend> list = productExtendMapper.selectList(wrapper);
-		return list;
-	}
+    @Override
+    @Transactional
+    public void pullProductInfoFromIot(Product product) throws Exception {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("productKey", product.getProductKey());
+        IoTApiResponse request = apiKit.initAliyunIoTApiRequest(IotEnum.fromCode(product.getIotPackage()), params, aliyunProperties.getApiVer(IotEnum.fromCode(product.getIotPackage()), "product"), true);
+        String content = apiKit.doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.fromCode(product.getIotPackage())), "/cloud/thing/product/get", true, request);
+        ProductResponse response = JSONObject.parseObject(content, ProductResponse.class);
+        Product _product = response.getData();
+        _product.setIotPackage(product.getIotPackage());
+        _product.insertOrUpdate();
+        List<ProductExtend> exts = _product.getExtendProperties();
+        exts.forEach(ext -> {
+            ext.insertOrUpdate();
+        });
+    }
+
+    @Override
+    public List<ProductExtend> selectByProductKey(String productKey) {
+        // TODO Auto-generated method stub
+        EntityWrapper<ProductExtend> entityWrapper = new EntityWrapper<>();
+        Wrapper<ProductExtend> wrapper = entityWrapper.eq("productKey", productKey);
+        List<ProductExtend> list = productExtendMapper.selectList(wrapper);
+        return list;
+    }
 
 }

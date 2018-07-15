@@ -17,7 +17,7 @@ package com.aliyun.iotx.api.client;
 
 import java.io.UnsupportedEncodingException;
 import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
-import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
 import com.stylefeng.guns.aliyun.iotx.api.client.SyncApiClient;
 
 /**
@@ -31,7 +31,7 @@ public class RequestDemo {
             .appSecret("0239e7dfaca52308001c0e95f689314f")
             .build();
 
-        IoTApiRequest request = new IoTApiRequest();
+        IoTApiResponse request = new IoTApiResponse();
         //设置api的版本
         request.setApiVer("1.0.0");
 
