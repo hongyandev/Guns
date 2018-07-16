@@ -52,7 +52,12 @@ public enum BizExceptionEnum implements ServiceExceptionEnum{
 	DICT_MUST_BE_NUMBER(400,"字典的值必须为数字"),
 	REQUEST_NULL(400, "请求有错误"),
 	SESSION_TIMEOUT(400, "会话超时"),
-	SERVER_ERROR(500, "服务器异常");
+	SERVER_ERROR(500, "服务器异常"),
+	
+	/**
+	 * 产品管理
+	 */
+	PRODUCT_ERROR(400,"产品不存在,请检查ProductKey");
 
 	BizExceptionEnum(int code, String message) {
 		this.code = code;

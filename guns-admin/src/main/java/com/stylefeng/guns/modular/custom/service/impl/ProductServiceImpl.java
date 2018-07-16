@@ -4,6 +4,8 @@ import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
 import com.stylefeng.guns.aliyun.iotx.api.client.ProductResponse;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.common.enums.IotEnum;
+import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductMapper;
@@ -19,6 +21,7 @@ import com.google.common.collect.Maps;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,11 +54,18 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         String content = apiKit.doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.fromCode(product.getIotPackage())), "/cloud/thing/product/get", true, request);
         ProductResponse response = JSONObject.parseObject(content, ProductResponse.class);
         Product _product = response.getData();
+        if (Objects.isNull(_product)) 
+        	throw new GunsException(BizExceptionEnum.PRODUCT_ERROR);
         _product.setIotPackage(product.getIotPackage());
         _product.insertOrUpdate();
+        
+        EntityWrapper<ProductExtend> entityWrapper = new EntityWrapper<>();
+        Wrapper<ProductExtend> wrapper = entityWrapper.eq("productKey", product.getProductKey());
+        productExtendMapper.delete(wrapper);
+        
         List<ProductExtend> exts = _product.getExtendProperties();
         exts.forEach(ext -> {
-            ext.insertOrUpdate();
+            ext.insert();
         });
     }
 
