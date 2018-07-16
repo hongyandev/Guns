@@ -1,4 +1,15 @@
 @layout("/common/_container.html"){
+<style>
+    ul,li{
+        list-style: none;
+    }
+    .layui-layer-tab .layui-layer-title{
+        overflow: hidden;
+    }
+    .layui-layer-tabmain{
+        padding-left:0;
+    }
+</style>
 <div class="row">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
@@ -27,7 +38,11 @@
                             <#button name="删除" icon="fa-remove" clickFun="Product.delete()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/product/uploadImg")){
+<<<<<<< Updated upstream
                             <#button name="图片管理" icon="fa-remove" clickFun="Product.detial()" space="true"/>
+=======
+                            <#button name="图片管理" icon="fa-picture-o" clickFun="Product.openProductUploadImg()" space="true"/>
+>>>>>>> Stashed changes
                             @}
                         </div>
                         <#table id="ProductTable"/>
