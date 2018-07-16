@@ -85,7 +85,7 @@ public class ProductController extends BaseController {
     /**
      * 跳转功能属性页面
      */
-    @RequestMapping("/product/product_addAttribute/{productId}")
+    @RequestMapping("/product_addAttribute/{productId}")
     public String productAttri(@PathVariable String productId, Model model) {
     	ProductFunattri funattri = productService.selectFunattriByProductKey(productId);
     	model.addAttribute("item", funattri);
