@@ -44,7 +44,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     ApiClientKit apiKit;
     @Autowired
     ProductExtendMapper productExtendMapper;
-    ProductFunattriMapper pro
+    @Autowired
+    ProductFunattriMapper productFunattriMapper;
     @Autowired
     AliyunProperties aliyunProperties;
 
@@ -84,7 +85,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	@Override
 	public ProductFunattri selectFunattriByProductKey(String productKey) {
 		// TODO Auto-generated method stub
-		return null;
+		return productFunattriMapper.selectById(productKey);
 	}
 
 }

@@ -87,7 +87,8 @@ public class ProductController extends BaseController {
      */
     @RequestMapping("/product/product_addAttribute/{productId}")
     public String productAttri(@PathVariable String productId, Model model) {
-    	ProductFunattri funattri = 
+    	ProductFunattri funattri = productService.selectFunattriByProductKey(productId);
+    	model.addAttribute("item", funattri);
     	return PREFIX + "product_addAttribute.html";
     }
 
