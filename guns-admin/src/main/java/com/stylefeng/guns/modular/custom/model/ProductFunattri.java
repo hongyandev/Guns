@@ -3,7 +3,10 @@ package com.stylefeng.guns.modular.custom.model;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -22,6 +25,7 @@ public class ProductFunattri extends Model<ProductFunattri> {
     /**
      * 产品PK
      */
+    @TableId(value="productKey", type= IdType.INPUT)
     private String productKey;
     /**
      * 功能属性

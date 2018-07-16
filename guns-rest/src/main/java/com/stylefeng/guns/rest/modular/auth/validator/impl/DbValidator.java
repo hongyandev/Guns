@@ -1,9 +1,14 @@
 package com.stylefeng.guns.rest.modular.auth.validator.impl;
 
+import com.stylefeng.guns.core.exception.GunsException;
+import com.stylefeng.guns.rest.core.enums.ResultEnum;
+import com.stylefeng.guns.rest.core.utils.RedisUtil;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
 import com.stylefeng.guns.rest.persistence.AppUserMapper;
+
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,9 @@ public class DbValidator implements IReqValidator {
 	@Autowired
 	AppUserMapper appUserMapper;
 	
+	@Autowired
+	RedisUtil redisUtil;
+	
 	@Override
 	public AppUser validate(Credence credence) {
 		// TODO Auto-generated method stub
@@ -32,7 +40,9 @@ public class DbValidator implements IReqValidator {
 			user = appUserMapper.selectOne(entity);
 			break;
 		case SMS_TYPE:
-			
+			Object icode = redisUtil.get("getIcode."+credence.getCredenceName());
+			if (Objects.nonNull(icode) || !icode.equals(credence.getCredenceCode()))
+//				throw new GunsException(ResultEnum);
 			break;
 		default:
 			break;

@@ -38,6 +38,7 @@ public enum ResultEnum implements ServiceExceptionEnum {
     AUTH_REQUEST_ERROR(400, "账号密码错误"),
 	
 	TELEPHONE_INVALID(400, "手机号码无效"),
+	CODE_INVALID(400,"验证码无效"),
 	
 	CUSTOME_ERROR(400, "自定义错误");
 

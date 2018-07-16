@@ -76,15 +76,17 @@ Product.openAddProduct = function () {
  * 点击添加product 功能属性
  */
 Product.openAddAttribute = function () {
-    var index = layer.open({
-        type: 2,
-        title: '添加功能属性',
-        area: ['800px', '420px'], //宽高
-        fix: false, //不固定
-        maxmin: true,
-        content: Feng.ctxPath + '/product/product_addAttribute'+Product.seItem.productKey
-    });
-    this.layerIndex = index;
+	if(this.check()){
+	    var index = layer.open({
+	        type: 2,
+	        title: '添加功能属性',
+	        area: ['800px', '420px'], //宽高
+	        fix: false, //不固定
+	        maxmin: true,
+	        content: Feng.ctxPath + '/product/product_addAttribute/'+Product.seItem.productKey
+	    });
+	    this.layerIndex = index;
+	}
 };
 
 /**
