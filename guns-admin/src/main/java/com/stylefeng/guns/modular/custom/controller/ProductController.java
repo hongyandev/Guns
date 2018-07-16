@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
+import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.service.IProductService;
 
 import io.swagger.annotations.Api;
@@ -79,6 +80,15 @@ public class ProductController extends BaseController {
         model.addAttribute("item",product);
         LogObjectHolder.me().set(product);
         return PREFIX + "product_edit.html";
+    }
+    
+    /**
+     * 跳转功能属性页面
+     */
+    @RequestMapping("/product/product_addAttribute/{productId}")
+    public String productAttri(@PathVariable String productId, Model model) {
+    	ProductFunattri funattri = 
+    	return PREFIX + "product_addAttribute.html";
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.stylefeng.guns.rest.modular.auth.validator.impl;
 
+import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,15 @@ public class SimpleValidator implements IReqValidator {
     private static String PASSWORD = "admin";
 
     @Override
-    public boolean validate(Credence credence) {
+    public AppUser validate(Credence credence) {
 
         String userName = credence.getCredenceName();
         String password = credence.getCredenceCode();
 
         if (USER_NAME.equals(userName) && PASSWORD.equals(password)) {
-            return true;
+            return new AppUser();
         } else {
-            return false;
+            return null;
         }
     }
 }
