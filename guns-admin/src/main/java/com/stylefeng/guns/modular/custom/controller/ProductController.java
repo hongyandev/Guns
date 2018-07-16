@@ -148,7 +148,7 @@ public class ProductController extends BaseController {
     public String detail(@PathVariable("productId") String productId,@ApiIgnore Model model) {
     	Product product = productService.selectById(productId);
         model.addAttribute("item",product);
-        return PREFIX + "product_edit.html";
+        return PREFIX + "product_detail.html";
     }
     
     /**
