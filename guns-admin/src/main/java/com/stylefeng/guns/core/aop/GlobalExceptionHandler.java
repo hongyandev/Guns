@@ -59,6 +59,7 @@ public class GlobalExceptionHandler {
         log.error("用户未登陆：", e);
         return "/login.html";
     }
+    
 
     /**
      * 账号被冻结异常

@@ -1,11 +1,14 @@
 package com.stylefeng.guns.modular.custom.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+import java.util.List;
+
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.enums.IdType;
 
 /**
  * <p>
@@ -27,6 +30,7 @@ public class Product extends Model<Product> {
     /**
      * 产品PK
      */
+	@TableId(value="productKey", type= IdType.INPUT)
     private String productKey;
     /**
      * 数据格式
@@ -65,11 +69,11 @@ public class Product extends Model<Product> {
      */
     private Long categoryld;
     /**
-     * categoryKey
+     * 归属品类Key
      */
     private String categoryKey;
     /**
-     * categoryName
+     * 归属品类Name
      */
     private String categoryName;
     /**
@@ -77,9 +81,9 @@ public class Product extends Model<Product> {
      */
     private String accessMethod;
     /**
-     * 产品状态(0:开发中,1:已发布)
+     * 产品状态
      */
-    private Integer status;
+    private String status;
     /**
      * 创建时间
      */
@@ -105,18 +109,28 @@ public class Product extends Model<Product> {
      */
     private String aliyunCommodityCode;
     /**
-     * connectMode
+     * 连接模式
      */
     private String connectMode;
     /**
-     * rbac租户Id
+     * RBAC租户Id
      */
     private String rbacTenantId;
     /**
      * IoT平台
      */
     private Integer iotPackage;
-
+    /**
+     * useId2Auth
+     */
+    private Boolean useId2Auth;
+    /**
+     * 设备数量
+     */
+    private Integer deviceNumLimit;
+    
+    @TableField(exist=false)
+    private List<ProductExtend> extendProperties;
 
     public Long getTenantId() {
         return tenantId;
@@ -230,31 +244,47 @@ public class Product extends Model<Product> {
         this.accessMethod = accessMethod;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
+    public String getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
+	public Date getGmtCreate() {
+		return gmtCreate;
+	}
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
+	public void setGmtCreate(Date gmtCreate) {
+		this.gmtCreate = gmtCreate;
+	}
 
-    public Date getGmtModified() {
-        return gmtModified;
-    }
+	public Date getGmtModified() {
+		return gmtModified;
+	}
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
+	public void setGmtModified(Date gmtModified) {
+		this.gmtModified = gmtModified;
+	}
+	
+	public Integer getDeviceNumLimit() {
+		return deviceNumLimit;
+	}
 
-    public String getCreator() {
+	public Boolean getUseId2Auth() {
+		return useId2Auth;
+	}
+
+	public void setUseId2Auth(Boolean useId2Auth) {
+		this.useId2Auth = useId2Auth;
+	}
+
+	public void setDeviceNumLimit(Integer deviceNumLimit) {
+		this.deviceNumLimit = deviceNumLimit;
+	}
+
+	public String getCreator() {
         return creator;
     }
 
@@ -308,9 +338,17 @@ public class Product extends Model<Product> {
 
     public void setIotPackage(Integer iotPackage) {
         this.iotPackage = iotPackage;
-    }
+    }    
 
-    @Override
+    public List<ProductExtend> getExtendProperties() {
+		return extendProperties;
+	}
+
+	public void setExtendProperties(List<ProductExtend> extendProperties) {
+		this.extendProperties = extendProperties;
+	}
+
+	@Override
     protected Serializable pkVal() {
         return this.productKey;
     }
@@ -342,6 +380,8 @@ public class Product extends Model<Product> {
         ", connectMode=" + connectMode +
         ", rbacTenantId=" + rbacTenantId +
         ", iotPackage=" + iotPackage +
+        ", useId2Auth=" + useId2Auth +
+        ", deviceNumLimit=" + deviceNumLimit +
         "}";
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.ProductExtendMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.custom.model.ProductExtend">
+        <id column="extendAttrId" property="extendAttrId" />
+        <result column="gmtModify" property="gmtModify" />
+        <result column="domain" property="domain" />
+        <result column="extendAttrKey" property="extendAttrKey" />
+        <result column="extendAttrValue" property="extendAttrValue" />
+        <result column="gmtCreate" property="gmtCreate" />
+        <result column="productKey" property="productKey" />
+        <result column="extendAttrName" property="extendAttrName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        extendAttrId, gmtModify, domain, extendAttrKey, extendAttrValue, gmtCreate, productKey, extendAttrName
+    </sql>
+
+</mapper>

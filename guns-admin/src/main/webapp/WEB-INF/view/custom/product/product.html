@@ -27,7 +27,7 @@
                             <#button name="删除" icon="fa-remove" clickFun="Product.delete()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/product/uploadImg")){
-                            <#button name="图片管理" icon="fa-remove" clickFun="Product.uploadImg()" space="true"/>
+                            <#button name="图片管理" icon="fa-remove" clickFun="Product.detial()" space="true"/>
                             @}
                         </div>
                         <#table id="ProductTable"/>

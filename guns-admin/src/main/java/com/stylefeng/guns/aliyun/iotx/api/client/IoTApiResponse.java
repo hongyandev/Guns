@@ -7,13 +7,13 @@ import java.util.UUID;
 /**
  * @author zhongfu.xiezf on 17/10/18.
  */
-public class IoTApiRequest {
+public class IoTApiResponse {
     private String id;
     private String version = "1.0";
     private Map<String, Object> request = new HashMap<>();
     private Map<String, Object> params = new HashMap<>();
 
-    public IoTApiRequest() {
+    public IoTApiResponse() {
         id = UUID.randomUUID().toString();
     }
 

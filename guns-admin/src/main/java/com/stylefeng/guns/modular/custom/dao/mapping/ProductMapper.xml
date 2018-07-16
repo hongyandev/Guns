@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stylefeng.guns.modular.system.dao.ProductMapper">
 
-    <!-- 通用查询映射结果 -->
+    <!-- 产品属性 -->
     <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.custom.model.Product">
         <id column="productKey" property="productKey" />
         <result column="tenantId" property="tenantId" />
@@ -28,11 +28,30 @@
         <result column="connectMode" property="connectMode" />
         <result column="rbacTenantId" property="rbacTenantId" />
         <result column="iotPackage" property="iotPackage" />
+        <result column="useId2Auth" property="useId2Auth" />
+        <result column="deviceNumLimit" property="deviceNumLimit" />
+    </resultMap>
+    
+    <!-- 产品扩展属性 -->
+    <resultMap id="ProductExtendMap" type="com.stylefeng.guns.modular.custom.model.ProductExtend">
+        <id column="extendAttrId" property="extendAttrId" />
+        <result column="gmtModify" property="gmtModify" />
+        <result column="domain" property="domain" />
+        <result column="extendAttrKey" property="extendAttrKey" />
+        <result column="extendAttrValue" property="extendAttrValue" />
+        <result column="gmtCreate" property="gmtCreate" />
+        <result column="productKey" property="productKey" />
+        <result column="extendAttrName" property="extendAttrName" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
+    <!-- 产品属性查询结果列 -->
     <sql id="Base_Column_List">
-        tenantId, productKey, dataFormat, netType, productSecret, nodeType, domain, name, region, ownerDomain, categoryld, categoryKey, categoryName, accessMethod, status, gmtCreate, gmtModified, creator, modifier, productId, aliyunCommodityCode, connectMode, rbacTenantId, iotPackage
+        tenantId, productKey, dataFormat, netType, productSecret, nodeType, domain, name, region, ownerDomain, categoryld, categoryKey, categoryName, accessMethod, status, gmtCreate, gmtModified, creator, modifier, productId, aliyunCommodityCode, connectMode, rbacTenantId, iotPackage, useId2Auth, deviceNumLimit
+    </sql>
+    
+    <!-- 产品扩展属性查询结果列 -->
+    <sql id="ProductExtend_Column_List">
+        extendAttrId, gmtModify, domain, extendAttrKey, extendAttrValue, gmtCreate, productKey, extendAttrName
     </sql>
 
 </mapper>

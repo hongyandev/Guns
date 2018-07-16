@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.stylefeng.guns.rest.model.AppUser">
         <id column="userId" property="userId" />
+        <result column="password" property="password" />
         <result column="userName" property="userName" />
         <result column="phone" property="phone" />
         <result column="email" property="email" />
