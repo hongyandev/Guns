@@ -1,7 +1,7 @@
 package com.stylefeng.guns.config.properties;
 
-import com.google.common.collect.Maps;
 import com.stylefeng.guns.core.common.enums.IotEnum;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,38 +11,19 @@ import java.util.Map;
  * @author myc
  *
  */
+@Data
 @Component
 @ConfigurationProperties(prefix = AliyunProperties.ALIYUNCONF_PREFIX)
 public class AliyunProperties {
 	public static final String ALIYUNCONF_PREFIX = "aliyun";
 		
-	Map<String, Object> iot = Maps.newHashMap();
+	Map<String, Object> iot;
 
-    Map<String, Object> oss = Maps.newHashMap();
-
-    public void setIot(Map<String, Object> iot) {
-        this.iot = iot;
-    }
-
-    public void setOss(Map<String, Object> oss) {
-        this.oss = oss;
-    }
-
-    public void setIotLivingAppKey(String iotLivingAppKey) {
-        this.iotLivingAppKey = iotLivingAppKey;
-    }
-
-    public void setIotLivingAppSecret(String iotLivingAppSecret) {
-        this.iotLivingAppSecret = iotLivingAppSecret;
-    }
+    Map<String, Object> oss;
 
     String iotLivingAppKey;
 
 	String iotLivingAppSecret;
-	
-	public Map<String, Object> getIot() {
-		return iot;
-	}
 
 	@SuppressWarnings("unchecked")
 	public String getApiHost(IotEnum iotEnum) {
@@ -78,10 +59,6 @@ public class AliyunProperties {
         return appSecret;
 	}
 
-    public Map<String, Object> getOss() {
-        return oss;
-    }
-
     public String getOssBucket() {
 	    return (String) oss.get("bucket");
     }
@@ -96,14 +73,6 @@ public class AliyunProperties {
 
     public String getOssAccessKeySecret() {
 	    return (String) oss.get("accessKeySecret");
-    }
-
-    public String getIotLivingAppKey() {
-        return iotLivingAppKey;
-    }
-
-    public String getIotLivingAppSecret() {
-        return iotLivingAppSecret;
     }
 
 }

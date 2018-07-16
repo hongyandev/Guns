@@ -63,7 +63,13 @@ public class ProductController extends BaseController {
     public String productAdd() {
         return PREFIX + "product_add.html";
     }
-
+    /**
+     * 跳转到product uploadImg
+     */
+    @RequestMapping("/product_uploadImg")
+    public String productUploadImg() {
+        return PREFIX + "product_uploadImg.html";
+    }
     /**
      * 跳转到修改product
      */

@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.stylefeng.guns.core.common.file.FilePath;
-import com.stylefeng.guns.core.common.enums.ResultEnum;
+import com.stylefeng.guns.core.exception.GunsException;
+import com.stylefeng.guns.core.exception.ServiceExceptionEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,27 +15,17 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FileUploadException extends RuntimeException {
+public class FileUploadException extends GunsException {
     private static final long serialVersionUID = 492763763279338469L;
-    private String code;
     private List<FilePath> paths;
 
-
-    public FileUploadException(String code,String msg,FilePath path) {
-        super(msg);
-        this.code = code;
+    public FileUploadException(ServiceExceptionEnum serviceExceptionEnum, FilePath path) {
+        super(serviceExceptionEnum);
         this.paths = Arrays.asList(path);
     }
 
-    public FileUploadException(ResultEnum resultEnum, List<FilePath> paths) {
-        super(resultEnum.getMsg());
-        this.code = resultEnum.getCode();
-        this.paths = paths;
-    }
-
-    public FileUploadException(String code,String msg, List<FilePath> paths){
-        super(msg);
-        this.code = code;
+    public FileUploadException(ServiceExceptionEnum serviceExceptionEnum, List<FilePath> paths) {
+        super(serviceExceptionEnum);
         this.paths = paths;
     }
 }
