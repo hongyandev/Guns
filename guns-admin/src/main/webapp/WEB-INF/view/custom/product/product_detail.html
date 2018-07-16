@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="detail_id" value="${item.productKey}">
+
+            <div class="row">
+
+                <div class="col-sm-6 b-r">
+                            <#input id="tenantId" name="租户id" readonly="true" value="${item.tenantId}" underline="true" />
+                            <#input id="productKey" name="产品PK" readonly="true" value="${item.productKey}"  underline="true"/>
+                             <#input id="dataFormat" name="数据格式" readonly="true" value="${item.dataFormat}" underline="true"/>
+                            <#input id="netType" name="入网类型" value="${item.netType}" readonly="true" underline="true"/>
+                            <#input id="productSecret" name="产品密钥" value="${item.productSecret}" readonly="true" underline="true"/>
+                            <#input id="nodeType" name="节点类型" value="${item.nodeType}" readonly="true" underline="true"/>
+                            <#input id="domain" name="领域" value="${item.domain}" readonly="true" underline="true"/>
+                            <#input id="name" name="产品名称" value="${item.name}" readonly="true" underline="true"/>
+                            <#input id="region" name="地域" value="${item.region}" readonly="true" underline="true"/>
+                            <#input id="ownerDomain" name="所有者领域" value="${item.ownerDomain}" readonly="true" underline="true"/>
+                            <#input id="categoryld" name="归属品类id" value="${item.categoryld}" readonly="true" underline="true"/>
+                            <#input id="categoryKey" value="${item.categoryKey}" readonly="true" name="categoryKey"/>
+                </div>
+                <div class="col-sm-6">
+                             <#input id="categoryName" name="categoryName" value="${item.categoryName}" readonly="true" underline="true"/>
+                            <#input id="accessMethod" name="访问方式" value="${item.accessMethod}" readonly="true" underline="true"/>
+                            <#input id="status" name="产品状态(0:开发中,1:已发布)" value="${item.status}" readonly="true" underline="true"/>
+                            <#input id="gmtCreate" name="创建时间" value="${item.gmtCreate}" readonly="true" underline="true" type="date"
+                    clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})"/>
+                            <#input id="gmtModified" name="修改时间" value="${item.gmtModified}" readonly="true" underline="true" type="date"
+                    clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})"/>
+                            <#input id="creator" name="创建者" value="${item.creator}" readonly="true" underline="true"/>
+                            <#input id="modifier" name="修改者" value="${item.modifier}" readonly="true" underline="true"/>
+                            <#input id="productId" name="产品ID" value="${item.productId}" readonly="true" underline="true"/>
+                            <#input id="aliyunCommodityCode" name="商品码" value="${item.aliyunCommodityCode}" readonly="true" underline="true"/>
+                            <#input id="connectMode" name="connectMode" value="${item.connectMode}" readonly="true" underline="true"/>
+                            <#input id="rbacTenantId" name="rbac租户Id" value="${item.rbacTenantId}" readonly="true" underline="true"/>
+                            <#input id="iotPackage" name="IoT平台" value="${item.iotPackage}" readonly="true" underline="true"/>
+                </div>
+            </div>
+           <!-- <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ProductInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ProductInfoDlg.close()"/>
+                </div>
+            </div>-->
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/custom/product/product_info.js"></script>
+@}
