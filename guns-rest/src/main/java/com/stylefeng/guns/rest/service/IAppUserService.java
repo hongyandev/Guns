@@ -1,5 +1,6 @@
 package com.stylefeng.guns.rest.service;
 
+import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IAppUserService extends IService<AppUser> {
 
+	public Result<Object> sendIcode(String telephone);
+	
 }

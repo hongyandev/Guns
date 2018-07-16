@@ -1,5 +1,6 @@
 package com.stylefeng.guns.rest.modular.auth.validator;
 
+import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
 
 /**
@@ -18,5 +19,5 @@ public interface IReqValidator {
      * @author fengshuonan
      * @Date 2017/8/23 11:49
      */
-    boolean validate(Credence credence);
+    AppUser validate(Credence credence);
 }

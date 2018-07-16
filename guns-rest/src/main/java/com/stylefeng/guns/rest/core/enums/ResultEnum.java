@@ -35,7 +35,11 @@ public enum ResultEnum implements ServiceExceptionEnum {
     /**
      * 其他
      */
-    AUTH_REQUEST_ERROR(400, "账号密码错误");
+    AUTH_REQUEST_ERROR(400, "账号密码错误"),
+	
+	TELEPHONE_INVALID(400, "手机号码无效"),
+	
+	CUSTOME_ERROR(400, "自定义错误");
 
     ResultEnum(int code, String message) {
         this.code = code;
