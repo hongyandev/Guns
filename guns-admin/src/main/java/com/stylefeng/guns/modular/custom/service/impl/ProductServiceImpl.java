@@ -91,6 +91,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	@Override
 	public void updateFunattriByProductKey(ProductFunattri funattri) {
 		// TODO Auto-generated method stub
-		productFunattriMapper.updateById(funattri);
+		funattri.insertOrUpdate();
 	}
 }
