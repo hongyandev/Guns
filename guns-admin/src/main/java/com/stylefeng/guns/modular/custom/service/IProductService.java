@@ -21,4 +21,6 @@ public interface IProductService extends IService<Product> {
 	public List<ProductExtend> selectByProductKey(String productKey);
 	
 	public ProductFunattri selectFunattriByProductKey(String productKey);
+	
+	public void updateFunattriByProductKey(ProductFunattri funattri);
 }

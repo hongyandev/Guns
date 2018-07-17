@@ -64,6 +64,7 @@ public class ProductController extends BaseController {
     public String productAdd() {
         return PREFIX + "product_add.html";
     }
+    
     /**
      * 跳转到product uploadImg
      */
@@ -71,17 +72,7 @@ public class ProductController extends BaseController {
     public String productUploadImg() {
         return PREFIX + "product_uploadImg.html";
     }
-    /**
-     * 跳转到修改product
-     */
-    @RequestMapping("/product_update/{productId}")
-    public String productUpdate(@PathVariable String productId, Model model) {
-        Product product = productService.selectById(productId);
-        model.addAttribute("item",product);
-        LogObjectHolder.me().set(product);
-        return PREFIX + "product_edit.html";
-    }
-    
+
     /**
      * 跳转功能属性页面
      */
@@ -90,6 +81,34 @@ public class ProductController extends BaseController {
     	ProductFunattri funattri = productService.selectFunattriByProductKey(productId);
     	model.addAttribute("item", funattri);
     	return PREFIX + "product_addAttribute.html";
+    }
+    
+    /**
+     * product详情
+     */
+    @ApiOperation(value = "产品基础属性",notes = "产品基础属性",tags = {"产品管理"},response = String.class)
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
+    })
+    @RequestMapping(value = "/detail/{productId}",method = RequestMethod.GET)
+    public String detail(@PathVariable("productId") String productId,@ApiIgnore Model model) {
+    	Product product = productService.selectById(productId);
+        model.addAttribute("item",product);
+        return PREFIX + "product_detail.html";
+    }
+    
+    /**
+     * product拓展属性
+     */
+    @ApiOperation(value = "产品拓展属性",notes = "产品扩展属性",tags = {"产品管理"},response = String.class)
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
+    })
+    @RequestMapping(value = "/detailExtend/{productId}",method = RequestMethod.GET)
+    public String detailExtend(@PathVariable("productId") String productId,@ApiIgnore Model model) {
+    	List<ProductExtend> list = productService.selectByProductKey(productId);
+    	model.addAttribute("item", list);
+    	return PREFIX + "product_detailExtend.html";
     }
 
     /**
@@ -139,40 +158,12 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 修改product
+     * 修改product的功能属性
      */
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/updateFunAttri")
     @ResponseBody
-    public Object update(Product product) {
-        productService.updateById(product);
+    public Object update(ProductFunattri funattri) {
+    	productService.updateFunattriByProductKey(funattri);
         return SUCCESS_TIP;
-    }
-
-    /**
-     * product详情
-     */
-    @ApiOperation(value = "产品基础属性",notes = "产品基础属性",tags = {"产品管理"},response = String.class)
-    @ApiImplicitParams({
-    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
-    })
-    @RequestMapping(value = "/detail/{productId}",method = RequestMethod.GET)
-    public String detail(@PathVariable("productId") String productId,@ApiIgnore Model model) {
-    	Product product = productService.selectById(productId);
-        model.addAttribute("item",product);
-        return PREFIX + "product_detail.html";
-    }
-    
-    /**
-     * product拓展属性
-     */
-    @ApiOperation(value = "产品拓展属性",notes = "产品扩展属性",tags = {"产品管理"},response = String.class)
-    @ApiImplicitParams({
-    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
-    })
-    @RequestMapping(value = "/detailExtend/{productId}",method = RequestMethod.GET)
-    public String detailExtend(@PathVariable("productId") String productId,@ApiIgnore Model model) {
-    	List<ProductExtend> list = productService.selectByProductKey(productId);
-    	model.addAttribute("item", list);
-    	return PREFIX + "product_detailExtend.html";
     }
 }
