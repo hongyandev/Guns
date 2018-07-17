@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -79,6 +80,9 @@ public class ProductController extends BaseController {
     @RequestMapping("/product_addAttribute/{productId}")
     public String productAttri(@PathVariable String productId, Model model) {
     	ProductFunattri funattri = productService.selectFunattriByProductKey(productId);
+    	if (Objects.isNull(funattri))
+    		funattri = new ProductFunattri();
+    		funattri.setProductKey(productId);
     	model.addAttribute("item", funattri);
     	return PREFIX + "product_addAttribute.html";
     }
