@@ -4,6 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import com.stylefeng.guns.core.common.enums.IotEnum;
+import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
+import com.stylefeng.guns.core.exception.GunsException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,12 +56,15 @@ public class ApiClientKit {
 	 * @throws UnsupportedEncodingException
 	 */
 	
-	public String doIoTApiRequest(String host, String path, boolean isHttps, IoTApiResponse request) throws Exception {
-		ApiResponse response = getLivingSyncClient().postBody(host, path, request, isHttps);
-		if (response.getStatusCode() == 200) {
+	public String doIoTApiRequest(String host, String path, boolean isHttps, IoTApiResponse request) throws GunsException {
+		try {
+			ApiResponse response = getLivingSyncClient().postBody(host, path, request, isHttps);
+			if (response.getStatusCode() != 200)
+				throw new GunsException(IotApiRepsEnum.fromCode(response.getStatusCode()));
 			return new String(response.getBody(), "utf-8");
-		} else {
-			throw new Exception("response code = " + response.getStatusCode());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new GunsException(IotApiRepsEnum.SERVICE_ERROR);
 		}
 	}
 
@@ -68,23 +74,15 @@ public class ApiClientKit {
 			case LIVING:
 			token = CacheKit.get("TOKEN", "IOT_ALIYUN_LIVING_TOKEN", new ILoader() {
 				public Object load() {
-					try {
-						Map<String, Object> params = Maps.newHashMap();
-						params.put("grantType", "project");
-						params.put("res", "a124YO0oU3Qm4SGF");
-						IoTApiResponse request = initAliyunIoTApiRequest(IotEnum.LIVING, params, aliyunProperties.getApiVer(IotEnum.LIVING, "project"), false);
-						String content = doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.LIVING), "/cloud/token", true, request);
-						ApiBaseResponse response = JSONObject.parseObject(content, ApiBaseResponse.class);
-						if (response.getCode() == 200) {
-							return response.getData().get("cloudToken");
-						} else {
-							System.out.println(content);
-							throw new Exception(content);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						return "";
-					}
+					Map<String, Object> params = Maps.newHashMap();
+					params.put("grantType", "project");
+					params.put("res", "a124YO0oU3Qm4SGF");
+					IoTApiResponse request = initAliyunIoTApiRequest(IotEnum.LIVING, params, aliyunProperties.getApiVer(IotEnum.LIVING, "project"), false);
+					String content = doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.LIVING), "/cloud/token", true, request);
+					ApiBaseResponse response = JSONObject.parseObject(content, ApiBaseResponse.class);
+					if (response.getCode() != 200)
+						throw new GunsException(IotApiRepsEnum.fromCode(response.getCode()));
+					return response.getData().get("cloudToken");
 				}
 			});
 			break;
