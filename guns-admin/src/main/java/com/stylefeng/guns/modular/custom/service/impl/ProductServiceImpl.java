@@ -4,7 +4,7 @@ import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
 import com.stylefeng.guns.aliyun.iotx.api.client.ProductResponse;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.common.enums.IotEnum;
-import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
@@ -55,7 +55,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         ProductResponse response = JSONObject.parseObject(content, ProductResponse.class);
         Product _product = response.getData();
         if (Objects.isNull(_product)) 
-        	throw new GunsException(BizExceptionEnum.PRODUCT_ERROR);
+        	throw new GunsException(IotApiRepsEnum.PRODUCT_NOT_FOUND);
         _product.setIotPackage(product.getIotPackage());
         _product.insertOrUpdate();
         
