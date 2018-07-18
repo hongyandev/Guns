@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<link href="${ctxPath}/static/css/plugins/codemirror/codemirror.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/plugins/codemirror/ambiance.css" rel="stylesheet">
+<div class="ibox float-e-margins">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox ">
+
+                        <textarea id="code1"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Peity -->
+<script src="${ctxPath}/static/js/plugins/peity/jquery.peity.min.js"></script>
+
+<!-- CodeMirror -->
+<script src="${ctxPath}/static/js/plugins/codemirror/codemirror.js"></script>
+<script src="${ctxPath}/static/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+<!-- 自定义js -->
+<script src="${ctxPath}/static/js/content.js?v=1.0.0"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var editor = CodeMirror.fromTextArea(document.getElementById("code1"), {
+            lineNumbers: true,
+            matchBrackets: true,
+            styleActiveLine: true,
+            theme: "foo"
+        });
+
+
+    });
+</script>
+@}

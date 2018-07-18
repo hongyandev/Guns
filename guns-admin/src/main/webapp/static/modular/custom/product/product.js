@@ -14,30 +14,30 @@ var Product = {
 Product.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '租户id', field: 'tenantId', visible: true, align: 'center', valign: 'middle'},
+            {title: '租户id', field: 'tenantId', visible: false, align: 'center', valign: 'middle'},
             {title: '产品PK', field: 'productKey', visible: true, align: 'center', valign: 'middle'},
             {title: '数据格式', field: 'dataFormat', visible: true, align: 'center', valign: 'middle'},
-            {title: '入网类型', field: 'netType', visible: true, align: 'center', valign: 'middle'},
-            {title: '产品密钥', field: 'productSecret', visible: true, align: 'center', valign: 'middle'},
+            {title: '入网类型', field: 'netType', visible: false, align: 'center', valign: 'middle'},
+            {title: '产品密钥', field: 'productSecret', visible: false, align: 'center', valign: 'middle'},
             {title: '节点类型', field: 'nodeType', visible: true, align: 'center', valign: 'middle'},
-            {title: '领域', field: 'domain', visible: true, align: 'center', valign: 'middle'},
+            {title: '领域', field: 'domain', visible: false, align: 'center', valign: 'middle'},
             {title: '产品名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
-            {title: '地域', field: 'region', visible: true, align: 'center', valign: 'middle'},
-            {title: '所有者领域', field: 'ownerDomain', visible: true, align: 'center', valign: 'middle'},
-            {title: '归属品类id', field: 'categoryld', visible: true, align: 'center', valign: 'middle'},
+            {title: '地域', field: 'region', visible: false, align: 'center', valign: 'middle'},
+            {title: '所有者领域', field: 'ownerDomain', visible: false, align: 'center', valign: 'middle'},
+            {title: '归属品类id', field: 'categoryld', visible: false, align: 'center', valign: 'middle'},
             {title: 'categoryKey', field: 'categoryKey', visible: true, align: 'center', valign: 'middle'},
             {title: 'categoryName', field: 'categoryName', visible: true, align: 'center', valign: 'middle'},
-            {title: '访问方式', field: 'accessMethod', visible: true, align: 'center', valign: 'middle'},
-            {title: '产品状态(0:开发中,1:已发布)', field: 'status', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'gmtCreate', visible: true, align: 'center', valign: 'middle'},
-            {title: '修改时间', field: 'gmtModified', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建者', field: 'creator', visible: true, align: 'center', valign: 'middle'},
-            {title: '修改者', field: 'modifier', visible: true, align: 'center', valign: 'middle'},
+            {title: '访问方式', field: 'accessMethod', visible: false, align: 'center', valign: 'middle'},
+            {title: '产品状态(0:开发中,1:已发布)', field: 'status', visible: false, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'gmtCreate', visible: false, align: 'center', valign: 'middle'},
+            {title: '修改时间', field: 'gmtModified', visible: false, align: 'center', valign: 'middle'},
+            {title: '创建者', field: 'creator', visible: false, align: 'center', valign: 'middle'},
+            {title: '修改者', field: 'modifier', visible: false, align: 'center', valign: 'middle'},
             {title: '产品ID', field: 'productId', visible: true, align: 'center', valign: 'middle'},
-            {title: '商品码', field: 'aliyunCommodityCode', visible: true, align: 'center', valign: 'middle'},
-            {title: 'connectMode', field: 'connectMode', visible: true, align: 'center', valign: 'middle'},
-            {title: 'rbac租户Id', field: 'rbacTenantId', visible: true, align: 'center', valign: 'middle'},
-            {title: 'IoT平台', field: 'iotPackage', visible: true, align: 'center', valign: 'middle'}
+            {title: '商品码', field: 'aliyunCommodityCode', visible: false, align: 'center', valign: 'middle'},
+            {title: 'connectMode', field: 'connectMode', visible: false, align: 'center', valign: 'middle'},
+            {title: 'rbac租户Id', field: 'rbacTenantId', visible: false, align: 'center', valign: 'middle'},
+            {title: 'IoT平台', field: 'iotPackage', visible: false, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -70,18 +70,51 @@ Product.openAddProduct = function () {
     this.layerIndex = index;
 };
 
+
+
+/**
+ * 点击添加product 功能属性
+ */
+Product.openAddAttribute = function () {
+	if(this.check()){
+	    var index = layer.open({
+	        type: 2,
+	        title: '添加功能属性',
+	        area: ['800px', '420px'], //宽高
+	        fix: false, //不固定
+	        maxmin: true,
+	        content: Feng.ctxPath + '/product/product_addAttribute/'+Product.seItem.productKey
+	    });
+	    this.layerIndex = index;
+	}
+};
+
+/**
+ * 点击跳转product uploadImg
+ */
+Product.openProductUploadImg = function () {
+    if (this.check()) {
+
+    }
+
+
+
+};
+
 /**
  * 打开查看product详情
  */
 Product.openProductDetail = function () {
     if (this.check()) {
-        var index = layer.open({
-            type: 2,
-            title: 'product详情',
-            area: ['800px', '420px'], //宽高
-            fix: false, //不固定
-            maxmin: true,
-            content: Feng.ctxPath + '/product/product_update/' + Product.seItem.productKey
+        var index = layer.tab({
+            area: ['800px', '420px'],
+            tab: [{
+                title: '主表详情',
+                content: '<iframe width="100%" height="370" frameborder="0" scrolling="auto" src="'+Feng.ctxPath+'/product/detail/'+Product.seItem.productKey+'" ></iframe>'
+            }, {
+                title: '主表属性',
+                content: '<iframe width="100%" height="370" frameborder="0" scrolling="auto" src="'+Feng.ctxPath+'/product/detailExtend/'+Product.seItem.productKey+'"></iframe>'
+            }]
         });
         this.layerIndex = index;
     }

@@ -8,9 +8,11 @@ import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
+import com.stylefeng.guns.modular.custom.dao.ProductFunattriMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductMapper;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
+import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.service.IProductService;
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,6 +44,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     ApiClientKit apiKit;
     @Autowired
     ProductExtendMapper productExtendMapper;
+    @Autowired
+    ProductFunattriMapper productFunattriMapper;
     @Autowired
     AliyunProperties aliyunProperties;
 
@@ -78,4 +82,15 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         return list;
     }
 
+	@Override
+	public ProductFunattri selectFunattriByProductKey(String productKey) {
+		// TODO Auto-generated method stub
+		return productFunattriMapper.selectById(productKey);
+	}
+
+	@Override
+	public void updateFunattriByProductKey(ProductFunattri funattri) {
+		// TODO Auto-generated method stub
+		funattri.insertOrUpdate();
+	}
 }

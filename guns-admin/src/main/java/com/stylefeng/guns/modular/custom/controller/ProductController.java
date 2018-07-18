@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
+import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.service.IProductService;
 
 import io.swagger.annotations.Api;
@@ -63,6 +65,7 @@ public class ProductController extends BaseController {
     public String productAdd() {
         return PREFIX + "product_add.html";
     }
+    
     /**
      * 跳转到product uploadImg
      */
@@ -70,15 +73,46 @@ public class ProductController extends BaseController {
     public String productUploadImg() {
         return PREFIX + "product_uploadImg.html";
     }
+
     /**
-     * 跳转到修改product
+     * 跳转功能属性页面
      */
-    @RequestMapping("/product_update/{productId}")
-    public String productUpdate(@PathVariable String productId, Model model) {
-        Product product = productService.selectById(productId);
+    @RequestMapping("/product_addAttribute/{productId}")
+    public String productAttri(@PathVariable String productId, Model model) {
+    	ProductFunattri funattri = productService.selectFunattriByProductKey(productId);
+    	if (Objects.isNull(funattri))
+    		funattri = new ProductFunattri();
+    		funattri.setProductKey(productId);
+    	model.addAttribute("item", funattri);
+    	return PREFIX + "product_addAttribute.html";
+    }
+    
+    /**
+     * product详情
+     */
+    @ApiOperation(value = "产品基础属性",notes = "产品基础属性",tags = {"产品管理"},response = String.class)
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
+    })
+    @RequestMapping(value = "/detail/{productId}",method = RequestMethod.GET)
+    public String detail(@PathVariable("productId") String productId,@ApiIgnore Model model) {
+    	Product product = productService.selectById(productId);
         model.addAttribute("item",product);
-        LogObjectHolder.me().set(product);
-        return PREFIX + "product_edit.html";
+        return PREFIX + "product_detail.html";
+    }
+    
+    /**
+     * product拓展属性
+     */
+    @ApiOperation(value = "产品拓展属性",notes = "产品扩展属性",tags = {"产品管理"},response = String.class)
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
+    })
+    @RequestMapping(value = "/detailExtend/{productId}",method = RequestMethod.GET)
+    public String detailExtend(@PathVariable("productId") String productId,@ApiIgnore Model model) {
+    	List<ProductExtend> list = productService.selectByProductKey(productId);
+    	model.addAttribute("item", list);
+    	return PREFIX + "product_detailExtend.html";
     }
 
     /**
@@ -128,40 +162,12 @@ public class ProductController extends BaseController {
     }
 
     /**
-     * 修改product
+     * 修改product的功能属性
      */
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/updateFunAttri")
     @ResponseBody
-    public Object update(Product product) {
-        productService.updateById(product);
+    public Object update(ProductFunattri funattri) {
+    	productService.updateFunattriByProductKey(funattri);
         return SUCCESS_TIP;
-    }
-
-    /**
-     * product详情
-     */
-    @ApiOperation(value = "产品基础属性",notes = "产品基础属性",tags = {"产品管理"},response = String.class)
-    @ApiImplicitParams({
-    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
-    })
-    @RequestMapping(value = "/detail/{productId}",method = RequestMethod.GET)
-    public String detail(@PathVariable("productId") String productId,@ApiIgnore Model model) {
-    	Product product = productService.selectById(productId);
-        model.addAttribute("item",product);
-        return PREFIX + "product_edit.html";
-    }
-    
-    /**
-     * product拓展属性
-     */
-    @ApiOperation(value = "产品拓展属性",notes = "产品扩展属性",tags = {"产品管理"},response = String.class)
-    @ApiImplicitParams({
-    	@ApiImplicitParam(name = "productId", value = "产品PK", required = true, dataType = "String", paramType = "path")
-    })
-    @RequestMapping(value = "/detailExtend/{productId}",method = RequestMethod.GET)
-    public String detailExtend(@PathVariable("productId") String productId,@ApiIgnore Model model) {
-    	List<ProductExtend> list = productService.selectByProductKey(productId);
-    	model.addAttribute("item", list);
-    	return PREFIX + "product_detailExtend.html";
     }
 }

@@ -49,6 +49,19 @@
 		    <artifactId>lombok</artifactId>
 		</dependency>
         
+        <!-- 阿里云短信接口 -->
+		<dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+	      <groupId>com.aliyun</groupId>
+	      <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+	      <version>1.0.0</version>
+	    </dependency>
+        
 	</dependencies>
 
 	<build>

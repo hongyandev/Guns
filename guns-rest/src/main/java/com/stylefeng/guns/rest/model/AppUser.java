@@ -24,7 +24,8 @@ public class AppUser extends Model<AppUser> {
      * 主键
      */
     private String userId;
-    private String userName;
+    private String password;
+	private String userName;
     private String phone;
     private String email;
     private String nickName;
@@ -40,6 +41,14 @@ public class AppUser extends Model<AppUser> {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+    
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
     public String getUserName() {
         return userName;
@@ -106,6 +115,7 @@ public class AppUser extends Model<AppUser> {
     public String toString() {
         return "AppUser{" +
         "userId=" + userId +
+        ", password=" + password +
         ", userName=" + userName +
         ", phone=" + phone +
         ", email=" + email +

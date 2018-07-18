@@ -2,6 +2,8 @@ package com.stylefeng.guns.rest.core.config;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -112,6 +114,10 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 		RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
 		// 设置默认过期时间为:30分钟
 		cacheManager.setDefaultExpiration(60 * 30);
+		
+		Map<String, Long> expires = new HashMap<>();
+		expires.put("identifyCode", Long.valueOf(60 * 10));
+		cacheManager.setExpires(expires);
 		return cacheManager;
 	}
 	
