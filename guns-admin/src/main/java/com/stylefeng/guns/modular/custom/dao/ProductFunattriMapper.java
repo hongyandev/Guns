@@ -1,7 +1,5 @@
 package com.stylefeng.guns.modular.custom.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 

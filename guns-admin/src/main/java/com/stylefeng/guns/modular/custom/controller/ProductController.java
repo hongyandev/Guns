@@ -156,8 +156,8 @@ public class ProductController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(@RequestParam Integer productId) {
-        productService.deleteById(productId);
+    public Object delete(@RequestParam String productId) {
+        productService.deleteProductAndRelated(productId);
         return SUCCESS_TIP;
     }
 

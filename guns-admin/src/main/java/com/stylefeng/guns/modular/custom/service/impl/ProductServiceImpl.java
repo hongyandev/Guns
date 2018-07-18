@@ -9,6 +9,7 @@ import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductFunattriMapper;
+import com.stylefeng.guns.modular.custom.dao.ProductImageMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductMapper;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
@@ -43,9 +44,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Autowired
     ApiClientKit apiKit;
     @Autowired
+    ProductMapper productMapper;
+    @Autowired
     ProductExtendMapper productExtendMapper;
     @Autowired
     ProductFunattriMapper productFunattriMapper;
+    @Autowired
+    ProductImageMapper productImageMapper;
     @Autowired
     AliyunProperties aliyunProperties;
 
@@ -92,5 +97,17 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	public void updateFunattriByProductKey(ProductFunattri funattri) {
 		// TODO Auto-generated method stub
 		funattri.insertOrUpdate();
+	}
+
+	@Override
+	@Transactional
+	public void deleteProductAndRelated(String productKey) {
+		// TODO Auto-generated method stub
+		productMapper.deleteById(productKey);
+        EntityWrapper<ProductExtend> entityWrapper = new EntityWrapper<>();
+        Wrapper<ProductExtend> wrapper = entityWrapper.eq("productKey", productKey);
+        productExtendMapper.delete(wrapper);
+        productFunattriMapper.deleteById(productKey);
+        productImageMapper.deleteById(productKey);
 	}
 }
