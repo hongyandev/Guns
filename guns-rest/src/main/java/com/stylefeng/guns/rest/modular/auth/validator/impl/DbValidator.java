@@ -33,17 +33,23 @@ public class DbValidator implements IReqValidator {
 		// TODO Auto-generated method stub
 		AppUser user = null;
 		switch (credence.getAuthType()) {
-		case PASSWORD_TYPE:
-			AppUser entity = new AppUser();
-			entity.setUserName(credence.getCredenceName());
-			entity.setPassword(credence.getCredenceCode());
-			user = appUserMapper.selectOne(entity);
-			break;
-		case SMS_TYPE:
-			Object icode = redisUtil.get("getIcode."+credence.getCredenceName());
-			if (Objects.nonNull(icode) || !icode.equals(credence.getCredenceCode()))
-//				throw new GunsException(ResultEnum);
-			break;
+		case PASSWORD_TYPE:{
+				AppUser entity = new AppUser();
+				entity.setUserName(credence.getCredenceName());
+				entity.setPassword(credence.getCredenceCode());
+				user = appUserMapper.selectOne(entity);
+				break;
+			}
+		case SMS_TYPE:{
+				Object icode = redisUtil.get("getIcode."+credence.getCredenceName());
+				if (Objects.isNull(icode) || !icode.equals(credence.getCredenceCode()))
+					throw new GunsException(ResultEnum.CODE_INVALID);
+				redisUtil.remove("getIcode."+credence.getCredenceName());
+				AppUser entity = new AppUser();
+				entity.setUserName(credence.getCredenceName());
+				user = appUserMapper.selectOne(entity);
+				break;
+			}
 		default:
 			break;
 		}

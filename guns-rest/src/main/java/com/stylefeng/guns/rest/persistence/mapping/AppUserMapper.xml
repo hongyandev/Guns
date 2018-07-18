@@ -11,6 +11,7 @@
         <result column="email" property="email" />
         <result column="nickName" property="nickName" />
         <result column="avatarUrl" property="avatarUrl" />
+        <result column="gender" property="gender" />
         <result column="createDate" property="createDate" />
         <result column="updateDate" property="updateDate" />
     </resultMap>

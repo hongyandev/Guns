@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -23,6 +26,7 @@ public class AppUser extends Model<AppUser> {
     /**
      * 主键
      */
+    @TableId(value = "userId",type = IdType.INPUT)
     private String userId;
     private String password;
 	private String userName;
@@ -30,7 +34,8 @@ public class AppUser extends Model<AppUser> {
     private String email;
     private String nickName;
     private String avatarUrl;
-    private Date createDate;
+    private String gender;
+	private Date createDate;
     private Date updateDate;
 
 
@@ -89,6 +94,14 @@ public class AppUser extends Model<AppUser> {
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
+    
+    public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
     public Date getCreateDate() {
         return createDate;
@@ -121,6 +134,7 @@ public class AppUser extends Model<AppUser> {
         ", email=" + email +
         ", nickName=" + nickName +
         ", avatarUrl=" + avatarUrl +
+        ", gender=" + gender +
         ", createDate=" + createDate +
         ", updateDate=" + updateDate +
         "}";

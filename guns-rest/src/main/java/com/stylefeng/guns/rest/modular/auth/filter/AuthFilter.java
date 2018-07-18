@@ -38,7 +38,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (StringUtils.contains(request.getServletPath(), "/auth")) {
+        if (StringUtils.startsWith(request.getServletPath(), jwtProperties.getAuthPath())) {
             chain.doFilter(request, response);
             return;
         }
@@ -66,4 +66,8 @@ public class AuthFilter extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
+    
+    public static void main(String[] args) {
+		System.out.println(StringUtils.contains("/oauth2/get_access_token", "auth"));
+	}
 }

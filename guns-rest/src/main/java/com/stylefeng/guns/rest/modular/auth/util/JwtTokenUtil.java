@@ -131,6 +131,43 @@ public class JwtTokenUtil {
                 .signWith(SignatureAlgorithm.HS512, jwtProperties.getSecret())
                 .compact();
     }
+    
+    /**
+     * 生成 accessToken
+     * @param subject
+     * @param expiration
+     * @return
+     */
+    public String accessToken(String subject,Map<String, Object> claims ,Long expiration) {
+    	final Date createDate = new Date();
+    	final Date expirationDate = new Date(createDate.getTime() + expiration * 1000);
+    	
+    	return Jwts.builder()
+    			.setClaims(claims)
+    			.setSubject(subject)
+    			.setIssuedAt(createDate)
+    			.setExpiration(expirationDate)
+    			.signWith(SignatureAlgorithm.HS512, jwtProperties.getSecret())
+    			.compact();
+    }
+    
+    /**
+     * 生成 refreshToken
+     * @param subject
+     * @param expiration
+     * @return
+     */
+    public String refreshToken(String subject, Long expiration) {
+    	final Date createDate = new Date();
+    	final Date expirationDate = new Date(createDate.getTime() + expiration * 1000);
+    	
+    	return Jwts.builder()
+    			.setSubject(subject)
+    			.setIssuedAt(createDate)
+    			.setExpiration(expirationDate)
+    			.signWith(SignatureAlgorithm.HS512, jwtProperties.getSecret())
+    			.compact();
+    }
 
     /**
      * 获取混淆MD5签名用的随机字符串
