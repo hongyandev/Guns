@@ -184,6 +184,9 @@ public class ProductController extends BaseController {
         return SUCCESS_TIP;
     }
     
+    /**
+     * 图片上传
+     */
     @RequestMapping(value = "/uploadProductImage")
     public Object uploadProductImage(@RequestParam("file") MultipartFile file,@RequestParam String productId) {
     	if(file.isEmpty())
