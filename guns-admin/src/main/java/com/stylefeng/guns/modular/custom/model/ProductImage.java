@@ -1,6 +1,7 @@
 package com.stylefeng.guns.modular.custom.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -29,9 +30,9 @@ public class ProductImage extends Model<ProductImage> {
     private String fileKey;
     private String fileRealPath;
     private Long fileSize;
+    private Date lastModify;
 
-
-    public String getProductKey() {
+	public String getProductKey() {
         return productKey;
     }
 
@@ -78,6 +79,14 @@ public class ProductImage extends Model<ProductImage> {
     public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
+    
+    public Date getLastModify() {
+		return lastModify;
+	}
+
+	public void setLastModify(Date lastModify) {
+		this.lastModify = lastModify;
+	}
 
     @Override
     protected Serializable pkVal() {
@@ -93,6 +102,7 @@ public class ProductImage extends Model<ProductImage> {
         ", fileKey=" + fileKey +
         ", fileRealPath=" + fileRealPath +
         ", fileSize=" + fileSize +
+        ", lastModify=" + lastModify +
         "}";
     }
 }

@@ -188,6 +188,7 @@ public class ProductController extends BaseController {
      * 图片上传
      */
     @RequestMapping(value = "/uploadProductImage")
+    @ResponseBody
     public Object uploadProductImage(@RequestParam("file") MultipartFile file,@RequestParam String productId) {
     	if(file.isEmpty())
     		return new ErrorTip(BizExceptionEnum.FILE_NOT_FOUND);
