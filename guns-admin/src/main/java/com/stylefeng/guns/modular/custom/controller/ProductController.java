@@ -179,10 +179,14 @@ public class ProductController extends BaseController {
      */
     @RequestMapping(value = "/updateFunAttri")
     @ResponseBody
-    public Object update(ProductFunattri funattri) {
+    public Object updateFunAttri(ProductFunattri funattri) {
     	productService.updateFunattriByProductKey(funattri);
         return SUCCESS_TIP;
     }
+    
+    public static void main(String[] args) {
+		System.out.println(new Date());
+	}
     
     /**
      * 图片上传
@@ -200,6 +204,16 @@ public class ProductController extends BaseController {
 			e.printStackTrace();
 			throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, path);
 		}
+    	return SUCCESS_TIP;
+    }
+    
+    /**
+     * 删除产品图片
+     */
+    @RequestMapping(value = "/deleteProductImage/{productId}")
+    @ResponseBody
+    public Object deleteProductImage(@PathVariable("productId") String productId) {
+    	productService.deleteProductImage(productId);
     	return SUCCESS_TIP;
     }
 }

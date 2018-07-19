@@ -31,5 +31,7 @@ public interface IProductService extends IService<Product> {
 	
 	public ProductImage selectImageByProductKey(String productKey);
 	
-	public void saveProductImage(String productKey,FilePath path); 
+	public void saveProductImage(String productKey,FilePath path);
+	
+	public void deleteProductImage(String productKey);
 }
