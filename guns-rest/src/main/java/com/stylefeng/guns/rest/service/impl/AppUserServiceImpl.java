@@ -31,7 +31,6 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
 	
 	@Override
 	public Result<Object> sendIcode(String telephone) {
-		// TODO Auto-generated method stub
 		if (!ToolUtil.isPhoneLegal(telephone))
 			throw new GunsException(ResultEnum.TELEPHONE_INVALID);
 		
@@ -39,7 +38,6 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
 			smsUtil.sendDySms(telephone, "SMS_109740618", "{\"code\":\""+smsUtil.getIcode(telephone)+"\"}", null);
 			return ResultUtil.success();
 		} catch (ClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResultUtil.failure(ResultEnum.CUSTOME_ERROR.getCode(), e.getMessage());
 		}
