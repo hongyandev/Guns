@@ -1,22 +1,37 @@
-@/*
-    头像参数的说明:
-    name : 名称
-    id : 头像的id
-@*/
-<div class="form-group">
-    <label class="col-sm-3 control-label head-scu-label">${name}</label>
-    <div class="col-sm-4">
-        <div id="${id}PreId">
-        </div>
-    </div>
-    <div class="col-sm-2">
-        <div class="head-scu-btn upload-btn" id="${id}BtnId">
-            <i class="fa fa-upload"></i>&nbsp;上传
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+                <div class="page-container">
+                    <div id="${id}" class="webuploader wu-example">
+                        <div class="queueList">
+                            <div id="${id}Area" class="placeholder">
+                                <div id="${id}Picker"></div>
+                                <p>或将照片拖到这里，单次最多可选${fileNumLimit}张</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div>
+                            <div class="info"></div>
+                            <div class="btns">
+                                <div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
-@if(isNotEmpty(underline) && underline == 'true'){
-    <div class="hr-line-dashed"></div>
-@}
-
+<script>
+    var imagesUp = new $WebUploadMult({
+    	pictureId: "${id}",
+    	uploadUrl: "${uploadUrl}",
+    	fileNumLimit: ${fileNumLimit!1},
+    	fileSizeLimit: ${fileSizeLimit!5},
+    	fileSingleSizeLimit: ${fileSingleSizeLimit!1}
+    });
+    imagesUp.init();
+</script>
 

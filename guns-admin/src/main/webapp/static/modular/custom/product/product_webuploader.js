@@ -79,7 +79,7 @@ jQuery(function() {
         },
 
         // swf文件路径
-        swf: BASE_URL + '/Uploader.swf',
+        swf: Feng.ctxPath + '/static/js/plugins/webuploader/Uploader.swf',
 
         disableGlobalDnd: false,
 
