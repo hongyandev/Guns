@@ -1,17 +1,22 @@
 package com.stylefeng.guns.core.aop;
 
 import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.core.common.exception.FileUploadException;
 import com.stylefeng.guns.core.common.exception.InvalidKaptchaException;
+import com.stylefeng.guns.core.common.file.FilePath;
 import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.log.LogManager;
 import com.stylefeng.guns.core.log.factory.LogTaskFactory;
 import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.util.OssUtil;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.CredentialsException;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.List;
 
 import static com.stylefeng.guns.core.support.HttpKit.getIp;
 import static com.stylefeng.guns.core.support.HttpKit.getRequest;
@@ -36,6 +42,20 @@ import static com.stylefeng.guns.core.support.HttpKit.getRequest;
 public class GlobalExceptionHandler {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private OssUtil ossUtil;
+    
+    /**
+     * 拦截文件上传异常
+     */
+    @ExceptionHandler(FileUploadException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorTip uploadError(FileUploadException e) {
+    	List<FilePath> paths = e.getPaths();
+    	ossUtil.deleteObjects(paths);
+    	return new ErrorTip(e.getCode(),e.getMessage());
+    }
 
     /**
      * 拦截业务异常

@@ -5,6 +5,7 @@ import com.stylefeng.guns.aliyun.iotx.api.client.ProductResponse;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.common.enums.IotEnum;
 import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
+import com.stylefeng.guns.core.common.file.FilePath;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
@@ -14,6 +15,7 @@ import com.stylefeng.guns.modular.custom.dao.ProductMapper;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
+import com.stylefeng.guns.modular.custom.model.ProductImage;
 import com.stylefeng.guns.modular.custom.service.IProductService;
 
 import com.alibaba.fastjson.JSONObject;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,5 +112,20 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         productExtendMapper.delete(wrapper);
         productFunattriMapper.deleteById(productKey);
         productImageMapper.deleteById(productKey);
+	}
+
+	@Override
+	public ProductImage selectImageByProductKey(String productKey) {
+		// TODO Auto-generated method stub
+		return productImageMapper.selectById(productKey);
+	}
+
+	@Override
+	public void saveProductImage(String productKey, FilePath path) {
+		// TODO Auto-generated method stub
+		ProductImage image = new ProductImage();
+		BeanUtils.copyProperties(path, image);
+		image.setProductKey(productKey);
+		image.insertOrUpdate();
 	}
 }
