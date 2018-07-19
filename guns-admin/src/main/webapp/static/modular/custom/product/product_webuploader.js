@@ -1,3 +1,4 @@
+
 jQuery(function() {
     var $ = jQuery,    // just in case. Make sure it's not an other libaray.
 
@@ -44,10 +45,10 @@ jQuery(function() {
         supportTransition = (function(){
             var s = document.createElement('p').style,
                 r = 'transition' in s ||
-                      'WebkitTransition' in s ||
-                      'MozTransition' in s ||
-                      'msTransition' in s ||
-                      'OTransition' in s;
+                    'WebkitTransition' in s ||
+                    'MozTransition' in s ||
+                    'msTransition' in s ||
+                    'OTransition' in s;
             s = null;
             return r;
         })(),
@@ -70,9 +71,6 @@ jQuery(function() {
         },
         dnd: '#uploader .queueList',
         paste: document.body,
-        formData:{
-            "productId": $('#productKey').val(),
-        },
         fileVal:'file',
         accept: {
             title: 'Images',
@@ -98,14 +96,20 @@ jQuery(function() {
         id: '#filePicker2',
         label: '继续添加'
     });
+    $(".imgShow").on( 'mouseenter', function() {
+        $(".file-panels").stop().animate({height: 30});
+    });
 
+    $(".imgShow").on( 'mouseleave', function() {
+        $(".file-panels").stop().animate({height: 0});
+    });
     // 当有文件添加进来时执行，负责view的创建
     function addFile( file ) {
         var $li = $( '<li id="' + file.id + '">' +
-                '<p class="title">' + file.name + '</p>' +
-                '<p class="imgWrap"></p>'+
-                '<p class="progress"><span></span></p>' +
-                '</li>' ),
+            '<p class="title">' + file.name + '</p>' +
+            '<p class="imgWrap"></p>'+
+            '<p class="progress"><span></span></p>' +
+            '</li>' ),
 
             $btns = $('<div class="file-panel">' +
                 '<span class="cancel">删除</span>' +
@@ -271,7 +275,7 @@ jQuery(function() {
 
         if ( state === 'ready' ) {
             text = '选中' + fileCount + '张图片，共' +
-                    WebUploader.formatSize( fileSize ) + '。';
+                WebUploader.formatSize( fileSize ) + '。';
         } else if ( state === 'confirm' ) {
             stats = uploader.getStats();
             if ( stats.uploadFailNum ) {
@@ -282,8 +286,8 @@ jQuery(function() {
         } else {
             stats = uploader.getStats();
             text = '共' + fileCount + '张（' +
-                    WebUploader.formatSize( fileSize )  +
-                    '），已上传' + stats.successNum + '张';
+                WebUploader.formatSize( fileSize )  +
+                '），已上传' + stats.successNum + '张';
 
             if ( stats.uploadFailNum ) {
                 text += '，失败' + stats.uploadFailNum + '张';
@@ -346,7 +350,7 @@ jQuery(function() {
             case 'finish':
                 stats = uploader.getStats();
                 if ( stats.successNum ) {
-                    alert( '上传成功' );
+                    Feng.alert( '上传成功' );
                 } else {
                     // 没有成功的图片，重设
                     state = 'done';
@@ -399,6 +403,10 @@ jQuery(function() {
         data.file = obj.file
     });
 
+    uploader.on('uploadSuccess', function (file, response) {
+        $('.filelist').append('<input name="package[]" type="hidden" value="' + response._raw + '">')
+    });
+
     uploader.on( 'all', function( type ) {
         var stats;
         switch( type ) {
@@ -429,19 +437,7 @@ jQuery(function() {
         }
     };
 
-    //保存从后台返回的图片url
-    var PhotoUrlArray = new Array();
-    function PhotoUrl(productKey, filePath) {
-        this.productId = productKey;
-        this.filePath = filePath;
-    }
 
-    // 文件上传成功执行方法
-    uploader.on('uploadSuccess', function (file, response) {
-        $('#' + file.id).addClass('upload-state-done');
-        //将上传的url保存到数组
-        PhotoUrlArray.push(new PhotoUrl(response.id, response.filePath));
-    });
 
     $upload.on('click', function() {
         if ( $(this).hasClass( 'disabled' ) ) {

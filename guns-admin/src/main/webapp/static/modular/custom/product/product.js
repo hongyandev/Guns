@@ -165,14 +165,17 @@ Product.detailExtend = function() {
  */
 Product.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/product/delete", function (data) {
-            Feng.success("删除成功!");
-            Product.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("productId",this.seItem.productKey);
-        ajax.start();
+        var operation = function (){
+            var ajax = new $ax(Feng.ctxPath + "/product/delete", function (data) {
+                Feng.success("删除成功!");
+                Product.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("productId",Product.seItem.productKey);
+            ajax.start();
+        }
+        Feng.confirm("是否刪除该产品?", operation);
     }
 };
 
