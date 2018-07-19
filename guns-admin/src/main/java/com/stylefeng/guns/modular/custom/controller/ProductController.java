@@ -1,12 +1,18 @@
 package com.stylefeng.guns.modular.custom.controller;
 
 import com.stylefeng.guns.core.base.controller.BaseController;
+import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.base.tips.SuccessTip;
+import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.core.common.exception.FileUploadException;
+import com.stylefeng.guns.core.common.file.FilePath;
+import com.stylefeng.guns.core.util.OssUtil;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,15 +26,14 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 
-import com.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
+import com.stylefeng.guns.modular.custom.model.ProductImage;
 import com.stylefeng.guns.modular.custom.service.IProductService;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +53,9 @@ public class ProductController extends BaseController {
 
     @Autowired
     private IProductService productService;
+    
+    @Autowired
+    private OssUtil ossUtil;
 
     /**
      * 跳转到product首页
@@ -70,7 +78,12 @@ public class ProductController extends BaseController {
      * 跳转到product uploadImg
      */
     @RequestMapping("/product_uploadImg/{productId}")
-    public String productUploadImg(@PathVariable String productId) {
+    public String productUploadImg(@PathVariable String productId, Model model) {
+    	ProductImage image = productService.selectImageByProductKey(productId);
+    	if (Objects.isNull(image))
+    			image = new ProductImage();
+    			image.setProductKey(productId);
+    	model.addAttribute("item", image);
         return PREFIX + "product_uploadImg.html";
     }
 
@@ -169,5 +182,20 @@ public class ProductController extends BaseController {
     public Object update(ProductFunattri funattri) {
     	productService.updateFunattriByProductKey(funattri);
         return SUCCESS_TIP;
+    }
+    
+    @RequestMapping(value = "/uploadProductImage")
+    public Object uploadProductImage(@RequestParam("file") MultipartFile file,@RequestParam String productId) {
+    	if(file.isEmpty())
+    		return new ErrorTip(BizExceptionEnum.FILE_NOT_FOUND);
+    	FilePath path = ossUtil.transferTo(file);
+    	try {
+			productService.saveProductImage(productId, path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, path);
+		}
+    	return SUCCESS_TIP;
     }
 }
