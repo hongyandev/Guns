@@ -76,17 +76,17 @@ Product.openAddProduct = function () {
  * 点击添加product 功能属性
  */
 Product.openAddAttribute = function () {
-	if(this.check()){
-	    var index = layer.open({
-	        type: 2,
-	        title: '添加功能属性',
-	        area: ['800px', '420px'], //宽高
-	        fix: false, //不固定
-	        maxmin: true,
-	        content: Feng.ctxPath + '/product/product_addAttribute/'+Product.seItem.productKey
-	    });
-	    this.layerIndex = index;
-	}
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '添加功能属性',
+            area: ['800px', '420px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/product/product_addAttribute/'+Product.seItem.productKey
+        });
+    this.layerIndex = index;
+    }
 };
 
 /**
@@ -94,11 +94,16 @@ Product.openAddAttribute = function () {
  */
 Product.openProductUploadImg = function () {
     if (this.check()) {
-
+        var index = layer.open({
+            type: 2,
+            title: '图片管理',
+            area: ['800px', '420px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/product/product_uploadImg/'+Product.seItem.productKey
+        });
+        this.layerIndex = index;
     }
-
-
-
 };
 
 /**
@@ -113,7 +118,7 @@ Product.openProductDetail = function () {
                 content: '<iframe width="100%" height="370" frameborder="0" scrolling="auto" src="'+Feng.ctxPath+'/product/detail/'+Product.seItem.productKey+'" ></iframe>'
             }, {
                 title: '主表属性',
-                content: '<iframe width="100%" height="370" frameborder="0" scrolling="auto" src="'+Feng.ctxPath+'/product/detailExtend/'+Product.seItem.productKey+'"></iframe>'
+                content: '<iframe width="100%" height="370" frameborder="0" scrolling="auto" src="'+Feng.ctxPath+'/product/product_addAttribute/'+Product.seItem.productKey+'"></iframe>'
             }]
         });
         this.layerIndex = index;

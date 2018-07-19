@@ -69,8 +69,8 @@ public class ProductController extends BaseController {
     /**
      * 跳转到product uploadImg
      */
-    @RequestMapping("/product_uploadImg")
-    public String productUploadImg() {
+    @RequestMapping("/product_uploadImg/{productId}")
+    public String productUploadImg(@PathVariable String productId) {
         return PREFIX + "product_uploadImg.html";
     }
 

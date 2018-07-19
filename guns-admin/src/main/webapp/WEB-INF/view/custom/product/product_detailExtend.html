@@ -1,13 +1,14 @@
 @layout("/common/_container.html"){
 <link href="${ctxPath}/static/css/plugins/codemirror/codemirror.css" rel="stylesheet">
-<link href="${ctxPath}/static/css/plugins/codemirror/ambiance.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/plugins/codemirror/duotone-light.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/plugins/codemirror/darcula.css" rel="stylesheet">
 <div class="ibox float-e-margins">
-    <div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="wrapper animated fadeInRight">
         <div class="row">
             <div class="col-sm-12">
-                <div class="ibox ">
-
-                        <textarea id="code1"></textarea>
+                <div class="ibox">
+                    <input type="hidden" id="productKey" value="${item.productKey}">
+                    <textarea id="funAttri" >${item.funAttri!}</textarea>
                 </div>
             </div>
         </div>
@@ -22,18 +23,24 @@
 
 <!-- 自定义js -->
 <script src="${ctxPath}/static/js/content.js?v=1.0.0"></script>
-
 <script>
-    $(document).ready(function () {
 
-        var editor = CodeMirror.fromTextArea(document.getElementById("code1"), {
-            lineNumbers: true,
-            matchBrackets: true,
-            styleActiveLine: true,
-            theme: "foo"
-        });
-
-
+    var editor = CodeMirror.fromTextArea(document.getElementById("funAttri"), {
+        mode:'text/javascript',
+        lineNumbers: true,
+        indentUnit: 4,
+        smartIndent : true,
+        matchBrackets: true,
+        styleActiveLine: true,
+        showCursorWhenSelecting : true,
+        foldGutter: true,
+        readOnly : true,
+        /* gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],*/
+        lineWrapping: true,
+        theme:'darcula duotone-light'
     });
+    editor.setValue($("#funAttri").html());
+
 </script>
+<script src="${ctxPath}/static/modular/custom/product/product_info.js"></script>
 @}

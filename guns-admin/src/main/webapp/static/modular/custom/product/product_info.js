@@ -47,6 +47,7 @@ ProductInfoDlg.collectData = function() {
     this
     .set('tenantId')
     .set('productKey')
+    .set('funAttri')
     .set('dataFormat')
     .set('netType')
     .set('productSecret')
@@ -71,6 +72,12 @@ ProductInfoDlg.collectData = function() {
     .set('iotPackage');
 }
 
+
+ProductInfoDlg.collectFunctionData = function(){
+    this
+        .set('productKey')
+        .set('funAttri');
+}
 /**
  * 提交添加
  */
@@ -111,6 +118,22 @@ ProductInfoDlg.editSubmit = function() {
     ajax.start();
 }
 
-$(function() {
+ProductInfoDlg.editAttributeSubmit = function() {
 
-});
+    this.clearData();
+    editor.save();
+    var funattri = $("#funAttri").val();
+    this
+        .set('productKey')
+        .set('funAttri',funattri);
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/product/updateFunAttri", function(data){
+        Feng.success("修改成功!");
+        ProductInfoDlg.close();
+    },function(data){
+        Feng.error("修改失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.productInfoData);
+    ajax.start();
+}
