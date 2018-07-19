@@ -16,6 +16,7 @@ import com.stylefeng.guns.modular.custom.model.ProductFunattri;
  * @since 2018-07-12
  */
 public interface IProductService extends IService<Product> {
+	
 	public void pullProductInfoFromIot(Product product) throws Exception;
 	
 	public List<ProductExtend> selectByProductKey(String productKey);
@@ -23,4 +24,6 @@ public interface IProductService extends IService<Product> {
 	public ProductFunattri selectFunattriByProductKey(String productKey);
 	
 	public void updateFunattriByProductKey(ProductFunattri funattri);
+	
+	public void deleteProductAndRelated(String productKey);
 }

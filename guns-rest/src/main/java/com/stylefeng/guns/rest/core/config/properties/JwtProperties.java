@@ -21,7 +21,7 @@ public class JwtProperties {
 
     private Long expiration = 604800L;
 
-    private String authPath = "auth";
+    private String authPath = "/oauth";
 
     private String md5Key = "randomKey";
 

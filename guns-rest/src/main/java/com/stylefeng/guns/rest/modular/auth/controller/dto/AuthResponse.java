@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * 认证的响应结果
  *
- * @author fengshuonan
- * @Date 2017/8/24 13:58
+ * @author guanqing
+ * @Date 2018/7/16 21:58
  */
 public class AuthResponse implements Serializable {
 
@@ -21,10 +21,16 @@ public class AuthResponse implements Serializable {
      * 用于客户端混淆md5加密
      */
     private final String randomKey;
+    
+    /**
+     * 颁发给阿里的authCode
+     */
+    private final String authCode;
 
-    public AuthResponse(String token, String randomKey) {
+	public AuthResponse(String token, String randomKey, String authCode) {
         this.token = token;
         this.randomKey = randomKey;
+        this.authCode = authCode;
     }
 
     public String getToken() {
@@ -34,4 +40,8 @@ public class AuthResponse implements Serializable {
     public String getRandomKey() {
         return randomKey;
     }
+    
+    public String getAuthCode() {
+		return authCode;
+	}
 }
