@@ -261,6 +261,12 @@ $(function () {
     var avatarUp = new $WebUpload("avatar");
     avatarUp.setUploadBarId("progressBar");
     avatarUp.init();
-
-
+    
+    // 初始化图片上传
+    var pictureUp = new $WebUploadMult({
+    	pictureId: "upload",
+    	uploadUrl: "/mgr/upload"
+    });
+    pictureUp.setUploadBarId("progressBar");
+    pictureUp.init();
 });

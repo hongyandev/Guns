@@ -9,6 +9,7 @@ import com.stylefeng.guns.core.common.file.FilePath;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.core.util.OssUtil;
+import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductFunattriMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductImageMapper;
@@ -26,6 +27,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -134,9 +136,32 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	@Override
 	public void saveProductImage(String productKey, FilePath path) {
 		// TODO Auto-generated method stub
-		ProductImage image = new ProductImage();
-		BeanUtils.copyProperties(path, image);
-		image.setProductKey(productKey);
-		image.insertOrUpdate();
+		ProductImage image = productImageMapper.selectById(productKey);
+		if (Objects.nonNull(image)) {
+			FilePath filePath = new FilePath();
+			BeanUtils.copyProperties(image, filePath);
+			ossUtil.deleteObjects(Arrays.asList(filePath));
+			BeanUtils.copyProperties(path, image);
+			image.setLastModify(new Date());
+			image.updateById();
+		}else {
+			image = new ProductImage();
+			BeanUtils.copyProperties(path, image);
+			image.setProductKey(productKey);
+			image.setLastModify(new Date());
+			image.insert();
+		}
+	}
+
+	@Override
+	public void deleteProductImage(String productKey) {
+		// TODO Auto-generated method stub
+		ProductImage image = productImageMapper.selectById(productKey);
+		if(Objects.nonNull(image)) {
+			FilePath filePath = new FilePath();
+			BeanUtils.copyProperties(image, filePath);
+			productImageMapper.deleteById(productKey);
+			ossUtil.deleteObjects(Arrays.asList(filePath));
+		}
 	}
 }

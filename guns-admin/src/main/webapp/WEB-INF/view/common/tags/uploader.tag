@@ -7,12 +7,6 @@
     <label class="col-sm-3 control-label head-scu-label">${name}</label>
     <div class="col-sm-4">
         <div id="${id}PreId">
-            <div><img width="100px" height="100px"
-                @if(isEmpty(avatarImg)){
-                      src="${ctxPath}/static/img/body.png"></div>
-                @}else{
-                      src="${ctxPath}/kaptcha/${avatarImg}"></div>
-                @}
         </div>
     </div>
     <div class="col-sm-2">
@@ -20,7 +14,6 @@
             <i class="fa fa-upload"></i>&nbsp;上传
         </div>
     </div>
-    <input type="hidden" id="${id}" value="${avatarImg!}"/>
 </div>
 @if(isNotEmpty(underline) && underline == 'true'){
     <div class="hr-line-dashed"></div>
