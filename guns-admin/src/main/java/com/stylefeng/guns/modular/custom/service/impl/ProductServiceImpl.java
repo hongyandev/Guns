@@ -8,6 +8,7 @@ import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
 import com.stylefeng.guns.core.common.file.FilePath;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
+import com.stylefeng.guns.core.util.OssUtil;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductFunattriMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductImageMapper;
@@ -24,10 +25,12 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +59,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     ProductImageMapper productImageMapper;
     @Autowired
     AliyunProperties aliyunProperties;
+    @Autowired
+    OssUtil ossUtil;
 
     @Override
     @Transactional
@@ -111,7 +116,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         Wrapper<ProductExtend> wrapper = entityWrapper.eq("productKey", productKey);
         productExtendMapper.delete(wrapper);
         productFunattriMapper.deleteById(productKey);
+        ProductImage image = productImageMapper.selectById(productKey);
         productImageMapper.deleteById(productKey);
+        if(Objects.nonNull(image) && StringUtils.isNotBlank(image.getFileKey())) {
+        	FilePath path = new FilePath();
+        	BeanUtils.copyProperties(image, path);
+        	ossUtil.deleteObjects(Arrays.asList(path));
+        }
 	}
 
 	@Override
