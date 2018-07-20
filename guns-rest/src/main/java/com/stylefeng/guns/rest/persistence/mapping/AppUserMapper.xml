@@ -16,4 +16,8 @@
         <result column="updateDate" property="updateDate" />
     </resultMap>
 
+	<update id="modifyPwd">
+		update app_user set password = #{password},updateDate=now() where userName = #{userName}
+	</update>
+
 </mapper>

@@ -66,8 +66,4 @@ public class AuthFilter extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
-    
-    public static void main(String[] args) {
-		System.out.println(StringUtils.contains("/oauth2/get_access_token", "auth"));
-	}
 }

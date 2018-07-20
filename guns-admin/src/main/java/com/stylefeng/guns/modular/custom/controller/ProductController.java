@@ -184,10 +184,6 @@ public class ProductController extends BaseController {
         return SUCCESS_TIP;
     }
     
-    public static void main(String[] args) {
-		System.out.println(new Date());
-	}
-    
     /**
      * 图片上传
      */

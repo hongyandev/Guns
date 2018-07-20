@@ -2,7 +2,17 @@ package com.stylefeng.guns.rest.web;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.stylefeng.guns.rest.core.domain.Result;
+import com.stylefeng.guns.rest.core.utils.ResultUtil;
+import com.stylefeng.guns.rest.model.AppUser;
+import com.stylefeng.guns.rest.service.impl.AppUserServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -17,5 +27,19 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/appUser")
 public class AppUserController {
 
+	@Autowired
+	private AppUserServiceImpl appUserServiceImpl;
+	
+	@RequestMapping(value = "/modifyAppUser",method = RequestMethod.POST)
+	@ResponseBody
+	public Result<Object> modifyAppUser(AppUser appUser){
+		appUserServiceImpl.updateById(appUser);
+		return ResultUtil.success();
+	}
+	
+	@RequestMapping(value = "/modifyHeadImge")
+	public Result<Object> modifyHeadImge(@RequestParam("file") MultipartFile file,String userId){
+		return null;
+	}
 }
 

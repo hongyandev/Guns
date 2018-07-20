@@ -26,11 +26,17 @@ public class AuthResponse implements Serializable {
      * 颁发给阿里的authCode
      */
     private final String authCode;
+    
+    /**
+     * 用户唯一id
+     */
+    private final String userId;
 
-	public AuthResponse(String token, String randomKey, String authCode) {
+	public AuthResponse(String token, String randomKey, String authCode,String userId) {
         this.token = token;
         this.randomKey = randomKey;
         this.authCode = authCode;
+        this.userId = userId;
     }
 
     public String getToken() {
@@ -43,5 +49,9 @@ public class AuthResponse implements Serializable {
     
     public String getAuthCode() {
 		return authCode;
+	}
+    
+	public String getUserId() {
+		return userId;
 	}
 }

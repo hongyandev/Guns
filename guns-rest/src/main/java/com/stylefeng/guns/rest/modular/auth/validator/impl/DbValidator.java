@@ -41,10 +41,11 @@ public class DbValidator implements IReqValidator {
 				break;
 			}
 		case SMS_TYPE:{
-				Object icode = redisUtil.get("getIcode."+credence.getCredenceName());
+				String codeKey = "getLoginIcode." + credence.getCredenceName();
+				Object icode = redisUtil.get(codeKey);
 				if (Objects.isNull(icode) || !icode.equals(credence.getCredenceCode()))
 					throw new GunsException(ResultEnum.CODE_INVALID);
-				redisUtil.remove("getIcode."+credence.getCredenceName());
+				redisUtil.remove(codeKey);
 				AppUser entity = new AppUser();
 				entity.setUserName(credence.getCredenceName());
 				user = appUserMapper.selectOne(entity);
@@ -55,15 +56,4 @@ public class DbValidator implements IReqValidator {
 		}
 		return user;
 	}
-
-    /*@Override
-    public boolean validate(Credence credence) {
-        List<AppUser> users = appUserMapper.selectList(new EntityWrapper<AppUser>().eq("userName", credence.getCredenceName()));
-        if (users != null && users.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
-
 }

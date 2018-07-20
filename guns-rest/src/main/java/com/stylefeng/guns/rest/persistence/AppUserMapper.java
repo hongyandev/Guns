@@ -17,4 +17,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 @Mapper
 public interface AppUserMapper extends BaseMapper<AppUser> {
 
+	void modifyPwd(AppUser user);
+
 }
