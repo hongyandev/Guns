@@ -11,8 +11,8 @@ public class ResultUtil {
 	
 	public static Result<Object> success(Object object){
 		Result<Object> result = new Result<>();
-		result.setCode(ResultEnum.ALI_SUCCESS_FLAG.getCode());
-		result.setMsg(ResultEnum.ALI_SUCCESS_FLAG.getMessage());
+		result.setCode(ResultEnum.SUCCESS_FLAG.getCode());
+		result.setMsg(ResultEnum.SUCCESS_FLAG.getMessage());
 		result.setData(object);
 		return result;
 	}

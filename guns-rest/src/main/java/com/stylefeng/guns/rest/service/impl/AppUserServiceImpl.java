@@ -2,14 +2,18 @@ package com.stylefeng.guns.rest.service.impl;
 
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.guns.rest.core.domain.FilePath;
 import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.enums.ResultEnum;
+import com.stylefeng.guns.rest.core.utils.OssUtil;
 import com.stylefeng.guns.rest.core.utils.RedisUtil;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
 import com.stylefeng.guns.rest.core.utils.SmsUtil;
 import com.stylefeng.guns.rest.model.AppUser;
+import com.stylefeng.guns.rest.model.AppUserImage;
 import com.stylefeng.guns.rest.modular.auth.enums.RegisterType;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Smsdence;
+import com.stylefeng.guns.rest.persistence.AppUserImageMapper;
 import com.stylefeng.guns.rest.persistence.AppUserMapper;
 import com.stylefeng.guns.rest.service.IAppUserService;
 import com.aliyuncs.exceptions.ClientException;
@@ -17,9 +21,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +48,12 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
 	
 	@Autowired
 	private RedisUtil redisUtil;
+	
+	@Autowired
+	private AppUserImageMapper appUserImageMapper;
+	
+	@Autowired
+	private OssUtil ossUtil;
 
 	@Override
 	public Result<Object> sendIcode(Smsdence smsdence) throws ClientException {
@@ -116,6 +128,27 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
 			return ResultUtil.success();
 		}else {
 			return ResultUtil.failure(ResultEnum.CODE_INVALID);
+		}
+	}
+
+	@Override
+	public void modifyHeadImge(String userId, FilePath path) {
+		// TODO Auto-generated method stub
+		AppUserImage image = appUserImageMapper.selectById(userId);
+		
+		if (Objects.nonNull(image)) {
+			FilePath filePath = new FilePath();
+			BeanUtils.copyProperties(image, filePath);
+			ossUtil.deleteObjects(Arrays.asList(filePath));
+			BeanUtils.copyProperties(path, image);
+			image.setLastModify(new Date());
+			image.updateById();
+		}else {
+			image = new AppUserImage();
+			BeanUtils.copyProperties(path, image);
+			image.setUserId(userId);
+			image.setLastModify(new Date());
+			image.insert();
 		}
 	}
 }

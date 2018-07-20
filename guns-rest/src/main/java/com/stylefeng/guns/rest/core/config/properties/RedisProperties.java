@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 
+/**
+ * 阿里云相关配置
+ * create by guanqing
+ * 2018年7月14日 上午09:17:47
+ */
+
 @Data
 @Configuration
 @ConfigurationProperties(prefix = RedisProperties.REDIS_PREFIX)

@@ -22,6 +22,11 @@ public enum ResultEnum implements ServiceExceptionEnum {
 	/** 自有账号体系终 */
 
 	/**
+	 * 成功
+	 */
+	SUCCESS_FLAG(200,"成功"),
+	
+	/**
 	 * token异常
 	 */
 	TOKEN_EXPIRED(700001, "token过期"),
@@ -32,18 +37,18 @@ public enum ResultEnum implements ServiceExceptionEnum {
 	 */
 	SIGN_ERROR(700003, "签名验证失败"),
 	
+	FILE_UPLOAD_ERROR(400008,"文件上传异常"),
+	
 	/**
-	 * 业务
+	 * 用户
 	 */
-	TELEPHONE_REGISTED(400005,"手机号已被注册"),
+	FILE_NOT_FOUND(400007,"未找到文件"),
 	TELEPHONE_NOREGISTED(400006,"手机号未注册"),
-	/**
-	 * 其他
-	 */
-	AUTH_REQUEST_ERROR(400001, "账号密码错误"),
-	TELEPHONE_INVALID(400002, "手机号码无效"),
-	CODE_INVALID(400003, "验证码无效"),
+	TELEPHONE_REGISTED(400005,"手机号已被注册"),
 	AUTHCODE_ERROR(400004, "authCode生成异常"),
+	CODE_INVALID(400003, "验证码无效"),
+	TELEPHONE_INVALID(400002, "手机号码无效"),
+	AUTH_REQUEST_ERROR(400001, "账号密码错误"),
 	CUSTOME_ERROR(400000, "自定义错误");
 
 	ResultEnum(int code, String message) {
