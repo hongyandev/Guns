@@ -67,7 +67,6 @@ public class AuthController {
     	try {
 			return appUserServiceImpl.sendIcode(smsRequest);
 		} catch (ClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResultUtil.failure(ResultEnum.CUSTOME_ERROR.getCode(), e.getMessage());
 		}
