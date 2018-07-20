@@ -2,6 +2,7 @@ package com.stylefeng.guns.rest.persistence;
 
 import com.stylefeng.guns.rest.model.AppUserImage;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author guanqing123
  * @since 2018-07-20
  */
+@Mapper
 public interface AppUserImageMapper extends BaseMapper<AppUserImage> {
 
 }
