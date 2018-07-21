@@ -14,10 +14,12 @@ import com.stylefeng.guns.rest.modular.auth.controller.dto.TokenRequest;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.TokenResponse;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.rest.modular.auth.util.MD5Generator;
+import com.stylefeng.guns.rest.modular.auth.util.RestToolUtil;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.rest.service.IAppUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 请求验证的
@@ -47,9 +50,15 @@ public class AuthController {
     
     @Autowired
     private RedisUtil redisUtil;
+    
+    @Autowired
+    private RestToolUtil restToolUtil;
 
     @RequestMapping(value = "/authentication",method = RequestMethod.POST)
-    public Result<Object> authentication(AuthRequest authRequest) {
+    public Result<Object> authentication(@Valid AuthRequest authRequest,BindingResult result) {
+    	if (result.hasErrors())
+    		return ResultUtil.failure
+    				(ResultEnum.CUSTOME_ERROR.getCode(), restToolUtil.errorTranslate(result));
         AppUser appUser = reqValidator.validate(authRequest);
         if (Objects.nonNull(appUser)) {
             final String randomKey = jwtTokenUtil.getRandomKey();
@@ -65,7 +74,9 @@ public class AuthController {
     }
     
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
-    public Result<Object> refreshToken(TokenRequest tokenRequest){
+    public Result<Object> refreshToken(@Valid TokenRequest tokenRequest,BindingResult result) {
+    	if (result.hasErrors())
+    		return ResultUtil.failure(ResultEnum.CUSTOME_ERROR.getCode(), restToolUtil.errorTranslate(result));
     	AppUser appUser = appUserServiceImpl.selectById(tokenRequest.getUserId());
     	if (Objects.isNull(appUser))
     		return ResultUtil.failure(ResultEnum.TOKEN_REFRESH_ERROR);
@@ -81,7 +92,9 @@ public class AuthController {
     }
     
     @RequestMapping(value = "/sms",method = RequestMethod.POST)
-    public Result<Object> sms(SmsRequest smsRequest){
+    public Result<Object> sms(@Valid SmsRequest smsRequest,BindingResult result) {
+    	if (result.hasErrors())
+    		return ResultUtil.failure(ResultEnum.CUSTOME_ERROR.getCode(), restToolUtil.errorTranslate(result));
     	try {
 			return appUserServiceImpl.sendIcode(smsRequest);
 		} catch (ClientException e) {
@@ -91,12 +104,12 @@ public class AuthController {
     }
     
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public Result<Object> register(AppUser user,String code){
+    public Result<Object> register(AppUser user,String code) {
     	return appUserServiceImpl.register(user, code);
     }
     
     @RequestMapping(value = "/modifyPwd",method = RequestMethod.POST)
-    public Result<Object> modifyPwd(AppUser user,String code){
+    public Result<Object> modifyPwd(AppUser user,String code) {
     	return appUserServiceImpl.modifyPwd(user, code);
     }
 }
