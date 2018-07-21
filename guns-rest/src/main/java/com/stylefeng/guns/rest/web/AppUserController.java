@@ -1,6 +1,7 @@
 package com.stylefeng.guns.rest.web;
 
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,7 @@ public class AppUserController {
 	
 	@RequestMapping(value = "/modifyAppUser",method = RequestMethod.POST)
 	@ResponseBody
-	public Result<Object> modifyAppUser(AppUser appUser){
+	public Result<Object> modifyAppUser(@RequestBody AppUser appUser){
 		appUserServiceImpl.updateById(appUser);
 		return ResultUtil.success();
 	}

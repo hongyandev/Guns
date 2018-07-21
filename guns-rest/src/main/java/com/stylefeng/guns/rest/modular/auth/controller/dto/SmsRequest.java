@@ -3,10 +3,13 @@ package com.stylefeng.guns.rest.modular.auth.controller.dto;
 import com.stylefeng.guns.rest.modular.auth.enums.SmsType;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Smsdence;
 
+import lombok.Data;
+
 /**
 * create by guanqing
 * 2018年7月19日 下午2:54:44
 */
+@Data
 public class SmsRequest implements Smsdence {
 	
 	private String telephone;

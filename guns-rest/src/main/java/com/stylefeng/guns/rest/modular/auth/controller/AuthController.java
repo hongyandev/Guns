@@ -10,6 +10,8 @@ import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthRequest;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthResponse;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.SmsRequest;
+import com.stylefeng.guns.rest.modular.auth.controller.dto.TokenRequest;
+import com.stylefeng.guns.rest.modular.auth.controller.dto.TokenResponse;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.rest.modular.auth.util.MD5Generator;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
@@ -60,6 +62,22 @@ public class AuthController {
         } else {
             throw new GunsException(ResultEnum.AUTH_REQUEST_ERROR);
         }
+    }
+    
+    @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
+    public Result<Object> refreshToken(TokenRequest tokenRequest){
+    	AppUser appUser = appUserServiceImpl.selectById(tokenRequest.getUserId());
+    	if (Objects.isNull(appUser))
+    		return ResultUtil.failure(ResultEnum.TOKEN_REFRESH_ERROR);
+    	if(jwtTokenUtil.isTokenExpired(tokenRequest.getToken()))
+    		return ResultUtil.failure(ResultEnum.TOKEN_EXPIRED);
+    	String subject = jwtTokenUtil.getClaimFromToken(tokenRequest.getToken()).getSubject();
+    	if(!tokenRequest.getUserId().equals(subject))
+    		return ResultUtil.failure(ResultEnum.TOKEN_ERROR);
+    	final String randomKey = jwtTokenUtil.getRandomKey();
+    	final String token = jwtTokenUtil.generateToken(tokenRequest.getUserId(), randomKey);
+    	TokenResponse tokenResponse = new TokenResponse(token, randomKey);
+    	return ResultUtil.success(tokenResponse);
     }
     
     @RequestMapping(value = "/sms",method = RequestMethod.POST)
