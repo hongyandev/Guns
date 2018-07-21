@@ -5,6 +5,7 @@ import com.stylefeng.guns.rest.model.AppUserImage;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
