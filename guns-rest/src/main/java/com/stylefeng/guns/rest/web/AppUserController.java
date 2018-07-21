@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.stylefeng.guns.rest.core.domain.FilePath;
+import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.ResultOssEnum;
+import com.stylefeng.guns.core.exceptions.FileUploadException;
+import com.stylefeng.guns.core.utils.OssUtil;
 import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.enums.ResultEnum;
-import com.stylefeng.guns.rest.core.exceptions.FileUploadException;
-import com.stylefeng.guns.rest.core.utils.OssUtil;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.service.impl.AppUserServiceImpl;
@@ -54,9 +55,8 @@ public class AppUserController {
 		try {
 			appUserServiceImpl.modifyHeadImge(userId, path);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new FileUploadException(ResultEnum.FILE_UPLOAD_ERROR, path);
+			throw new FileUploadException(ResultOssEnum.FILE_UPLOAD_ERROR, path);
 		}
 		return ResultUtil.success();
 	}

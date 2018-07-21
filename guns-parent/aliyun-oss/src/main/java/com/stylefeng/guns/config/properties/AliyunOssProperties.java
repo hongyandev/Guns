@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.config.properties;
+package com.stylefeng.guns.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,8 +12,8 @@ import java.util.Map;
   */
 @Data
 @Component
-@ConfigurationProperties(prefix = AliyunProperties.ALIYUNCONF_PREFIX)
-public class AliyunProperties {
+@ConfigurationProperties(prefix = AliyunOssProperties.ALIYUNCONF_PREFIX)
+public class AliyunOssProperties {
 	public static final String ALIYUNCONF_PREFIX = "aliyun";
 
     Map<String, Object> oss;

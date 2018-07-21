@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.utils;
+package com.stylefeng.guns.core.utils;
 
 
 import java.text.MessageFormat;
@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.stylefeng.guns.rest.core.config.properties.AliyunProperties;
-import com.stylefeng.guns.rest.core.domain.FilePath;
-import com.stylefeng.guns.rest.core.enums.ResultEnum;
-import com.stylefeng.guns.rest.core.exceptions.FileUploadException;
+import com.stylefeng.guns.config.properties.AliyunOssProperties;
+import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.ResultOssEnum;
+import com.stylefeng.guns.core.exceptions.FileUploadException;
 import com.stylefeng.guns.core.util.ToolUtil;
 
 import jodd.datetime.JDateTime;
@@ -32,7 +32,7 @@ import com.aliyun.oss.OSSException;
 public class OssUtil {
 
     @Autowired
-    AliyunProperties aliyunProp;
+    AliyunOssProperties aliyunProp;
 
     // endpoint 是访问OSS的域名.
     private static String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
@@ -68,7 +68,7 @@ public class OssUtil {
             path.setFileSize(file.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FileUploadException(ResultEnum.FILE_UPLOAD_ERROR, path);
+            throw new FileUploadException(ResultOssEnum.FILE_UPLOAD_ERROR, path);
         } finally {
             ossClient.shutdown();
         }
@@ -122,7 +122,7 @@ public class OssUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FileUploadException(ResultEnum.FILE_UPLOAD_ERROR, paths);
+            throw new FileUploadException(ResultOssEnum.FILE_UPLOAD_ERROR, paths);
         } finally {
             ossClient.shutdown();
         }

@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.domain;
+package com.stylefeng.guns.core.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

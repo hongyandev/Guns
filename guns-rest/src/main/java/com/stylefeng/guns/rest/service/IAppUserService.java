@@ -1,6 +1,6 @@
 package com.stylefeng.guns.rest.service;
 
-import com.stylefeng.guns.rest.core.domain.FilePath;
+import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Smsdence;

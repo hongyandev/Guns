@@ -1,11 +1,11 @@
-package com.stylefeng.guns.rest.core.exceptions;
+package com.stylefeng.guns.core.exceptions;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.exception.ServiceExceptionEnum;
-import com.stylefeng.guns.rest.core.domain.FilePath;
+import com.stylefeng.guns.core.domain.FilePath;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

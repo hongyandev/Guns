@@ -1,11 +1,11 @@
 package com.stylefeng.guns.rest.service.impl;
 
+import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ToolUtil;
-import com.stylefeng.guns.rest.core.domain.FilePath;
+import com.stylefeng.guns.core.utils.OssUtil;
 import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.enums.ResultEnum;
-import com.stylefeng.guns.rest.core.utils.OssUtil;
 import com.stylefeng.guns.rest.core.utils.RedisUtil;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
 import com.stylefeng.guns.rest.core.utils.SmsUtil;
