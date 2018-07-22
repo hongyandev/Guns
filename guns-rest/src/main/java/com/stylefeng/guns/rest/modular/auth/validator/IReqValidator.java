@@ -20,4 +20,5 @@ public interface IReqValidator {
      * @Date 2017/8/23 11:49
      */
     AppUser validate(Credence credence);
+
 }

@@ -36,8 +36,7 @@ public enum ResultEnum implements ServiceExceptionEnum {
 	 * 签名异常
 	 */
 	SIGN_ERROR(700003, "签名验证失败"),
-	
-	FILE_UPLOAD_ERROR(400008,"文件上传异常"),
+
 	TOKEN_REFRESH_ERROR(400009,"token刷新出错"),
 	/**
 	 * 用户

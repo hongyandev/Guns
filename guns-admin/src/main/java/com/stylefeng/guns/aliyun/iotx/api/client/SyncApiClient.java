@@ -56,7 +56,7 @@ public final class SyncApiClient extends BaseApiClient {
         return getApiClassInstance(SyncApiClient.class);
     }
 
-    public ApiResponse postBody(String host, String path, IoTApiResponse request, boolean isHttps,
+    public ApiResponse postBody(String host, String path, IoTApiRequest request, boolean isHttps,
                                 Map<String, String> headers)
         throws UnsupportedEncodingException {
         byte[] body = JSONObject.toJSONString(request).getBytes("UTF-8");
@@ -70,13 +70,13 @@ public final class SyncApiClient extends BaseApiClient {
         return syncInvoke(apiRequest);
     }
 
-    public ApiResponse postBody(String host, String path, IoTApiResponse request, boolean isHttps)
+    public ApiResponse postBody(String host, String path, IoTApiRequest request, boolean isHttps)
         throws UnsupportedEncodingException {
 
         return postBody(host, path, request, isHttps, null);
     }
 
-    public ApiResponse postBody(String host, String path, IoTApiResponse request)
+    public ApiResponse postBody(String host, String path, IoTApiRequest request)
         throws UnsupportedEncodingException {
         return postBody(host, path, request, false, null);
     }

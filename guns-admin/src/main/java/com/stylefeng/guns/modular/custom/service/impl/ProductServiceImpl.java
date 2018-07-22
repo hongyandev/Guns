@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
-import com.stylefeng.guns.aliyun.iotx.api.client.ProductResponse;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.common.enums.IotEnum;
 import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
@@ -67,9 +67,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void pullProductInfoFromIot(Product product) throws Exception {
         Map<String, Object> params = Maps.newHashMap();
         params.put("productKey", product.getProductKey());
-        IoTApiResponse request = apiKit.initAliyunIoTApiRequest(IotEnum.fromCode(product.getIotPackage()), params, aliyunProperties.getApiVer(IotEnum.fromCode(product.getIotPackage()), "product"), true);
+        IoTApiRequest request = apiKit.initAliyunIoTApiRequest(IotEnum.fromCode(product.getIotPackage()), params, aliyunProperties.getApiVer(IotEnum.fromCode(product.getIotPackage()), "product"), true);
         String content = apiKit.doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.fromCode(product.getIotPackage())), "/cloud/thing/product/get", true, request);
-        ProductResponse response = JSONObject.parseObject(content, ProductResponse.class);
+        IoTApiResponse<Product> response = JSONObject.parseObject(content, IoTApiResponse.class);
         Product _product = response.getData();
         if (Objects.isNull(_product)) 
         	throw new GunsException(IotApiRepsEnum.PRODUCT_NOT_FOUND);

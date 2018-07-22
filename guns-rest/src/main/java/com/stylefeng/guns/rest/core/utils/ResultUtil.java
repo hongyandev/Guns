@@ -20,8 +20,8 @@ public class ResultUtil {
 	public static Result<Object> success(){
 		return success(null);
 	}
-	
-	public static Result<Object> failure(Integer code,String msg){
+
+	public static Result<Object> failure(Integer code, String msg){
 		Result<Object> result = new Result<>();
 		result.setCode(code);
 		result.setMsg(msg);

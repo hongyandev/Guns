@@ -7,11 +7,7 @@ import com.stylefeng.guns.rest.core.enums.ResultEnum;
 import com.stylefeng.guns.rest.core.utils.RedisUtil;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
 import com.stylefeng.guns.rest.model.AppUser;
-import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthRequest;
-import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthResponse;
-import com.stylefeng.guns.rest.modular.auth.controller.dto.SmsRequest;
-import com.stylefeng.guns.rest.modular.auth.controller.dto.TokenRequest;
-import com.stylefeng.guns.rest.modular.auth.controller.dto.TokenResponse;
+import com.stylefeng.guns.rest.modular.auth.controller.dto.*;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.rest.modular.auth.util.MD5Generator;
 import com.stylefeng.guns.rest.modular.auth.util.RestToolUtil;
@@ -54,6 +50,14 @@ public class AuthController {
     @Autowired
     private RestToolUtil restToolUtil;
 
+
+
+    /**
+     * 用户鉴权
+     * @param authRequest
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/authentication",method = RequestMethod.POST)
     public Result<Object> authentication(@Valid AuthRequest authRequest,BindingResult result) {
     	if (result.hasErrors())
@@ -72,7 +76,13 @@ public class AuthController {
             throw new GunsException(ResultEnum.AUTH_REQUEST_ERROR);
         }
     }
-    
+
+    /**
+     * 用户token刷新
+     * @param tokenRequest
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     public Result<Object> refreshToken(@Valid TokenRequest tokenRequest,BindingResult result) {
     	if (result.hasErrors())
@@ -90,7 +100,13 @@ public class AuthController {
     	TokenResponse tokenResponse = new TokenResponse(token, randomKey);
     	return ResultUtil.success(tokenResponse);
     }
-    
+
+    /**
+     * 短信接口
+     * @param smsRequest
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/sms",method = RequestMethod.POST)
     public Result<Object> sms(@Valid SmsRequest smsRequest,BindingResult result) {
     	if (result.hasErrors())
@@ -102,12 +118,24 @@ public class AuthController {
 			return ResultUtil.failure(ResultEnum.CUSTOME_ERROR.getCode(), e.getMessage());
 		}
     }
-    
+
+    /**
+     * 用户注册
+     * @param user
+     * @param code
+     * @return
+     */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public Result<Object> register(AppUser user,String code) {
     	return appUserServiceImpl.register(user, code);
     }
-    
+
+    /**
+     * 用户重置密码
+     * @param user
+     * @param code
+     * @return
+     */
     @RequestMapping(value = "/modifyPwd",method = RequestMethod.POST)
     public Result<Object> modifyPwd(AppUser user,String code) {
     	return appUserServiceImpl.modifyPwd(user, code);

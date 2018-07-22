@@ -14,6 +14,7 @@
 		<module>../guns-rest</module>
 		<module>../guns-generator</module>
 		<module>../aliyun-oss</module>
+		<module>../rest-api</module>
 	</modules>
 
 	<parent>
@@ -64,6 +65,11 @@
 				<artifactId>aliyun-oss</artifactId>
 				<version>${guns.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>com.stylefeng</groupId>
+                <artifactId>rest-api</artifactId>
+                <version>${guns.version}</version>
+            </dependency>
 			<dependency>
 				<groupId>org.flowable</groupId>
 				<artifactId>flowable-spring-boot-starter-basic</artifactId>

@@ -3,6 +3,7 @@ package com.stylefeng.guns.core.util;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
 import com.stylefeng.guns.core.common.enums.IotEnum;
 import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
 import com.stylefeng.guns.core.exception.GunsException;
@@ -13,9 +14,8 @@ import org.springframework.stereotype.Service;
 import com.alibaba.cloudapi.sdk.core.model.ApiResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
 import com.stylefeng.guns.aliyun.iotx.api.client.SyncApiClient;
-import com.stylefeng.guns.aliyun.iotx.api.client.ApiBaseResponse;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.cache.CacheKit;
 import com.stylefeng.guns.core.cache.ILoader;
@@ -56,7 +56,7 @@ public class ApiClientKit {
 	 * @throws UnsupportedEncodingException
 	 */
 	
-	public String doIoTApiRequest(String host, String path, boolean isHttps, IoTApiResponse request) throws GunsException {
+	public String doIoTApiRequest(String host, String path, boolean isHttps, IoTApiRequest request) throws GunsException {
 		try {
 			ApiResponse response = getLivingSyncClient().postBody(host, path, request, isHttps);
 			if (response.getStatusCode() != 200)
@@ -77,9 +77,9 @@ public class ApiClientKit {
 					Map<String, Object> params = Maps.newHashMap();
 					params.put("grantType", "project");
 					params.put("res", "a124YO0oU3Qm4SGF");
-					IoTApiResponse request = initAliyunIoTApiRequest(IotEnum.LIVING, params, aliyunProperties.getApiVer(IotEnum.LIVING, "project"), false);
+					IoTApiRequest request = initAliyunIoTApiRequest(IotEnum.LIVING, params, aliyunProperties.getApiVer(IotEnum.LIVING, "project"), false);
 					String content = doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.LIVING), "/cloud/token", true, request);
-					ApiBaseResponse response = JSONObject.parseObject(content, ApiBaseResponse.class);
+					IoTApiResponse<Map<String, Object>> response = JSONObject.parseObject(content, IoTApiResponse.class);
 					if (response.getCode() != 200)
 						throw new GunsException(IotApiRepsEnum.fromCode(response.getCode()));
 					return response.getData().get("cloudToken");
@@ -109,8 +109,8 @@ public class ApiClientKit {
 	 * @param hasToken 是否鉴权
 	 * @return
 	 */
-	public IoTApiResponse initAliyunIoTApiRequest(IotEnum iotEnum, Map<String, Object> params, String apiVer, Boolean hasToken) {
-		IoTApiResponse request = new IoTApiResponse();
+	public IoTApiRequest initAliyunIoTApiRequest(IotEnum iotEnum, Map<String, Object> params, String apiVer, Boolean hasToken) {
+		IoTApiRequest request = new IoTApiRequest();
 		request.setApiVer(apiVer);
 		if (hasToken) {
 			request.setIoTToken(getCloudToken(iotEnum));
