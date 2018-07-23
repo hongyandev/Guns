@@ -11,8 +11,8 @@ public class ResultUtil {
 	
 	public static Result<Object> success(Object object){
 		Result<Object> result = new Result<>();
-		result.setCode(ResultEnum.ALI_SUCCESS_FLAG.getCode());
-		result.setMsg(ResultEnum.ALI_SUCCESS_FLAG.getMessage());
+		result.setCode(ResultEnum.SUCCESS_FLAG.getCode());
+		result.setMsg(ResultEnum.SUCCESS_FLAG.getMessage());
 		result.setData(object);
 		return result;
 	}
@@ -20,8 +20,8 @@ public class ResultUtil {
 	public static Result<Object> success(){
 		return success(null);
 	}
-	
-	public static Result<Object> failure(Integer code,String msg){
+
+	public static Result<Object> failure(Integer code, String msg){
 		Result<Object> result = new Result<>();
 		result.setCode(code);
 		result.setMsg(msg);

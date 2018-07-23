@@ -19,13 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/hello")
 public class ExampleController {
 
-    /*@RequestMapping("")
+    @RequestMapping("")
     public ResponseEntity hello(@RequestBody SimpleObject simpleObject) {
         System.out.println(simpleObject.getUser());
         return ResponseEntity.ok("请求成功!");
-    }*/
+    }
     
-    @RequestMapping("")
+    @RequestMapping("/file")
     public ResponseEntity hello(MultipartFile file) {
     	System.out.println(file.getOriginalFilename() +"\t content-type "+HttpKit.getRequest().getContentType());
         return ResponseEntity.ok("请求成功!");

@@ -624,4 +624,12 @@ public class ToolUtil {
         Matcher m = p.matcher(telephone);  
         return m.matches();
 	}
+	
+	/**
+	 * 获取 uuid
+	 * @return
+	 */
+	public static String uuid() {
+		return UUID.randomUUID().toString();
+	}
 }

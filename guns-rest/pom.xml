@@ -36,48 +36,38 @@
 			<groupId>com.stylefeng</groupId>
 			<artifactId>guns-core</artifactId>
 		</dependency>
-		
 		<!-- redis -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        
-        <!-- @Data -->
-       	<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-        
-        <!-- 阿里云短信接口 -->
+		<!-- 阿里云短信接口 -->
 		<dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>3.2.3</version>
-            <scope>compile</scope>
-        </dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+		</dependency>
 		<dependency>
-	      <groupId>com.aliyun</groupId>
-	      <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-	      <version>1.0.0</version>
-	    </dependency>
-        
+			<artifactId>commons-io</artifactId>
+			<groupId>commons-io</groupId>
+		</dependency>
+		<dependency>
+			<groupId>com.stylefeng</groupId>
+			<artifactId>aliyun-oss</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>guns-rest</finalName>
-		
+		<finalName>rest</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		
 		<filters>
 			<filter>src/main/resources/filters/filter-${env}.properties</filter>
 		</filters>
-		
+
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -87,7 +77,7 @@
 				</includes>
 				<filtering>true</filtering>
 			</resource>
-			
+
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
@@ -96,31 +86,31 @@
 				<filtering>false</filtering>
 			</resource>
 		</resources>
-		
+
 	</build>
 
 	<!-- 不同环境,读取不同的配置文件 -->
 	<profiles>
-		
+
 		<!-- 开发环境,默认激活 -->
 		<profile>
-	      <id>dev</id>
-	      <properties>
-	      	<env>dev</env>
-	      </properties>
-	      <activation>
-	      	<activeByDefault>true</activeByDefault> <!-- 默认启用的是dev环境配置 -->
-	      </activation>
-    	</profile>
-    	
-    	<!-- 生产环境 -->
-    	<profile>
-    		<id>pro</id>
-    		<properties>
-    		  <env>pro</env>
-    		</properties>
-    	</profile>
-    	
+			<id>dev</id>
+			<properties>
+				<env>dev</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault> <!-- 默认启用的是dev环境配置 -->
+			</activation>
+		</profile>
+
+		<!-- 生产环境 -->
+		<profile>
+			<id>pro</id>
+			<properties>
+				<env>pro</env>
+			</properties>
+		</profile>
+
 	</profiles>
-	
+
 </project>

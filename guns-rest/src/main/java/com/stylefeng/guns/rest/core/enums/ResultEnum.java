@@ -11,7 +11,7 @@ import com.stylefeng.guns.core.exception.ServiceExceptionEnum;
 public enum ResultEnum implements ServiceExceptionEnum {
 
 	/** 自有账号体系始 */
-	ALI_SUCCESS_FLAG(200, "成功"), 
+	ALI_SUCCESS_FLAG(0, "成功"), 
 	ALI_TOKEN_EXPIRED(100001, "AccessToken过期"), 
 	ALI_CODE_ERROR(100002, "用code换取access token值失败"), 
 	ALI_REFRESH_TOKEN_EXPIRED(100003, "RefreshToken已过期或已失效"), 
@@ -21,6 +21,11 @@ public enum ResultEnum implements ServiceExceptionEnum {
 	ALI_COMMON_ERROR(110000, "系统通用错误(无法--列出其他所有错误,需联系三方ISV)"),
 	/** 自有账号体系终 */
 
+	/**
+	 * 成功
+	 */
+	SUCCESS_FLAG(200,"成功"),
+	
 	/**
 	 * token异常
 	 */
@@ -32,13 +37,17 @@ public enum ResultEnum implements ServiceExceptionEnum {
 	 */
 	SIGN_ERROR(700003, "签名验证失败"),
 
+	TOKEN_REFRESH_ERROR(400009,"token刷新出错"),
 	/**
-	 * 其他
+	 * 用户
 	 */
-	AUTH_REQUEST_ERROR(400001, "账号密码错误"),
-	TELEPHONE_INVALID(400002, "手机号码无效"), 
-	CODE_INVALID(400003, "验证码无效"), 
+	FILE_NOT_FOUND(400007,"未找到文件"),
+	TELEPHONE_NOREGISTED(400006,"手机号未注册"),
+	TELEPHONE_REGISTED(400005,"手机号已被注册"),
 	AUTHCODE_ERROR(400004, "authCode生成异常"),
+	CODE_INVALID(400003, "验证码无效"),
+	TELEPHONE_INVALID(400002, "手机号码无效"),
+	AUTH_REQUEST_ERROR(400001, "账号密码错误"),
 	CUSTOME_ERROR(400000, "自定义错误");
 
 	ResultEnum(int code, String message) {

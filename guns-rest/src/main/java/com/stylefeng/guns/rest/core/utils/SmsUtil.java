@@ -60,10 +60,28 @@ public class SmsUtil {
     }
 	
 	@Cacheable(value = "identifyCode", key = "#root.methodName+'.'+#telephone")
-	public String getIcode(String telephone){
+	public String getRegisterIcode(String telephone){
 		return ToolUtil.getRandom();
 	}
 	
-	@CacheEvict(value = "identifyCode", key = "'getIcode'+'.'+#telephone")
-	public void flushIcode(String telephone) {}
+	@CacheEvict(value = "identifyCode", key = "'getRegisterIcode'+'.'+#telephone")
+	public void flushRegisterIcode(String telephone) {}
+	
+	
+	@Cacheable(value = "identifyCode", key = "#root.methodName+'.'+#telephone")
+	public String getLoginIcode(String telephone) {
+		return ToolUtil.getRandom();
+	}
+	
+	@CacheEvict(value = "identifyCode", key = "'getLoginIcode'+'.'+#telephone")
+	public void flushLoginIcode(String telephone) {}
+	
+	
+	@Cacheable(value = "identifyCode", key = "#root.methodName+'.'+#telephone")
+	public String getModifyIcode(String telephone) {
+		return ToolUtil.getRandom();
+	}
+	
+	@CacheEvict(value = "identifyCode", key = "'getModifyIcode'+'.'+#telephone")
+	public void flushModifyIcode(String telephone) {}
 }

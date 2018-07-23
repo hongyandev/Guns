@@ -1,16 +1,19 @@
-package com.stylefeng.guns.core.util;
+package com.stylefeng.guns.core.utils;
 
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.common.collect.Lists;
-import com.stylefeng.guns.config.properties.AliyunProperties;
-import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
-import com.stylefeng.guns.core.common.file.FilePath;
-import com.stylefeng.guns.core.common.exception.FileUploadException;
+import com.stylefeng.guns.config.properties.AliyunOssProperties;
+import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.ResultOssEnum;
+import com.stylefeng.guns.core.exceptions.FileUploadException;
+import com.stylefeng.guns.core.util.ToolUtil;
+
 import jodd.datetime.JDateTime;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +32,7 @@ import com.aliyun.oss.OSSException;
 public class OssUtil {
 
     @Autowired
-    AliyunProperties aliyunProp;
+    AliyunOssProperties aliyunProp;
 
     // endpoint 是访问OSS的域名.
     private static String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
@@ -65,7 +68,7 @@ public class OssUtil {
             path.setFileSize(file.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, path);
+            throw new FileUploadException(ResultOssEnum.FILE_UPLOAD_ERROR, path);
         } finally {
             ossClient.shutdown();
         }
@@ -101,7 +104,7 @@ public class OssUtil {
 
         StringBuffer basePath = new StringBuffer("upload/image/" + jdt.toString("YYYYMM") + "/");
         StringBuffer key = new StringBuffer();
-        List<FilePath> paths = Lists.newArrayList();
+        List<FilePath> paths = new ArrayList<>();
         try {
             for (MultipartFile file : files) {
                 if (file != null && file.getSize() > 0) {
@@ -119,7 +122,7 @@ public class OssUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, paths);
+            throw new FileUploadException(ResultOssEnum.FILE_UPLOAD_ERROR, paths);
         } finally {
             ossClient.shutdown();
         }

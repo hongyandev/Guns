@@ -1,15 +1,31 @@
 package com.stylefeng.guns.modular.custom.service.impl;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
-import com.stylefeng.guns.aliyun.iotx.api.client.ProductResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.google.common.collect.Maps;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.common.enums.IotEnum;
 import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
-import com.stylefeng.guns.core.common.file.FilePath;
+import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
-import com.stylefeng.guns.core.util.OssUtil;
-import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.guns.core.utils.OssUtil;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductFunattriMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductImageMapper;
@@ -19,24 +35,6 @@ import com.stylefeng.guns.modular.custom.model.ProductExtend;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.model.ProductImage;
 import com.stylefeng.guns.modular.custom.service.IProductService;
-
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.google.common.collect.Maps;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -69,9 +67,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void pullProductInfoFromIot(Product product) throws Exception {
         Map<String, Object> params = Maps.newHashMap();
         params.put("productKey", product.getProductKey());
-        IoTApiResponse request = apiKit.initAliyunIoTApiRequest(IotEnum.fromCode(product.getIotPackage()), params, aliyunProperties.getApiVer(IotEnum.fromCode(product.getIotPackage()), "product"), true);
+        IoTApiRequest request = apiKit.initAliyunIoTApiRequest(IotEnum.fromCode(product.getIotPackage()), params, aliyunProperties.getApiVer(IotEnum.fromCode(product.getIotPackage()), "product"), true);
         String content = apiKit.doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.fromCode(product.getIotPackage())), "/cloud/thing/product/get", true, request);
-        ProductResponse response = JSONObject.parseObject(content, ProductResponse.class);
+        IoTApiResponse<Product> response = JSONObject.parseObject(content, IoTApiResponse.class);
         Product _product = response.getData();
         if (Objects.isNull(_product)) 
         	throw new GunsException(IotApiRepsEnum.PRODUCT_NOT_FOUND);

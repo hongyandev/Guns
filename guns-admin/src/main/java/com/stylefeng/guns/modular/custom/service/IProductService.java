@@ -3,7 +3,7 @@ package com.stylefeng.guns.modular.custom.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.stylefeng.guns.core.common.file.FilePath;
+import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;

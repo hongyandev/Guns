@@ -37,6 +37,8 @@ public class AppUser extends Model<AppUser> {
     private String gender;
 	private Date createDate;
     private Date updateDate;
+    private Integer loginSource;
+	private Date lastLoginTime;
 
 
     public String getUserId() {
@@ -118,6 +120,22 @@ public class AppUser extends Model<AppUser> {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+    
+    public Integer getLoginSource() {
+		return loginSource;
+	}
+
+	public void setLoginSource(Integer loginSource) {
+		this.loginSource = loginSource;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
 
     @Override
     protected Serializable pkVal() {
@@ -137,6 +155,8 @@ public class AppUser extends Model<AppUser> {
         ", gender=" + gender +
         ", createDate=" + createDate +
         ", updateDate=" + updateDate +
+        ", loginSource="+ loginSource +
+        ", lastLoginTime="+ lastLoginTime +
         "}";
     }
 }

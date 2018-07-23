@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiResponse;
+import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
 import com.stylefeng.guns.base.BaseJunit;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.util.ApiClientKit;
@@ -40,7 +40,7 @@ public class AliyunLivingIotTest extends BaseJunit {
         try {
             Map<String, Object> params = Maps.newHashMap();
             params.put("productKey", "a1SyFi7susU");
-            IoTApiResponse request = kit.initAliyunIoTApiRequest(IotEnum.LIVING, params, prop.getApiVer(IotEnum.LIVING, "product"), true);
+            IoTApiRequest request = kit.initAliyunIoTApiRequest(IotEnum.LIVING, params, prop.getApiVer(IotEnum.LIVING, "product"), true);
             String str = kit.doIoTApiRequest(prop.getApiHost(IotEnum.LIVING), "/cloud/thing/product/get", true, request);
         } catch (Exception e) {
             // TODO Auto-generated catch block

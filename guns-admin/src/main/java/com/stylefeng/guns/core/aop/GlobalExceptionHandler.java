@@ -1,15 +1,10 @@
 package com.stylefeng.guns.core.aop;
 
-import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
-import com.stylefeng.guns.core.common.exception.FileUploadException;
-import com.stylefeng.guns.core.common.exception.InvalidKaptchaException;
-import com.stylefeng.guns.core.common.file.FilePath;
-import com.stylefeng.guns.core.base.tips.ErrorTip;
-import com.stylefeng.guns.core.exception.GunsException;
-import com.stylefeng.guns.core.log.LogManager;
-import com.stylefeng.guns.core.log.factory.LogTaskFactory;
-import com.stylefeng.guns.core.shiro.ShiroKit;
-import com.stylefeng.guns.core.util.OssUtil;
+import static com.stylefeng.guns.core.support.HttpKit.getIp;
+import static com.stylefeng.guns.core.support.HttpKit.getRequest;
+
+import java.lang.reflect.UndeclaredThrowableException;
+import java.util.List;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.CredentialsException;
@@ -25,11 +20,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.lang.reflect.UndeclaredThrowableException;
-import java.util.List;
-
-import static com.stylefeng.guns.core.support.HttpKit.getIp;
-import static com.stylefeng.guns.core.support.HttpKit.getRequest;
+import com.stylefeng.guns.core.base.tips.ErrorTip;
+import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import com.stylefeng.guns.core.common.exception.InvalidKaptchaException;
+import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.exception.GunsException;
+import com.stylefeng.guns.core.exceptions.FileUploadException;
+import com.stylefeng.guns.core.log.LogManager;
+import com.stylefeng.guns.core.log.factory.LogTaskFactory;
+import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.utils.OssUtil;
 
 /**
  * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）
