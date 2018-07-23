@@ -74,4 +74,7 @@
 		from sys_user where account = #{account} and status != 3
 	</select>
 
+	<select id="cloudUsertree" resultType="com.stylefeng.guns.core.node.ZTreeNode">
+		select id,0 as 'pId',`name`,'true' as 'isOpen' from sys_user where deptid=6 and `status`=1
+	</select>
 </mapper>

@@ -14,6 +14,7 @@ import com.stylefeng.guns.core.datascope.DataScope;
 import com.stylefeng.guns.core.db.Db;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.log.LogObjectHolder;
+import com.stylefeng.guns.core.node.ZTreeNode;
 import com.stylefeng.guns.core.shiro.ShiroKit;
 import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.util.ToolUtil;
@@ -347,6 +348,17 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.UPLOAD_ERROR);
         }
         return pictureName;
+    }
+    
+    /**
+     * 获取云端用户的tree列表
+     */
+    @RequestMapping(value = "/cloudUserTree")
+    @ResponseBody
+    public List<ZTreeNode> cloudUserTree() {
+        List<ZTreeNode> tree = this.userService.cloudUsertree();
+        tree.add(ZTreeNode.createParent());
+        return tree;
     }
 
     /**

@@ -12,9 +12,9 @@ import java.io.Serializable;
 public class SecretKey extends Model<SecretKey> {
 
     @TableId(value = "appKey", type = IdType.INPUT)
-    private int appKey;
+    private String appKey;
     private String appSecret;
-    private int state;
+    private int status;
     private String appName;
 
     @Override
@@ -27,7 +27,7 @@ public class SecretKey extends Model<SecretKey> {
         return "SecretKey{" +
                 "appKey=" + appKey +
                 ", appSecret=" + appSecret +
-                ", state=" + state +
+                ", state=" + status +
                 ", appName=" + appName +
                 "}";
     }
