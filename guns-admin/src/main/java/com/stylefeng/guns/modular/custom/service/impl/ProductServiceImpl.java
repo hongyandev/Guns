@@ -172,4 +172,24 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 		// TODO Auto-generated method stub
 		return productFileMapper.selectById(productKey);
 	}
+
+	@Override
+	public void saveProductFile(String productKey, FilePath path) {
+		// TODO Auto-generated method stub
+		ProductFile file = productFileMapper.selectById(productKey);
+		if (Objects.nonNull(file)) {
+			FilePath filePath = new FilePath();
+			BeanUtils.copyProperties(file, filePath);
+			ossUtil.deleteObjects(Arrays.asList(filePath));
+			BeanUtils.copyProperties(path, file);
+			file.setLastModify(new Date());
+			file.updateById();
+		}else {
+			file = new ProductFile();
+			BeanUtils.copyProperties(path, file);
+			file.setProductKey(productKey);
+			file.setLastModify(new Date());
+			file.insert();
+		}
+	}
 }

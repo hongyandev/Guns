@@ -215,6 +215,16 @@ public class ProductController extends BaseController {
     	return SUCCESS_TIP;
     }
     
+    @RequestMapping(value = "/uploadProductFile")
+    @ResponseBody
+    public Object uploadProductFile(@RequestParam("file") MultipartFile file,@RequestParam String productId) {
+    	if(file.isEmpty())
+    		return new ErrorTip(BizExceptionEnum.FILE_NOT_FOUND);
+    	FilePath path = ossUtil.transferTo(file, OssType.OSS_FILE);
+    	productService.saveProductFile(productId,path);
+    	return SUCCESS_TIP;
+    }
+    
     /**
      * 删除产品图片
      */
