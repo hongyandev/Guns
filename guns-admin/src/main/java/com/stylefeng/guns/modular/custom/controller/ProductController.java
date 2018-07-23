@@ -215,6 +215,9 @@ public class ProductController extends BaseController {
     	return SUCCESS_TIP;
     }
     
+    /**
+     * 文件上传
+     */
     @RequestMapping(value = "/uploadProductFile")
     @ResponseBody
     public Object uploadProductFile(@RequestParam("file") MultipartFile file,@RequestParam String productId) {
