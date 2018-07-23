@@ -221,7 +221,13 @@ public class ProductController extends BaseController {
     	if(file.isEmpty())
     		return new ErrorTip(BizExceptionEnum.FILE_NOT_FOUND);
     	FilePath path = ossUtil.transferTo(file, OssType.OSS_FILE);
-    	productService.saveProductFile(productId,path);
+    	try {
+			productService.saveProductFile(productId,path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new FileUploadException(BizExceptionEnum.UPLOAD_ERROR, path);
+		}
     	return SUCCESS_TIP;
     }
     
