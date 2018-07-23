@@ -90,7 +90,7 @@ Product.openAddAttribute = function () {
 };
 
 /**
- * 点击跳转product uploadImg
+ * 点击跳转product uploadImg Product.openProductFiles()
  */
 Product.openProductUploadImg = function () {
     if (this.check()) {
@@ -101,6 +101,23 @@ Product.openProductUploadImg = function () {
             fix: false, //不固定
             maxmin: true,
             content: Feng.ctxPath + '/product/product_uploadImg/'+Product.seItem.productKey
+        });
+        this.layerIndex = index;
+    }
+};
+
+/**
+ * 点击跳转product ProductFiles
+ */
+Product.openProductFiles = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '上传附件',
+            area: ['800px', '420px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/product/product_files/'+Product.seItem.productKey
         });
         this.layerIndex = index;
     }
