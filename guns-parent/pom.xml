@@ -13,8 +13,6 @@
 		<module>../guns-core</module>
 		<module>../guns-rest</module>
 		<module>../guns-generator</module>
-		<module>../aliyun-oss</module>
-		<module>../rest-api</module>
 	</modules>
 
 	<parent>

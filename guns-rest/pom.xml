@@ -50,10 +50,6 @@
 			<artifactId>commons-io</artifactId>
 			<groupId>commons-io</groupId>
 		</dependency>
-		<dependency>
-			<groupId>com.stylefeng</groupId>
-			<artifactId>aliyun-oss</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

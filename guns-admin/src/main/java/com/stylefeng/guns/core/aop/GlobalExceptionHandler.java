@@ -24,12 +24,12 @@ import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.core.common.exception.InvalidKaptchaException;
 import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.exception.FileUploadException;
 import com.stylefeng.guns.core.exception.GunsException;
-import com.stylefeng.guns.core.exceptions.FileUploadException;
 import com.stylefeng.guns.core.log.LogManager;
 import com.stylefeng.guns.core.log.factory.LogTaskFactory;
 import com.stylefeng.guns.core.shiro.ShiroKit;
-import com.stylefeng.guns.core.utils.OssUtil;
+import com.stylefeng.guns.core.util.OssUtil;
 
 /**
  * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）

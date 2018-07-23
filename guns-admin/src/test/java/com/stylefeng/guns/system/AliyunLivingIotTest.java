@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.iotx.api.client.IoTApiRequest;
+import com.stylefeng.guns.aliyun.IoTApiRequest;
 import com.stylefeng.guns.base.BaseJunit;
 import com.stylefeng.guns.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.util.ApiClientKit;

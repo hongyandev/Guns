@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.core.enums.ResultOssEnum;
-import com.stylefeng.guns.core.exceptions.FileUploadException;
-import com.stylefeng.guns.core.utils.OssUtil;
+import com.stylefeng.guns.core.exception.FileUploadException;
+import com.stylefeng.guns.core.util.OssUtil;
 import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.enums.ResultEnum;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
