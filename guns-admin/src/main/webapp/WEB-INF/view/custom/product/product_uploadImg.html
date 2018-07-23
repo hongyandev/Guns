@@ -6,9 +6,11 @@
                 <div class="page-container">
                     <div id="uploader" class="wu-example">
                         <div class="imgShow">
-                            <img src="${item.fileRealPath}"/>
+                            @if(!isEmpty(item.fileRealPath)){
+                                <img src="${item.fileRealPath!}"/>
+                            @}
                             <div class="file-panels">
-                                <span class="cancel">删除</span>
+                                <span class="cancel btn-cancel">删除</span>
                             </div>
                         </div>
                         <div class="queueList">

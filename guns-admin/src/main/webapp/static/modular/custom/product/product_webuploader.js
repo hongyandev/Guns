@@ -57,7 +57,7 @@ jQuery(function() {
         uploader;
 
     if ( !WebUploader.Uploader.support() ) {
-        alert( 'Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
+        Feng.alert( 'Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
         throw new Error( 'WebUploader does not support the browser you are using.' );
     }
 
@@ -80,11 +80,8 @@ jQuery(function() {
 
         // swf文件路径
         swf: Feng.ctxPath + '/static/js/plugins/webuploader/Uploader.swf',
-
         disableGlobalDnd: false,
-
         chunked: true,
-        // server: 'http://webuploader.duapp.com/server/fileupload.php',
         server: Feng.ctxPath + '/product/uploadProductImage',
         fileNumLimit: 1,
         fileSizeLimit: 5 * 1024 * 1024,    // 200 M
@@ -96,6 +93,7 @@ jQuery(function() {
         id: '#filePicker2',
         label: '继续添加'
     });
+
     $(".imgShow").on( 'mouseenter', function() {
         $(".file-panels").stop().animate({height: 30});
     });
@@ -351,6 +349,7 @@ jQuery(function() {
                 stats = uploader.getStats();
                 if ( stats.successNum ) {
                     Feng.alert( '上传成功' );
+                    parent.layer.close(window.parent.Product.layerIndex);
                 } else {
                     // 没有成功的图片，重设
                     state = 'done';
@@ -428,16 +427,14 @@ jQuery(function() {
     //错误提示
     uploader.onError = function( code ) {
         if(code == "F_DUPLICATE"){
-            alert("系统提示:请不要重复选择文件！");
+            Feng.alert("系统提示:请不要重复选择文件！");
         }else if(code == "Q_EXCEED_SIZE_LIMIT"){
-            alert("系统提示:<span class='C6'>所选附件总大小</span>不可超过<span class='C6'>" + allMaxSize + "M</span>哦！<br>换个小点的文件吧！");
+            Feng.alert("系统提示:<span class='C6'>所选附件总大小</span>不可超过<span class='C6'>" + allMaxSize + "M</span>哦！<br>换个小点的文件吧！");
         }else{
-            alert( 'Eroor: ' + code );
+            Feng.alert( 'Eroor: ' + code );
 
         }
     };
-
-
 
     $upload.on('click', function() {
         if ( $(this).hasClass( 'disabled' ) ) {
@@ -458,9 +455,30 @@ jQuery(function() {
     } );
 
     $info.on( 'click', '.ignore', function() {
-        alert( 'todo' );
+
     } );
 
     $upload.addClass( 'state-' + state );
     updateTotalProgress();
+
+    //删除图片
+    $(".btn-cancel").click(function () {
+        var operation = function () {
+            $.ajax({
+                type: "post",
+                url: Feng.ctxPath + '/product/deleteProductImage/' + $("#productKey").val(),
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    $(".imgShow img").hide();
+                    Feng.alert("删除成功",3000);
+                    parent.layer.close(window.parent.Product.layerIndex);
+                },
+                error: function (res) {
+
+                }
+            })
+        }
+        Feng.confirm("是否刪除该产品的图片?", operation);
+    })
 });
