@@ -55,6 +55,10 @@ public enum BizExceptionEnum implements ServiceExceptionEnum{
 	SERVER_ERROR(500, "服务器异常"),
 	
 	/**
+	 * 
+	 */
+	EXISTED_THE_APPNAME(400,"AppName重复，不能添加"),
+	/**
 	 * 产品管理
 	 */
 	PRODUCT_ERROR(400,"产品不存在,请检查ProductKey");

@@ -10,6 +10,10 @@ import java.security.NoSuchAlgorithmException;
  * @date 2016年12月2日 下午4:14:22
  */
 public class MD5Util {
+	
+	public static String encrypt16(String source) {
+		return encodeMd5(source.getBytes()).substring(8,24);
+    }
 
     public static String encrypt(String source) {
         return encodeMd5(source.getBytes());
