@@ -23,10 +23,12 @@ import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.base.tips.SuccessTip;
 import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.OssType;
 import com.stylefeng.guns.core.exception.FileUploadException;
 import com.stylefeng.guns.core.util.OssUtil;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
+import com.stylefeng.guns.modular.custom.model.ProductFile;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.model.ProductImage;
 import com.stylefeng.guns.modular.custom.service.IProductService;
@@ -70,19 +72,6 @@ public class ProductController extends BaseController {
     public String productAdd() {
         return PREFIX + "product_add.html";
     }
-    
-    /**
-     * 跳转到product uploadImg
-     */
-    @RequestMapping("/product_uploadImg/{productId}")
-    public String productUploadImg(@PathVariable String productId, Model model) {
-    	ProductImage image = productService.selectImageByProductKey(productId);
-    	if (Objects.isNull(image))
-    			image = new ProductImage();
-    			image.setProductKey(productId);
-    	model.addAttribute("item", image);
-        return PREFIX + "product_uploadImg.html";
-    }
 
     /**
      * 跳转功能属性页面
@@ -125,6 +114,32 @@ public class ProductController extends BaseController {
     	return PREFIX + "product_detailExtend.html";
     }
 
+    /**
+     * 跳转到product uploadImg
+     */
+    @RequestMapping("/product_uploadImg/{productId}")
+    public String productUploadImg(@PathVariable String productId, Model model) {
+    	ProductImage image = productService.selectImageByProductKey(productId);
+    	if (Objects.isNull(image))
+    			image = new ProductImage();
+    			image.setProductKey(productId);
+    	model.addAttribute("item", image);
+        return PREFIX + "product_uploadImg.html";
+    }
+    
+    /**
+     * 跳转到 product files
+     */
+    @RequestMapping(value = "/productFiles/{productId}",method = RequestMethod.GET)
+    public String productFiles(@PathVariable("productId") String productId,Model model) {
+    	ProductFile file = productService.selectFileByProductKey(productId);
+    	if (Objects.isNull(file))
+    		file = new ProductFile();
+    		file.setProductKey(productId);
+    	model.addAttribute("item", file);
+    	return PREFIX + "product_files.html";
+    }
+    
     /**
      * 获取product列表
      */
@@ -189,7 +204,7 @@ public class ProductController extends BaseController {
     public Object uploadProductImage(@RequestParam("file") MultipartFile file,@RequestParam String productId) {
     	if(file.isEmpty())
     		return new ErrorTip(BizExceptionEnum.FILE_NOT_FOUND);
-    	FilePath path = ossUtil.transferTo(file);
+    	FilePath path = ossUtil.transferTo(file,OssType.OSS_IMAGE);
     	try {
 			productService.saveProductImage(productId, path);
 		} catch (Exception e) {

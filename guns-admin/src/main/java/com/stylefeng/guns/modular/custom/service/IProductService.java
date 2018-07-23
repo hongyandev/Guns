@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
+import com.stylefeng.guns.modular.custom.model.ProductFile;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.model.ProductImage;
 
@@ -34,4 +35,6 @@ public interface IProductService extends IService<Product> {
 	public void saveProductImage(String productKey,FilePath path);
 	
 	public void deleteProductImage(String productKey);
+
+	public ProductFile selectFileByProductKey(String productKey);
 }

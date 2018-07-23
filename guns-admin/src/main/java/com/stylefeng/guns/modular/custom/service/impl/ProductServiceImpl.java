@@ -27,11 +27,13 @@ import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.util.ApiClientKit;
 import com.stylefeng.guns.core.util.OssUtil;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
+import com.stylefeng.guns.modular.custom.dao.ProductFileMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductFunattriMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductImageMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductMapper;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
+import com.stylefeng.guns.modular.custom.model.ProductFile;
 import com.stylefeng.guns.modular.custom.model.ProductFunattri;
 import com.stylefeng.guns.modular.custom.model.ProductImage;
 import com.stylefeng.guns.modular.custom.service.IProductService;
@@ -57,6 +59,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     ProductFunattriMapper productFunattriMapper;
     @Autowired
     ProductImageMapper productImageMapper;
+    @Autowired
+    ProductFileMapper productFileMapper;
     @Autowired
     AliyunProperties aliyunProperties;
     @Autowired
@@ -161,5 +165,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 			productImageMapper.deleteById(productKey);
 			ossUtil.deleteObjects(Arrays.asList(filePath));
 		}
+	}
+
+	@Override
+	public ProductFile selectFileByProductKey(String productKey) {
+		// TODO Auto-generated method stub
+		return productFileMapper.selectById(productKey);
 	}
 }

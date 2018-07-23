@@ -10,6 +10,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.stylefeng.guns.core.config.AliyunOssProperties;
 import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.OssType;
 import com.stylefeng.guns.core.enums.ResultOssEnum;
 import com.stylefeng.guns.core.exception.FileUploadException;
 import com.stylefeng.guns.core.util.ToolUtil;
@@ -44,10 +45,23 @@ public class OssUtil {
      * @return
      * @throws Exception
      */
-    public FilePath transferTo(MultipartFile file) {
+    public FilePath transferTo(MultipartFile file,OssType ossType) {
         JDateTime jdt = new JDateTime();
         jdt.setCurrentTime();
-        StringBuffer key = new StringBuffer("upload/image/" + jdt.toString("YYYYMM") + "/").append(UUID.randomUUID().toString()).append(".").append(FilenameUtils.getExtension(file.getOriginalFilename()));
+        
+        String folderName = "";
+        switch (ossType) {
+		case OSS_IMAGE:
+			folderName = "image";
+			break;
+		case OSS_FILE:
+			folderName = "file";
+			break;
+		default:
+			break;
+		}
+        
+        StringBuffer key = new StringBuffer("upload/"+folderName+"/" + jdt.toString("YYYYMM") + "/").append(UUID.randomUUID().toString()).append(".").append(FilenameUtils.getExtension(file.getOriginalFilename()));
         // 生成OSSClient.
         OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOssAccessKeyId(), aliyunProp.getOssAccessKeySecret());
         // 判断Bucket是否存在.
@@ -90,7 +104,7 @@ public class OssUtil {
      * @return
      * @throws Exception
      */
-    public List<FilePath> transferTo(MultipartFile[] files) {
+    public List<FilePath> transferTo(MultipartFile[] files,OssType ossType) {
         JDateTime jdt = new JDateTime();
         jdt.setCurrentTime();
 
@@ -102,7 +116,19 @@ public class OssUtil {
             ossClient.createBucket(bucketName);
         }
 
-        StringBuffer basePath = new StringBuffer("upload/image/" + jdt.toString("YYYYMM") + "/");
+        String folderName = "";
+        switch (ossType) {
+		case OSS_IMAGE:
+			folderName = "image";
+			break;
+		case OSS_FILE:
+			folderName = "file";
+			break;
+		default:
+			break;
+		}
+        
+        StringBuffer basePath = new StringBuffer("upload/"+folderName+"/" + jdt.toString("YYYYMM") + "/");
         StringBuffer key = new StringBuffer();
         List<FilePath> paths = new ArrayList<>();
         try {

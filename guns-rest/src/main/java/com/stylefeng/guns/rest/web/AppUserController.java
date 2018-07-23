@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.OssType;
 import com.stylefeng.guns.core.enums.ResultOssEnum;
 import com.stylefeng.guns.core.exception.FileUploadException;
 import com.stylefeng.guns.core.util.OssUtil;
@@ -50,7 +51,7 @@ public class AppUserController {
 	public Result<Object> modifyHeadImge(@RequestParam("file") MultipartFile file,String userId){
 		if(file.isEmpty())
 			return ResultUtil.failure(ResultEnum.FILE_NOT_FOUND);
-		FilePath path = ossUtil.transferTo(file);
+		FilePath path = ossUtil.transferTo(file,OssType.OSS_IMAGE);
 		
 		try {
 			appUserServiceImpl.modifyHeadImge(userId, path);
