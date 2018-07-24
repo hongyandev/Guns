@@ -13,6 +13,8 @@
 		<module>../guns-core</module>
 		<module>../guns-rest</module>
 		<module>../guns-generator</module>
+		<module>../guns-rest-core</module>
+		<module>../guns-rest-api</module>
 	</modules>
 
 	<parent>
@@ -63,9 +65,14 @@
 				<artifactId>aliyun-oss</artifactId>
 				<version>${guns.version}</version>
 			</dependency>
+			<dependency>
+                <groupId>com.stylefeng</groupId>
+                <artifactId>guns-rest-core</artifactId>
+                <version>${guns.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.stylefeng</groupId>
-                <artifactId>rest-api</artifactId>
+                <artifactId>guns-rest-api</artifactId>
                 <version>${guns.version}</version>
             </dependency>
 			<dependency>
