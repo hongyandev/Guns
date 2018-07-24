@@ -19,6 +19,7 @@
         <dependency>
             <groupId>com.stylefeng</groupId>
             <artifactId>guns-core</artifactId>
+			<scope>provided</scope>
         </dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -28,21 +29,18 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
+            <scope>provided</scope>
 		</dependency>
 		<!-- redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		<!-- 阿里云短信接口 -->
-		<dependency>
-			<groupId>com.aliyun</groupId>
-			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<artifactId>commons-io</artifactId>
 			<groupId>commons-io</groupId>
+            <scope>provided</scope>
 		</dependency>
     </dependencies>
-    
 </project>
