@@ -1,0 +1,31 @@
+@layout("/common/_container.html"){
+<link rel="stylesheet" type="text/css"  href="${ctxPath}/static/css/plugins/dropzone/basic.css">
+<link href="${ctxPath}/static/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+<style>
+    .dropzone{
+        min-height:120px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <form action='/product/uploadProductFile/' method="post" enctype="multipart/form-data" class="dropzone">
+                <input type="hidden" id="productKey" value="${item.productKey!}">
+                <input type="hidden" id="name" value="${item.fileName!}">
+                <input type="hidden" id="fileRealPath" value="${item.fileRealPath!}">
+                <input type="hidden" id="fileSize" value="${item.fileSize!}">
+                <input type="hidden" id="contentType" value="${item.contentType!}">
+
+                <div class="fallback">
+                    <input type="file" name="file" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Web Uploader -->
+<script src="${ctxPath}/static/js/content.js?v=1.0.0"></script>
+<script src="${ctxPath}/static/modular/custom/product/product_dropzone.js"></script>
+@}

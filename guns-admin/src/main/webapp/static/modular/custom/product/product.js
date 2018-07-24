@@ -14,6 +14,7 @@ var Product = {
 Product.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
+            {title: '产品名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
             {title: '租户id', field: 'tenantId', visible: false, align: 'center', valign: 'middle'},
             {title: '产品PK', field: 'productKey', visible: true, align: 'center', valign: 'middle'},
             {title: '数据格式', field: 'dataFormat', visible: true, align: 'center', valign: 'middle'},
@@ -21,7 +22,6 @@ Product.initColumn = function () {
             {title: '产品密钥', field: 'productSecret', visible: false, align: 'center', valign: 'middle'},
             {title: '节点类型', field: 'nodeType', visible: true, align: 'center', valign: 'middle'},
             {title: '领域', field: 'domain', visible: false, align: 'center', valign: 'middle'},
-            {title: '产品名称', field: 'name', visible: true, align: 'center', valign: 'middle'},
             {title: '地域', field: 'region', visible: false, align: 'center', valign: 'middle'},
             {title: '所有者领域', field: 'ownerDomain', visible: false, align: 'center', valign: 'middle'},
             {title: '归属品类id', field: 'categoryld', visible: false, align: 'center', valign: 'middle'},
@@ -117,7 +117,7 @@ Product.openProductFiles = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/product/product_files/'+Product.seItem.productKey
+            content: Feng.ctxPath + 'product/productFiles/'+Product.seItem.productKey
         });
         this.layerIndex = index;
     }
