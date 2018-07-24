@@ -192,4 +192,16 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 			file.insert();
 		}
 	}
+
+	@Override
+	public void deleteProductFile(String productKey) {
+		// TODO Auto-generated method stub
+		ProductFile file = productFileMapper.selectById(productKey);
+		if (Objects.nonNull(file)) {
+			FilePath filePath = new FilePath();
+			BeanUtils.copyProperties(file, filePath);
+			productFileMapper.deleteById(productKey);
+			ossUtil.deleteObjects(Arrays.asList(filePath));
+		}
+	}
 }

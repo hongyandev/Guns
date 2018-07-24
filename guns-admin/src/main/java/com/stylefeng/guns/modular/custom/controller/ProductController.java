@@ -243,4 +243,14 @@ public class ProductController extends BaseController {
     	productService.deleteProductImage(productId);
     	return SUCCESS_TIP;
     }
+    
+    /**
+     * 删除产品文件
+     */
+    @RequestMapping(value = "/deleteProductFile/{productId}")
+    @ResponseBody
+    public Object deleteProductFile(@PathVariable("productId") String productId) {
+    	productService.deleteProductFile(productId);
+    	return SUCCESS_TIP;
+    }
 }
