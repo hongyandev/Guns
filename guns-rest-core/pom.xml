@@ -42,5 +42,11 @@
 			<groupId>commons-io</groupId>
             <scope>provided</scope>
 		</dependency>
+		<!-- 阿里云短信接口 -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

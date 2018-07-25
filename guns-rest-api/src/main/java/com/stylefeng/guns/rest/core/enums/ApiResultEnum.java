@@ -18,7 +18,8 @@ public enum ApiResultEnum implements ServiceExceptionEnum {
 	TOO_MANY_REQUESTS(429, "太多请求"),
 	REQUEST_PARAMETER_ERROR(460, "请求参数错误"),
 	SERVICE_ERROR(500, "服务端错误"),
-	SERVICE_NOT_AVAILABLE(503, "服务不可用"), SIGN_ERROR(401, "签名验证错误");
+	SERVICE_NOT_AVAILABLE(503, "服务不可用"), 
+	SIGN_ERROR(402, "签名验证错误");
 
 	ApiResultEnum(int code, String message) {
 		this.code = code;

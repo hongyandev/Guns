@@ -1,6 +1,6 @@
 package com.stylefeng.guns.rest.modular.auth.validator;
 
-import com.stylefeng.guns.rest.modular.auth.model.SecretKey;
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
 
 /**
@@ -19,6 +19,6 @@ public interface IReqValidator {
      * @author fengshuonan
      * @Date 2017/8/23 11:49
      */
-    SecretKey validate(Credence credence);
+	Model<?> validate(Credence credence);
 
 }

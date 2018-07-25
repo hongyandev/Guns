@@ -17,7 +17,8 @@ public class MD5Generator {
 		return generateValue(UUID.randomUUID().toString());
 	}
 	
-
+	private static final char[] hexCode = "0123456789abcdef".toCharArray();
+	
     public static String toHexString(byte[] data) {
         if(data == null) {
             return null;
@@ -40,7 +41,7 @@ public class MD5Generator {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new GunsException(ApiResultEnum.AUTHCODE_ERROR);
+			throw new GunsException(ApiResultEnum.SIGN_ERROR);
 		}
     }
 }

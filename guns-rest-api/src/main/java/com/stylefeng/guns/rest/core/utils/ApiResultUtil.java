@@ -5,13 +5,12 @@ package com.stylefeng.guns.rest.core.utils;
 */
 
 import com.stylefeng.guns.rest.core.domain.ApiResult;
-import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.enums.ApiResultEnum;
-import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthRequest;
+import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
 
 public class ApiResultUtil {
 	
-	public static ApiResult<Object> success(AuthRequest request,Object object){
+	public static ApiResult<Object> success(Credence request,Object object){
 		ApiResult<Object> result = new ApiResult<>();
 		result.setId(request.getId());
 		result.setCode(ApiResultEnum.SUCCESS.getCode());
@@ -20,11 +19,11 @@ public class ApiResultUtil {
 		return result;
 	}
 	
-	public static ApiResult<Object> success(AuthRequest request){
+	public static ApiResult<Object> success(Credence request){
 		return success(request,null);
 	}
 
-	public static ApiResult<Object> failure(AuthRequest request, Integer code, String message){
+	public static ApiResult<Object> failure(Credence request, Integer code, String message){
         ApiResult<Object> result = new ApiResult<>();
         result.setId(request.getId());
 		result.setCode(code);
@@ -32,7 +31,7 @@ public class ApiResultUtil {
 		return result;
 	}
 	
-	public static ApiResult<Object> failure(ApiResultEnum apiResultEnum, AuthRequest request){
+	public static ApiResult<Object> failure(ApiResultEnum apiResultEnum, Credence request){
 		return failure(request, apiResultEnum.getCode(), apiResultEnum.getMessage());
 	}
 }
