@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 
+import java.util.Map;
+
 /**
  * 阿里云相关配置
  * create by guanqing
@@ -30,6 +32,8 @@ public class RedisProperties {
 	private int timeout;
 	// 连接池
 	private Pool pool;
+	private Long expiration;
+	private Map<String, Long> expires;
 	
 	@Data
 	public static class Pool {

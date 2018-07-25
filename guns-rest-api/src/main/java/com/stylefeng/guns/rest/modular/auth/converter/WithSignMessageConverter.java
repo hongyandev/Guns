@@ -50,10 +50,7 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
         String object = baseTransferEntity.getObject();
         String encrypt = MD5Util.encrypt(object + md5KeyFromToken);
 
-        if (encrypt.equals(baseTransferEntity.getSign())) {
-            System.out.println("签名校验成功!");
-        } else {
-            System.out.println("签名校验失败,数据被改动过!");
+        if (!encrypt.equals(baseTransferEntity.getSign())) {
             throw new GunsException(ApiResultEnum.SIGN_ERROR);
         }
         

@@ -1,7 +1,6 @@
 package com.stylefeng.guns.rest.web;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.model.IotGroup;
-import com.stylefeng.guns.rest.model.UserIot;
 import com.stylefeng.guns.rest.service.IIotGroupService;
 import com.stylefeng.guns.rest.service.IUserIotService;
 
@@ -86,13 +84,4 @@ public class IotGroupController extends BaseController {
         return ResultUtil.success(group);
     }
 
-    /**
-     * 分组内的设备
-     */
-    @RequestMapping(value = "/listBindingByGroup")
-    @ResponseBody
-    public Result<Object> listBindingByGroup(@RequestBody UserIot userIot) {
-    	List<Map> list = userIotService.listBinding(userIot);
-        return ResultUtil.success(list);
-    }
 }

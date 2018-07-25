@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.handler;
+package com.stylefeng.guns.rest.core.config.handler;
 
 import com.stylefeng.guns.core.aop.BaseControllerExceptionHandler;
 import com.stylefeng.guns.core.base.tips.ErrorTip;
