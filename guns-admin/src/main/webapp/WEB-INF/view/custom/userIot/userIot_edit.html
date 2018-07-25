@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="iotId" name="物ID" value="${item.iotId}" underline="true"/>
+                            <#input id="productKey" name="产品Key" value="${item.productKey}" underline="true"/>
+                            <#input id="nickName" name="物昵称" value="${item.nickName}" underline="true"/>
+                            <#input id="owned" name="0:分享者;1:拥有者" value="${item.owned}" underline="true"/>
+                            <#input id="status" name="状态" value="${item.status}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="userId" name="用户ID" value="${item.userId}" underline="true"/>
+                            <#input id="groupId" name="分组ID" value="${item.groupId}" underline="true"/>
+                            <#input id="sceneId" name="场景ID" value="${item.sceneId}" underline="true"/>
+                            <#input id="gmtModified" name="绑定时间" value="${item.gmtModified}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="UserIotInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="UserIotInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/custom/userIot/userIot_info.js"></script>
+@}
