@@ -15,6 +15,7 @@
 		<module>../guns-generator</module>
 		<module>../guns-rest-core</module>
 		<module>../guns-rest-api</module>
+		<module>../guns-core-mq</module>
 	</modules>
 
 	<parent>
@@ -51,6 +52,8 @@
 		<ali-sdk.version>3.2.3</ali-sdk.version>
 		<ali-oss.version>2.8.3</ali-oss.version>
 		<ali-sms.version>1.0.0</ali-sms.version>
+		<ali-ons.version>1.7.8.Final</ali-ons.version>
+		<guava.version>20.0</guava.version>
 	</properties>
 
 	<dependencyManagement>
@@ -66,15 +69,15 @@
 				<version>${guns.version}</version>
 			</dependency>
 			<dependency>
-                <groupId>com.stylefeng</groupId>
-                <artifactId>guns-rest-core</artifactId>
-                <version>${guns.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.stylefeng</groupId>
-                <artifactId>guns-rest-api</artifactId>
-                <version>${guns.version}</version>
-            </dependency>
+				<groupId>com.stylefeng</groupId>
+				<artifactId>guns-rest-core</artifactId>
+				<version>${guns.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.stylefeng</groupId>
+				<artifactId>guns-rest-api</artifactId>
+				<version>${guns.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.flowable</groupId>
 				<artifactId>flowable-spring-boot-starter-basic</artifactId>
@@ -232,6 +235,22 @@
 				<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
 				<version>${ali-sms.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.stylefeng</groupId>
+				<artifactId>guns-core-mq</artifactId>
+				<version>${guns.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aliyun.openservices</groupId>
+				<artifactId>ons-client</artifactId>
+				<version>${ali-ons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
