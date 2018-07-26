@@ -1,0 +1,20 @@
+aliyun:
+  ons:
+    accessKey:  # 校验标识
+    secretKey:  # 校验标识
+#    msgTraceSwitch:       # 默认 true；MQ消息轨迹功能开关
+    onsAddr:    # 消息队列服务接入点
+    producerId: # 生产端 消息生产者ID
+#    sendMsgTimeoutMillis: # 生产端 默认 5000；消息发送超时时间，如果服务端在配置的对应时间内未ACK，则发送客户端认为该消息发送失败。
+    consumerId: # 消费端 消息消费者ID
+    subscription:      # 消费端 订阅频道集合
+      - topic:         # 订阅频道topic
+        expression:    # 订阅消息标签，多个标签用"tagA||tagB||tagC"表示，如订阅全部标签用"*"表示
+#    consumeThreadNums: # 消费端 固定消费线程数量：动态调整的20~64之间；一般来说，单条消息消费的耗时越大，消费线程数也应该设置更大。
+#    messageModel:      # 消费端 默认 CLUSTERING；消费模式有两种：CLUSTERING，集群消费，每条订阅消息只会被其中一个Consumer客户端收到；BROADCASTING，广播消费，每条订阅的消息会被所有客户端收到。
+#    maxReconsumeTimes: # 消费端 默认 16；消息消费失败时的最大重试次数。
+#    consumeTimeout:    # 消费端 默认 16；设置每条消息消费的最大超时时间，单位(分钟)，超过这个时间，这条消息将会被视为消费失败，等下次重新投递再次消费。每个业务需要设置一个合理的值。
+#    postSubscriptionWhenPull:   # 消费端 默认 false；是否每次请求都带上最新的订阅关系；广播消费时，配置为true，避免因为订阅关系不一致导致部分消息收不到；集群消费时，强制要求订阅关系一致，该参数设置为false。
+#    consumeMessageBatchMaxSize: # 消费端 默认 1；每次批量消费的最大消息数量, 允许自定义范围为[1, 32], 实际消费数量可能小于该值。
+#    maxCachedMessageAmount:     # 消费端 默认 5000；允许在客户端中缓存的最大消息数量，设置过大可能会引起客户端OOM，取值范围为[100, 50000]。
+#    maxCachedMessageSizeInMiB:  # 消费端 默认 512；允许在客户端中缓存的最大消息容量，（单位：MiB），设置过大可能会引起客户端OOM，取值范围为[16, 2048]。

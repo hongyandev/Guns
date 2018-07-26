@@ -30,10 +30,12 @@ public class AliOnsConfig {
 	public ProducerBean producer() {
 		ProducerBean producer = new ProducerBean();
 		Properties properties = new Properties();
-		properties.setProperty("ProducerId", prop.getProducerId());
-		properties.setProperty("AccessKey", prop.getAccessKey());
-		properties.setProperty("SecretKey", prop.getSecretKey());
-		properties.setProperty("ONSAddr", prop.getOnsAddr());
+		properties.setProperty(AliOnsProperties.ACCESS_KEY, prop.getAccessKey());
+		properties.setProperty(AliOnsProperties.SECRET_KEY, prop.getSecretKey());
+		properties.setProperty(AliOnsProperties.MSG_TRACE_SWITCH, prop.getMsgTraceSwitch());
+		properties.setProperty(AliOnsProperties.ONS_ADDR, prop.getOnsAddr());
+		properties.setProperty(AliOnsProperties.PRODUCER_ID, prop.getProducerId());
+		properties.setProperty(AliOnsProperties.SEND_MSG_TIMEOUT_MILLIS, prop.getSendMsgTimeoutMillis());
 		producer.setProperties(properties);
 		return producer;
 	}
@@ -44,10 +46,12 @@ public class AliOnsConfig {
 	public TransactionProducerBean transactionProducer() {
 		TransactionProducerBean tranProducer = new TransactionProducerBean();
 		Properties properties = new Properties();
-		properties.setProperty("ProducerId", prop.getProducerId());
-		properties.setProperty("AccessKey", prop.getAccessKey());
-		properties.setProperty("SecretKey", prop.getSecretKey());
-		properties.setProperty("ONSAddr", prop.getOnsAddr());
+        properties.setProperty(AliOnsProperties.ACCESS_KEY, prop.getAccessKey());
+        properties.setProperty(AliOnsProperties.SECRET_KEY, prop.getSecretKey());
+        properties.setProperty(AliOnsProperties.MSG_TRACE_SWITCH, prop.getMsgTraceSwitch());
+        properties.setProperty(AliOnsProperties.ONS_ADDR, prop.getOnsAddr());
+        properties.setProperty(AliOnsProperties.PRODUCER_ID, prop.getProducerId());
+        properties.setProperty(AliOnsProperties.SEND_MSG_TIMEOUT_MILLIS, prop.getSendMsgTimeoutMillis());
 		tranProducer.setProperties(properties);
 		tranProducer.setLocalTransactionChecker(new AliOnsTransactionChecker());
 		return tranProducer;
@@ -59,13 +63,21 @@ public class AliOnsConfig {
 	public ConsumerBean consumer() {
 		ConsumerBean consumer = new ConsumerBean();
 		Properties properties = new Properties();
-		properties.setProperty("ConsumerId", prop.getConsumerId());
-		properties.setProperty("AccessKey", prop.getAccessKey());
-		properties.setProperty("SecretKey", prop.getSecretKey());
-		properties.setProperty("ONSAddr", prop.getOnsAddr());
+        properties.setProperty(AliOnsProperties.ACCESS_KEY, prop.getAccessKey());
+        properties.setProperty(AliOnsProperties.SECRET_KEY, prop.getSecretKey());
+        properties.setProperty(AliOnsProperties.MSG_TRACE_SWITCH, prop.getMsgTraceSwitch());
+        properties.setProperty(AliOnsProperties.ONS_ADDR, prop.getOnsAddr());
+		properties.setProperty(AliOnsProperties.CONSUMER_ID, prop.getConsumerId());
 		if (Objects.nonNull(prop.getConsumeThreadNums())) {
-			properties.setProperty("ConsumeThreadNums", prop.getConsumeThreadNums());
+			properties.setProperty(AliOnsProperties.CONSUME_THREAD_NUMS, prop.getConsumeThreadNums());
 		}
+        properties.setProperty(AliOnsProperties.MESSAGE_MODEL, prop.getMessageModel());
+        properties.setProperty(AliOnsProperties.MAX_RECONSUME_TIMES, prop.getMaxReconsumeTimes());
+        properties.setProperty(AliOnsProperties.CONSUME_TIMEOUT, prop.getConsumeTimeout());
+        properties.setProperty(AliOnsProperties.POST_SUBSCRIPTION_WHEN_PULL, prop.getPostSubscriptionWhenPull());
+        properties.setProperty(AliOnsProperties.CONSUME_MESSAGE_BATCH_MAX_SIZE, prop.getConsumeMessageBatchMaxSize());
+        properties.setProperty(AliOnsProperties.MAX_CACHED_MESSAGE_AMOUNT, prop.getMaxCachedMessageAmount());
+        properties.setProperty(AliOnsProperties.MAX_CACHED_MESSAGE_SIZE_IN_MIB, prop.getMaxCachedMessageSizeInMiB());
 		consumer.setProperties(properties);
 		Map<Subscription, MessageListener> subscriptionTable = Maps.newHashMap();
 		List<Subscription> subscription = prop.getSubscription();
