@@ -17,12 +17,17 @@ import com.aliyun.openservices.ons.api.bean.TransactionProducerBean;
 import com.google.common.collect.Maps;
 import com.stylefeng.guns.config.properties.AliOnsProperties;
 import com.stylefeng.guns.modular.alions.AliOnsMessageListener;
-import com.stylefeng.guns.modular.alions.AliOnsTransactionChecker;
+import com.stylefeng.guns.modular.alions.AliOnsTransactionCheckerImpl;
 
 @Configuration
 public class AliOnsConfig {
 	@Autowired
 	AliOnsProperties prop;
+	@Autowired
+	AliOnsTransactionCheckerImpl localTransactionChecker;
+	@Autowired
+	AliOnsMessageListener messageListener;
+	
 	/**
 	 * 定义消息生产者
 	 */
@@ -53,7 +58,7 @@ public class AliOnsConfig {
         properties.setProperty(AliOnsProperties.PRODUCER_ID, prop.getProducerId());
         properties.setProperty(AliOnsProperties.SEND_MSG_TIMEOUT_MILLIS, prop.getSendMsgTimeoutMillis());
 		tranProducer.setProperties(properties);
-		tranProducer.setLocalTransactionChecker(new AliOnsTransactionChecker());
+		tranProducer.setLocalTransactionChecker(localTransactionChecker);
 		return tranProducer;
 	}
 	/**
@@ -82,7 +87,7 @@ public class AliOnsConfig {
 		Map<Subscription, MessageListener> subscriptionTable = Maps.newHashMap();
 		List<Subscription> subscription = prop.getSubscription();
 		subscription.forEach(item -> {
-			subscriptionTable.put(item, new AliOnsMessageListener());
+			subscriptionTable.put(item, messageListener);
 		});
 		consumer.setSubscriptionTable(subscriptionTable);
 		return consumer;
