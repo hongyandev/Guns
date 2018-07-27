@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.stylefeng.guns.core.common.enums.IotEnum;
+import com.stylefeng.guns.core.config.AliyunOssProperties;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,6 +31,15 @@ public class AliyunLivingIotTest extends BaseJunit {
     ProductServiceImpl service;
     @Autowired
     ProductExtendMapper mapper;
+    @Autowired
+    AliyunOssProperties oss;
+    
+    @Test
+    public void prop() {
+    	System.out.println(prop.getOssAccessKeyId() +"\t"+ prop.getOssAccessKeySecret());
+    	
+    	System.out.println(oss.getOssAccessKeyId() +"\t" + oss.getOssAccessKeySecret());
+    }
 
     @Test
     public void cloudToken() {
