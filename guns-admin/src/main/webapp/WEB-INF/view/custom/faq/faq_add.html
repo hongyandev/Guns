@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-10">
+                	<#select id="faqType" name="问题类别" underline="true">
+                		@for(type in faqTypes){
+                			<option value="${type.num}">${type.name}</option>
+                        @}
+                	</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                            <#input id="faqTitle" name="问题"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                            <#input id="faqContent" name="回答" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FaqInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FaqInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/custom/faq/faq_info.js"></script>
+@}
