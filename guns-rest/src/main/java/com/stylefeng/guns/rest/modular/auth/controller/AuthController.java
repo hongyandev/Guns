@@ -2,9 +2,9 @@ package com.stylefeng.guns.rest.modular.auth.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.stylefeng.guns.core.exception.GunsException;
+import com.stylefeng.guns.core.util.RedisUtil;
 import com.stylefeng.guns.rest.core.domain.Result;
 import com.stylefeng.guns.rest.core.enums.ResultEnum;
-import com.stylefeng.guns.rest.core.utils.RedisUtil;
 import com.stylefeng.guns.rest.core.utils.ResultUtil;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.*;

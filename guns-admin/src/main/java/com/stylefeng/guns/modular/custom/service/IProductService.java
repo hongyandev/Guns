@@ -41,4 +41,6 @@ public interface IProductService extends IService<Product> {
 	public void saveProductFile(String productKey, FilePath path);
 
 	public void deleteProductFile(String productKey);
+	
+	public void getProperties();
 }

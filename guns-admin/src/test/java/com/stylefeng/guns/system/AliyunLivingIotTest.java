@@ -3,8 +3,9 @@ package com.stylefeng.guns.system;
 import java.util.List;
 import java.util.Map;
 
-import com.stylefeng.guns.core.common.enums.IotEnum;
-import com.stylefeng.guns.core.config.AliyunOssProperties;
+import com.stylefeng.guns.core.aliyun.IoTApiRequest;
+import com.stylefeng.guns.core.config.properties.AliyunProperties;
+import com.stylefeng.guns.core.enums.IotType;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.IoTApiRequest;
 import com.stylefeng.guns.base.BaseJunit;
-import com.stylefeng.guns.config.properties.AliyunProperties;
-import com.stylefeng.guns.core.util.ApiClientKit;
+import com.stylefeng.guns.core.util.ApiClientUtil;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.model.Product;
 import com.stylefeng.guns.modular.custom.model.ProductExtend;
@@ -24,26 +23,17 @@ import com.stylefeng.guns.modular.custom.service.impl.ProductServiceImpl;
 public class AliyunLivingIotTest extends BaseJunit {
 
     @Autowired
-    ApiClientKit kit;
+    ApiClientUtil util;
     @Autowired
     AliyunProperties prop;
     @Autowired
     ProductServiceImpl service;
     @Autowired
     ProductExtendMapper mapper;
-    @Autowired
-    AliyunOssProperties oss;
     
     @Test
     public void prop() {
-    	System.out.println(prop.getOssAccessKeyId() +"\t"+ prop.getOssAccessKeySecret());
-    	
-    	System.out.println(oss.getOssAccessKeyId() +"\t" + oss.getOssAccessKeySecret());
-    }
-
-    @Test
-    public void cloudToken() {
-        String token = kit.getCloudToken(IotEnum.LIVING);
+    	System.out.println(prop.getOss().getAccessKeyId()+"\t"+ prop.getOss().getAccessKeySecret());
     }
 
     @Test
@@ -51,12 +41,22 @@ public class AliyunLivingIotTest extends BaseJunit {
         try {
             Map<String, Object> params = Maps.newHashMap();
             params.put("productKey", "a1SyFi7susU");
-            IoTApiRequest request = kit.initAliyunIoTApiRequest(IotEnum.LIVING, params, prop.getApiVer(IotEnum.LIVING, "product"), true);
-            String str = kit.doIoTApiRequest(prop.getApiHost(IotEnum.LIVING), "/cloud/thing/product/get", true, request);
+            IoTApiRequest request = util.initLivingProductApiRequest(params, true);
+            String str = util.doLivingIotApiRequest("/cloud/thing/product/get", request);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    
+    @Test
+    public void getProperties() {
+    	service.getProperties();
+    }
+    
+    @Test
+    public void setProperties() {
+    	service.setProperties();
     }
 
     @Test
@@ -64,7 +64,7 @@ public class AliyunLivingIotTest extends BaseJunit {
         try {
             Product product = new Product();
             product.setProductKey("a1SyFi7susU");
-            product.setIotPackage(IotEnum.LIVING.getCode());
+            product.setIotPackage(IotType.LIVING.getCode());
             service.pullProductInfoFromIot(product);
         } catch (Exception e) {
             e.printStackTrace();

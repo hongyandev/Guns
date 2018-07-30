@@ -1,4 +1,4 @@
-package com.stylefeng.guns.aliyun;
+package com.stylefeng.guns.core.aliyun;
 /*
  * Copyright 2017 Alibaba Group
  *

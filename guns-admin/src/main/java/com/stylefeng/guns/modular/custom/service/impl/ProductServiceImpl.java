@@ -17,14 +17,14 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.stylefeng.guns.aliyun.IoTApiRequest;
-import com.stylefeng.guns.aliyun.IoTApiResponse;
-import com.stylefeng.guns.config.properties.AliyunProperties;
-import com.stylefeng.guns.core.common.enums.IotEnum;
-import com.stylefeng.guns.core.common.exception.IotApiRepsEnum;
+import com.stylefeng.guns.core.aliyun.IoTApiRequest;
+import com.stylefeng.guns.core.aliyun.IoTApiResponse;
+import com.stylefeng.guns.core.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.domain.FilePath;
+import com.stylefeng.guns.core.enums.IotApiRepsType;
+import com.stylefeng.guns.core.enums.IotType;
 import com.stylefeng.guns.core.exception.GunsException;
-import com.stylefeng.guns.core.util.ApiClientKit;
+import com.stylefeng.guns.core.util.ApiClientUtil;
 import com.stylefeng.guns.core.util.OssUtil;
 import com.stylefeng.guns.modular.custom.dao.ProductExtendMapper;
 import com.stylefeng.guns.modular.custom.dao.ProductFileMapper;
@@ -50,7 +50,7 @@ import com.stylefeng.guns.modular.custom.service.IProductService;
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements IProductService {
 
     @Autowired
-    ApiClientKit apiKit;
+    ApiClientUtil apiUtil;
     @Autowired
     ProductMapper productMapper;
     @Autowired
@@ -71,12 +71,12 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public void pullProductInfoFromIot(Product product) throws Exception {
         Map<String, Object> params = Maps.newHashMap();
         params.put("productKey", product.getProductKey());
-        IoTApiRequest request = apiKit.initAliyunIoTApiRequest(IotEnum.fromCode(product.getIotPackage()), params, aliyunProperties.getApiVer(IotEnum.fromCode(product.getIotPackage()), "product"), true);
-        String content = apiKit.doIoTApiRequest(aliyunProperties.getApiHost(IotEnum.fromCode(product.getIotPackage())), "/cloud/thing/product/get", true, request);
+        IoTApiRequest request = apiUtil.initLivingProductApiRequest(params, true);
+        String content = apiUtil.doLivingIotApiRequest("/cloud/thing/product/get", request);
         IoTApiResponse<Product> response = JSONObject.parseObject(content, IoTApiResponse.class);
         Product _product = response.getData();
         if (Objects.isNull(_product)) 
-        	throw new GunsException(IotApiRepsEnum.PRODUCT_NOT_FOUND);
+        	throw new GunsException(IotApiRepsType.PRODUCT_NOT_FOUND);
         _product.setIotPackage(product.getIotPackage());
         _product.insertOrUpdate();
         
@@ -89,7 +89,26 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             ext.insert();
         });
     }
-
+    
+    public void getProperties() {
+    	Map<String, Object> params = Maps.newHashMap();
+    	params.put("iotId", "g6XQoz4xQZL4UXQwSDpt00105a7d00");
+    	IoTApiRequest request = apiUtil.initLivingPropertiesApiReqeust(params, false);
+    	String content = apiUtil.doLivingIotApiRequest("/cloud/thing/properties/get", request);
+    	System.out.println("content >> "+ content);
+    }
+    
+    public void setProperties() {
+    	Map<String, Object> params = Maps.newHashMap();
+    	params.put("iotId", "g6XQoz4xQZL4UXQwSDpt00105a7d00");
+    	Map<String, Object> attr = Maps.newHashMap();
+    	attr.put("CurtainPosition", 18);
+    	params.put("items", attr);
+    	IoTApiRequest request = apiUtil.initLivingPropertiesApiReqeust(params, true);
+    	String content = apiUtil.doLivingIotApiRequest("/cloud/thing/properties/set", request);
+    	System.out.println("content >> "+ content);
+    }
+    
     @Override
     public List<ProductExtend> selectByProductKey(String productKey) {
         // TODO Auto-generated method stub

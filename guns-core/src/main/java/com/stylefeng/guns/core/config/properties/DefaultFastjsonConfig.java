@@ -1,4 +1,4 @@
-package com.stylefeng.guns.core.config;
+package com.stylefeng.guns.core.config.properties;
 
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;

@@ -1,8 +1,8 @@
 package com.stylefeng.guns.rest.modular.auth.validator.impl;
 
 import com.stylefeng.guns.core.exception.GunsException;
+import com.stylefeng.guns.core.util.RedisUtil;
 import com.stylefeng.guns.rest.core.enums.ResultEnum;
-import com.stylefeng.guns.rest.core.utils.RedisUtil;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;

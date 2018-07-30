@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.utils;
+package com.stylefeng.guns.core.util;
 
 import java.io.Serializable;
 import java.util.Set;

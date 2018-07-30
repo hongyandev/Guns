@@ -1,8 +1,8 @@
-package com.stylefeng.guns.core.common.exception;
+package com.stylefeng.guns.core.enums;
 
 import com.stylefeng.guns.core.exception.ServiceExceptionEnum;
 
-public enum IotApiRepsEnum implements ServiceExceptionEnum {
+public enum IotApiRepsType implements ServiceExceptionEnum {
 	
 	SUCCESS(200, "成功"),
 	REQUEST_ERROR(400, "请求错误"),
@@ -18,7 +18,7 @@ public enum IotApiRepsEnum implements ServiceExceptionEnum {
 	TENANT_NOT_MATCH(28514, "租户不匹配"),
 	;
 	
-	private IotApiRepsEnum(Integer code, String message) {
+	private IotApiRepsType(Integer code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -37,10 +37,10 @@ public enum IotApiRepsEnum implements ServiceExceptionEnum {
 		return message;
 	}
 	
-	public static IotApiRepsEnum fromCode(Integer code) {
-		for (IotApiRepsEnum item : IotApiRepsEnum.values()) {
-			if (item.getCode() == code) 
-				return item;
+	public static IotApiRepsType getIotApiRepsType(Integer code) {
+		for (IotApiRepsType type : IotApiRepsType.values()) {
+			if (type.getCode() == code) 
+				return type;
 		}
 		return null;
 	}

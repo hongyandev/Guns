@@ -3,6 +3,8 @@ package com.stylefeng.guns.core.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.util.DigestUtils;
+
 /**
  * MD5加密类（封装jdk自带的md5加密方法）
  *
@@ -39,5 +41,9 @@ public class MD5Util {
 
     public static void main(String[] args) {
         System.out.println(encrypt("123456"));
+    }
+    
+    public static String springMd5(String source) {
+    	return DigestUtils.md5DigestAsHex(source.getBytes());
     }
 }

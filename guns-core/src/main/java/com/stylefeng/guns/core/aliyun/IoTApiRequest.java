@@ -1,4 +1,4 @@
-package com.stylefeng.guns.aliyun;
+package com.stylefeng.guns.core.aliyun;
 
 import java.util.HashMap;
 import java.util.Map;

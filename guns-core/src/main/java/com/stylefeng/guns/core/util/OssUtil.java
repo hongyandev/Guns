@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
-import com.stylefeng.guns.core.config.AliyunOssProperties;
+import com.stylefeng.guns.core.config.properties.AliyunProperties;
 import com.stylefeng.guns.core.domain.FilePath;
 import com.stylefeng.guns.core.enums.OssType;
 import com.stylefeng.guns.core.enums.ResultOssEnum;
@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class OssUtil {
 
     @Autowired
-    AliyunOssProperties aliyunProp;
+    AliyunProperties aliyunProp;
 
     // endpoint 是访问OSS的域名.
     private static String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
@@ -63,9 +63,9 @@ public class OssUtil {
         
         StringBuffer key = new StringBuffer("upload/"+folderName+"/" + jdt.toString("YYYYMM") + "/").append(UUID.randomUUID().toString()).append(".").append(FilenameUtils.getExtension(file.getOriginalFilename()));
         // 生成OSSClient.
-        OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOssAccessKeyId(), aliyunProp.getOssAccessKeySecret());
+        OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOss().getAccessKeyId(), aliyunProp.getOss().getAccessKeySecret());
         // 判断Bucket是否存在.
-        String bucketName = aliyunProp.getOssBucket();
+        String bucketName = aliyunProp.getOss().getBucket();
         if (!ossClient.doesBucketExist(bucketName)) {
             ossClient.createBucket(bucketName);
         }
@@ -90,10 +90,10 @@ public class OssUtil {
     }
 
     private String getOssDomain() {
-        if (ToolUtil.isEmpty(aliyunProp.getOssDomain())) {
-            return MessageFormat.format("https://{0}.oss-cn-hangzhou.aliyuncs.com/", aliyunProp.getOssBucket());
+        if (ToolUtil.isEmpty(aliyunProp.getOss().getDomain())) {
+            return MessageFormat.format("https://{0}.oss-cn-hangzhou.aliyuncs.com/", aliyunProp.getOss().getBucket());
         } else {
-            return aliyunProp.getOssDomain();
+            return aliyunProp.getOss().getDomain();
         }
     }
 
@@ -109,9 +109,9 @@ public class OssUtil {
         jdt.setCurrentTime();
 
         // 生成OSSClient
-        OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOssAccessKeyId(), aliyunProp.getOssAccessKeySecret());
+        OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOss().getAccessKeyId(), aliyunProp.getOss().getAccessKeySecret());
         // 判断Bucket是否存在
-        String bucketName = aliyunProp.getOssBucket();
+        String bucketName = aliyunProp.getOss().getBucket();
         if (!ossClient.doesBucketExist(bucketName)) {
             ossClient.createBucket(bucketName);
         }
@@ -157,9 +157,9 @@ public class OssUtil {
 
     public void deleteObjects(List<FilePath> paths) {
         // 生成OSSClient.
-        OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOssAccessKeyId(), aliyunProp.getOssAccessKeySecret());
+        OSSClient ossClient = new OSSClient(endpoint, aliyunProp.getOss().getAccessKeyId(), aliyunProp.getOss().getAccessKeySecret());
         try {
-            String bucketName = aliyunProp.getOssBucket();
+            String bucketName = aliyunProp.getOss().getBucket();
             for (FilePath filePath : paths) {
                 ossClient.deleteObject(bucketName, filePath.getFileKey());
                 System.out.println("ossClient.deleteObject >> " + filePath.getFileName() + "\t" + filePath.getFileKey());

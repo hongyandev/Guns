@@ -1,6 +1,6 @@
-package com.stylefeng.guns.core.common.enums;
+package com.stylefeng.guns.core.enums;
 
-public enum IotEnum {
+public enum IotType {
 
     LIVING(1, "living"),
     HOMELINK(2, "homelink");
@@ -16,13 +16,13 @@ public enum IotEnum {
     private Integer code;
     private String name;
 
-    IotEnum(Integer code, String name) {
+    IotType(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static IotEnum fromCode(Integer code) {
-        for(IotEnum iot : IotEnum.values()) {
+    public static IotType getIotType(Integer code) {
+        for(IotType iot : IotType.values()) {
             if (iot.getCode() == code) {
                 return iot;
             }

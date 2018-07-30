@@ -35,11 +35,6 @@
 			<groupId>com.stylefeng</groupId>
 			<artifactId>guns-core</artifactId>
 		</dependency>
-		<!-- redis -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
 		<!-- 阿里云短信接口 -->
 		<dependency>
 			<groupId>com.aliyun</groupId>

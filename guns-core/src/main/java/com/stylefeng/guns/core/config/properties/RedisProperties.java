@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.config.properties;
+package com.stylefeng.guns.core.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

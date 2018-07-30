@@ -1,4 +1,4 @@
-package com.stylefeng.guns.rest.core.config;
+package com.stylefeng.guns.core.config;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -23,7 +23,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.stylefeng.guns.rest.core.config.properties.RedisProperties;
+import com.stylefeng.guns.core.config.properties.RedisProperties;
 
 import redis.clients.jedis.JedisPoolConfig;
 

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.stylefeng.guns.base.BaseJunit;
+import com.stylefeng.guns.core.config.properties.RedisProperties;
+import com.stylefeng.guns.rest.core.config.properties.AliyunProperties;
 import com.stylefeng.guns.rest.model.AppUser;
 import com.stylefeng.guns.rest.persistence.AppUserMapper;
 
@@ -17,6 +19,14 @@ public class AppUserTest extends BaseJunit {
 	
 	@Autowired
 	private AppUserMapper appUserMapper;
+	
+	@Autowired
+	private AliyunProperties aliyunProperties;
+	
+	@Test
+	public void Pro() {
+		
+	}
 	
 	@Test
 	public void T() {
