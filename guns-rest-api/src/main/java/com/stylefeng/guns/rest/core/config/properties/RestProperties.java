@@ -15,17 +15,17 @@ public class RestProperties {
 
     public static final String REST_PREFIX = "rest";
 
-    private boolean authOpen = true;
+    public String getSignHeader() {
+        return signHeader;
+    }
+
+    public void setSignHeader(String signHeader) {
+        this.signHeader = signHeader;
+    }
+
+    private String signHeader = "AppKey";
 
     private boolean signOpen = true;
-
-    public boolean isAuthOpen() {
-        return authOpen;
-    }
-
-    public void setAuthOpen(boolean authOpen) {
-        this.authOpen = authOpen;
-    }
 
     public boolean isSignOpen() {
         return signOpen;

@@ -1,6 +1,6 @@
 package com.stylefeng.guns.rest.core.config;
 
-import com.stylefeng.guns.core.config.DefaultFastjsonConfig;
+import com.stylefeng.guns.core.config.properties.DefaultFastjsonConfig;
 import com.stylefeng.guns.rest.core.config.properties.RestProperties;
 import com.stylefeng.guns.rest.modular.auth.converter.WithSignMessageConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

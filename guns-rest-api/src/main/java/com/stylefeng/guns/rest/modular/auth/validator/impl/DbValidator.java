@@ -1,10 +1,10 @@
 package com.stylefeng.guns.rest.modular.auth.validator.impl;
 
+import com.stylefeng.guns.core.util.RedisUtil;
 import com.stylefeng.guns.rest.modular.auth.dao.SecretKeyMapper;
 import com.stylefeng.guns.rest.modular.auth.model.SecretKey;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.rest.modular.auth.validator.dto.Credence;
-import com.stylefeng.guns.rest.core.utils.RedisUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

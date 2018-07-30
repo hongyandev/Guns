@@ -2,8 +2,6 @@ package com.stylefeng.guns.jwt;
 
 import com.stylefeng.guns.base.BaseJunit;
 import com.stylefeng.guns.core.util.IdGenerator;
-import com.stylefeng.guns.rest.core.config.properties.Oauth2Properties;
-import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultClaims;
