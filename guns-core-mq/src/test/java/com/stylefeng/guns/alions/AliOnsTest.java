@@ -1,5 +1,6 @@
 package com.stylefeng.guns.alions;
 
+import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class AliOnsTest extends BaseJunit {
 	 * 生产者测试
 	 */
 	@Test
-	public void producerTest() {
+	public void producerTest() throws ParseException {
 
 		// 循环发送消息
 		for (int i = 0; i < 100; i++) {
@@ -55,6 +56,11 @@ public class AliOnsTest extends BaseJunit {
 			msg.setKey("ORDERID_" + i);
 			// 发送消息，只要不抛异常就是成功
 			try {
+				// 定时消息，单位毫秒（ms），在指定时间戳（当前时间之后）进行投递，例如 "2018-07-30 08:45:09 投递
+//				long timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-07-30 08:45:09").getTime();
+				// 延时消息，单位毫秒（ms），在指定延迟时间（当前时间之后）进行投递，例如消息在 3 秒后投递
+//	            long delayTime = System.currentTimeMillis() + 3000;
+//				msg.setStartDeliverTime(timeStamp);
 				SendResult sendResult = producer.send(msg);
 				assert sendResult != null;
 				log.warn("Send to {} success. MessageId is: {}", msg.getTopic(), sendResult.getMessageId());
