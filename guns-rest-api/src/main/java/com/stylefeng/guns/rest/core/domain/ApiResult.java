@@ -4,11 +4,9 @@ import lombok.Setter;
 
 @Setter
 public class ApiResult<T> implements Result<T> {
-    private String id;
     private Integer code;
     private String message;
     private T data;
-    public String getId() {return id;}
     @Override
     public Integer getCode() {
         return code;

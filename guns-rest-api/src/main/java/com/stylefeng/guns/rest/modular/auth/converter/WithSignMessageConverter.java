@@ -55,7 +55,7 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
 
         Object s = redisUtil.get("APPKEY_" + appKey);
 
-        SecretKey secretKey = Objects.nonNull(s) ? (SecretKey) s : secretKeyService.selectOne(new EntityWrapper<SecretKey>().eq("appKey", appKey).eq("status", '1'));
+        SecretKey secretKey = Objects.nonNull(s) ? (SecretKey) s : secretKeyService.selectOne(new EntityWrapper<SecretKey>().eq("appKey", appKey));
 
         if (Objects.isNull(secretKey)){
             throw new GunsException(ApiResultEnum.REQUEST_AUTH_ERROR);
