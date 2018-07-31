@@ -53,7 +53,7 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
         //校验签名
         String appKey = HttpKit.getRequest().getHeader(restProperties.getSignHeader());
 
-        Object s = redisUtil.get("APPKEY_" + appKey);
+        Object s = redisUtil.get("APPSECRET_" + appKey);
 
         SecretKey secretKey = Objects.nonNull(s) ? (SecretKey) s : secretKeyService.selectOne(new EntityWrapper<SecretKey>().eq("appKey", appKey));
 
@@ -62,7 +62,7 @@ public class WithSignMessageConverter extends FastJsonHttpMessageConverter {
         }
 
         if (Objects.isNull(s)) {
-            redisUtil.set("APPKEY_" + appKey, secretKey);
+            redisUtil.set("APPSECRET_" + appKey, secretKey);
         }
 
         String object = baseTransferEntity.getObject();
